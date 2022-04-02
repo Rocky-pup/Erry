@@ -114,6 +114,10 @@ module.exports = client => {
           }
           //skip the track
           await player.stop();
+          var data = generateQueueEmbed(client, guild.id, true)
+          message.edit(data).catch((e) => {
+            //console.log(e.stack ? String(e.stack).grey : String(e).grey)
+          })
           interaction.reply({
             embeds: [new MessageEmbed()
               .setColor(es.color)
@@ -125,10 +129,7 @@ module.exports = client => {
             ]
           })
           //edit the message so that it's right!
-          var data = generateQueueEmbed(client, guild.id)
-          message.edit(data).catch((e) => {
-            //console.log(e.stack ? String(e.stack).grey : String(e).grey)
-          })
+
         }
         break;
       case "Stop": {
@@ -349,6 +350,10 @@ module.exports = client => {
       break;
       case "Volmax": {
           await player.setVolume(150)
+          var data = generateQueueEmbed(client, guild.id)
+          message.edit(data).catch((e) => {
+          //console.log(e.stack ? String(e.stack).grey : String(e).grey)
+          })
             interaction.reply({
               embeds: [new MessageEmbed()
                 .setColor(es.color)
@@ -359,14 +364,14 @@ module.exports = client => {
                 })))
               ]
             })
-            var data = generateQueueEmbed(client, guild.id)
-            message.edit(data).catch((e) => {
-            //console.log(e.stack ? String(e.stack).grey : String(e).grey)
-            })
       }
       break;
       case "Volmin": {
         await player.setVolume(1)
+        var data = generateQueueEmbed(client, guild.id)
+        message.edit(data).catch((e) => {
+        //console.log(e.stack ? String(e.stack).grey : String(e).grey)
+        })
         interaction.reply({
           embeds: [new MessageEmbed()
             .setColor(es.color)
@@ -377,14 +382,14 @@ module.exports = client => {
             })))
            ]
           })
-          var data = generateQueueEmbed(client, guild.id)
-          message.edit(data).catch((e) => {
-          //console.log(e.stack ? String(e.stack).grey : String(e).grey)
-          })
       }
       break;
       case "Volmid": {
         await player.setVolume(90)
+        var data = generateQueueEmbed(client, guild.id)
+        message.edit(data).catch((e) => {
+        //console.log(e.stack ? String(e.stack).grey : String(e).grey)
+        })
         interaction.reply({
           embeds: [new MessageEmbed()
             .setColor(es.color)
@@ -395,15 +400,15 @@ module.exports = client => {
             })))
            ]
           })
-          var data = generateQueueEmbed(client, guild.id)
-          message.edit(data).catch((e) => {
-          //console.log(e.stack ? String(e.stack).grey : String(e).grey)
-          })
       }
       break;
       case "Vol+": {
         if(player.volume <= 140){
           await  player.setVolume(player.volume + 10)
+          var data = generateQueueEmbed(client, guild.id)
+          message.edit(data).catch((e) => {
+          //console.log(e.stack ? String(e.stack).grey : String(e).grey)
+          })
           interaction.reply({
             embeds: [new MessageEmbed()
               .setColor(es.color)
@@ -417,6 +422,10 @@ module.exports = client => {
         }
         else{
           await player.setVolume(150)
+          var data = generateQueueEmbed(client, guild.id)
+          message.edit(data).catch((e) => {
+          //console.log(e.stack ? String(e.stack).grey : String(e).grey)
+          })
           interaction.reply({
             embeds: [new MessageEmbed()
               .setColor(es.wrongcolor)
@@ -428,15 +437,15 @@ module.exports = client => {
               ]
             })
           }
-        var data = generateQueueEmbed(client, guild.id)
-        message.edit(data).catch((e) => {
-          //console.log(e.stack ? String(e.stack).grey : String(e).grey)
-        })
       }
       break;
       case "Vol-": {
         if(player.volume > 10){
           await  player.setVolume(player.volume - 10)
+          var data = generateQueueEmbed(client, guild.id)
+          message.edit(data).catch((e) => {
+          //console.log(e.stack ? String(e.stack).grey : String(e).grey)
+          })
           interaction.reply({
             embeds: [new MessageEmbed()
               .setColor(es.color)
@@ -450,6 +459,10 @@ module.exports = client => {
         }
         else{
           await player.setVolume(1)
+          var data = generateQueueEmbed(client, guild.id)
+          message.edit(data).catch((e) => {
+          //console.log(e.stack ? String(e.stack).grey : String(e).grey)
+          })
           interaction.reply({
             embeds: [new MessageEmbed()
               .setColor(es.wrongcolor)
@@ -460,10 +473,6 @@ module.exports = client => {
               })))
             ]
            })
-          var data = generateQueueEmbed(client, guild.id)
-          message.edit(data).catch((e) => {
-          //console.log(e.stack ? String(e.stack).grey : String(e).grey)
-          })
         }
       }
       break;
