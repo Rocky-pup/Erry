@@ -1,0 +1,39 @@
+{
+    "token": "",
+    "prefix": ".",
+    "ownerIDS": [
+        "913117505541775420"
+    ],
+    "memer_api": "",
+    "status": {
+        "text": "{prefix}help || {songsplayed} песен сыграно",
+        "text2": "Rocky || {songsplayed} songs played",
+        "type1": "WATCHING",
+        "type2": "LISTENING",
+        "url": "https://twitch.tv/rockygamespaw"
+    },
+    "clientsettings": {
+        "nodes": [
+            {
+                "host": "lava.link",
+                "port": 80,
+                "password": "lvserver"
+            }
+        ]
+    },
+    "spotify": {
+        "clientSecret": "",
+        "clientID": ""
+    },
+    "settings": {
+        "leaveOnEmpty_Channel": {
+            "enabled": true,
+            "time_delay": 30000
+        },
+        "LeaveOnEmpty_Queue": {
+            "enabled": false,
+            "time_delay": 30000
+        },
+        "selfDeaf": true
+    }
+}
