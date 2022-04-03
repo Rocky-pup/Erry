@@ -713,7 +713,7 @@ function generateQueueEmbed(client, guildId, leave) {
     delete embeds[1].title;
     //get the right tracks of the current tracks
     const tracks = player.queue;
-    var maxTracks = 5; //tracks / Queue Page
+    var maxTracks = 10; //tracks / Queue Page
     //get an array of quelist where 10 tracks is one index in the array
     var songs = tracks.slice(0, maxTracks);
     embeds[0] = new MessageEmbed()

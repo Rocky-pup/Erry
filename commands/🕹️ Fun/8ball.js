@@ -47,10 +47,7 @@ const embed3 = new Discord.MessageEmbed()
           .setThumbnail(message.author.displayAvatarURL({
             dynamic: true
           }))
-          .addField("Question: ", question, false)
-          .addField("Asked by: ", message.author.tag, false)
           .addField("Reply: ", body.magic.answer, false)
-          .setFooter(eval(client.la[ls]["cmds"]["fun"]["8ball"]["variable4"]))
         
         message.reply({embeds : [embed3]});
       });
