@@ -349,6 +349,19 @@ module.exports = client => {
       }
       break;
       case "Volmax": {
+        if(player.volume == 150){
+          interaction.reply({
+            embeds: [new MessageEmbed()
+              .setColor(es.wrongcolor)
+              .setTimestamp()
+              .setTitle(`🔊 **Volume already 150(Max)**`)
+              .setFooter(client.getFooter(`💢 Action by: ${member.user.tag}`, member.user.displayAvatarURL({
+                dynamic: true
+               })))
+              ]
+            })
+          break;
+        }
           await player.setVolume(150)
           var data = generateQueueEmbed(client, guild.id)
           message.edit(data).catch((e) => {
@@ -367,6 +380,19 @@ module.exports = client => {
       }
       break;
       case "Volmin": {
+        if(player.volume == 1){
+          interaction.reply({
+            embeds: [new MessageEmbed()
+              .setColor(es.wrongcolor)
+              .setTimestamp()
+              .setTitle(`🔊 **Volume already 1(Min)**`)
+              .setFooter(client.getFooter(`💢 Action by: ${member.user.tag}`, member.user.displayAvatarURL({
+                dynamic: true
+               })))
+              ]
+            })
+          break;
+        }
         await player.setVolume(1)
         var data = generateQueueEmbed(client, guild.id)
         message.edit(data).catch((e) => {
@@ -385,6 +411,19 @@ module.exports = client => {
       }
       break;
       case "Volmid": {
+        if(player.volume == 90){
+          interaction.reply({
+            embeds: [new MessageEmbed()
+              .setColor(es.wrongcolor)
+              .setTimestamp()
+              .setTitle(`🔊 **Volume already 90(Mid)**`)
+              .setFooter(client.getFooter(`💢 Action by: ${member.user.tag}`, member.user.displayAvatarURL({
+                dynamic: true
+               })))
+              ]
+            })
+          break;
+        }
         await player.setVolume(90)
         var data = generateQueueEmbed(client, guild.id)
         message.edit(data).catch((e) => {
@@ -403,6 +442,19 @@ module.exports = client => {
       }
       break;
       case "Vol+": {
+        if(player.volume == 150){
+          interaction.reply({
+            embeds: [new MessageEmbed()
+              .setColor(es.wrongcolor)
+              .setTimestamp()
+              .setTitle(`🔊 **Volume already 150(Max)**`)
+              .setFooter(client.getFooter(`💢 Action by: ${member.user.tag}`, member.user.displayAvatarURL({
+                dynamic: true
+               })))
+              ]
+            })
+          break;
+        }
         if(player.volume <= 140){
           await  player.setVolume(player.volume + 10)
           var data = generateQueueEmbed(client, guild.id)
@@ -440,6 +492,19 @@ module.exports = client => {
       }
       break;
       case "Vol-": {
+        if(player.volume == 1){
+          interaction.reply({
+            embeds: [new MessageEmbed()
+              .setColor(es.wrongcolor)
+              .setTimestamp()
+              .setTitle(`🔊 **Volume already 1(Min)**`)
+              .setFooter(client.getFooter(`💢 Action by: ${member.user.tag}`, member.user.displayAvatarURL({
+                dynamic: true
+               })))
+              ]
+            })
+          break;
+        }
         if(player.volume > 10){
           await  player.setVolume(player.volume - 10)
           var data = generateQueueEmbed(client, guild.id)
@@ -723,9 +788,27 @@ function generateQueueEmbed(client, guildId, leave) {
     volumemid = volumemid.setDisabled(false);
     if (player.volume == 150){
       volumemax = volumemax.setStyle('DANGER')
+      volumemax = volumemax.setDisabled()
+      volumeup = volumeup.setDisabled()
     }
     if (player.volume !== 150) {
       volumemax = volumemax.setStyle('PRIMARY')
+      volumemax = volumemax.setDisabled(false)
+      volumeup = volumeup.setDisabled(false)
+    }
+    if (player.volume == 90){
+      volumemid = volumemid.setDisabled()
+    }
+    if (player.volume !== 90){
+      volumemid = volumemid.setDisabled(false)
+    }
+    if (player.volume == 1){
+      volumemin = volumemin.setDisabled()
+      volumedown = volumedown.setDisabled()
+    }
+    if (player.volume !== 1){
+      volumemin = volumemin.setDisabled(false)
+      volumedown = volumedown.setDisabled(false)
     }
     if (player.get("autoplay")) {
       autoplaybutton = autoplaybutton.setStyle('SECONDARY')
