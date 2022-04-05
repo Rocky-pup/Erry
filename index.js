@@ -81,7 +81,7 @@ client.memer = new Meme("7Yj4j3k3K98"); // GET a TOKEN HERE: https://discord.gg/
 /**********************************************************
  * @param {5} create_the_languages_objects to select via CODE
  *********************************************************/
-client.la = { }
+client.la = {}
 fs.readdir("./languages", (err, files) => {
   if (err) console.error(err);
   else {

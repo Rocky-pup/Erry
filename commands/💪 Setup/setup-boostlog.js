@@ -28,7 +28,7 @@ module.exports = {
         boost: {
           enabled: false,
           message: "",
-          log: false,
+          log: "",
           stopBoost: "<a:Server_Boosts:950881838539354173> {member} **stopped Boosting us..** <:Cat_Sad:950882209512951869>",
           startBoost: "<a:Server_Boosts:950881838539354173> {member} **has boosted us!** <a:Light_Saber_Dancce:950882992161697853>",
           againBoost: "<a:Server_Boosts:950881838539354173> {member} **has boosted us again!** <:Tada_WON:950883211347640401>",
@@ -135,7 +135,8 @@ module.exports = {
                 if(!message) return message.reply("NO MESSAGE SENT");
                 let channel = message.mentions.channels.filter(ch=>ch.guild.id==message.guild.id).first() || message.guild.channels.cache.get(message.content.trim().split(" ")[0]);
                 if(channel){
-                  client.settings.set(message.guild.id, channel.id, "boost.log")
+                  client.settings.set(message.guild.id, channel.id, "boost.log");
+                  //client.settings.set(message.guild.id,true,"boost.enabled")
                   return message.reply({embeds: [new Discord.MessageEmbed()
                     .setTitle("Enabled the Boost Log!")
                     .setColor(es.color)
@@ -171,8 +172,9 @@ module.exports = {
               })
               .then(async collected => {
                 var message = collected.first();
+                console.log(message)
                 if(!message) return message.reply("NO MESSAGE SENT");
-                client.settings.set(message.guild.id, message, "boost.startBoost")
+                client.settings.set(message.guild.id, message.content, "boost.startBoost")
                 const log = client.settings.get(message.guild.id, "boost.log");
                 return message.reply({embeds: [new Discord.MessageEmbed()
                   .setTitle("Changed the Start Boosting Log Message!")
@@ -206,7 +208,7 @@ module.exports = {
               .then(async collected => {
                 var message = collected.first();
                 if(!message) return message.reply("NO MESSAGE SENT");
-                client.settings.set(message.guild.id, message, "boost.stopBoost")
+                client.settings.set(message.guild.id, message.content, "boost.stopBoost")
                 const log = client.settings.get(message.guild.id, "boost.log");
                 return message.reply({embeds: [new Discord.MessageEmbed()
                   .setTitle("Changed the Stop Boosting Log Message!")
@@ -240,7 +242,7 @@ module.exports = {
               .then(async collected => {
                 var message = collected.first();
                 if(!message) return message.reply("NO MESSAGE SENT");
-                client.settings.set(message.guild.id, message, "boost.againBoost")
+                client.settings.set(message.guild.id, message.content, "boost.stopBoost")
                 const log = client.settings.get(message.guild.id, "boost.log");
                 return message.reply({embeds: [new Discord.MessageEmbed()
                   .setTitle("Changed the Again Boosting Log Message!")

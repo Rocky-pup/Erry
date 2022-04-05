@@ -144,7 +144,7 @@ module.exports = client => {
   });
 
   client.on("guildCreate", async guild => {
-    if(!guild || guild.available === false) return
+    if(!guild || guild.available === false) return;
     let theowner = "NO OWNER DATA! ID: ";
     await guild.fetchOwner().then(({ user }) => {
       theowner = user;
@@ -160,6 +160,7 @@ module.exports = client => {
       .addField("Servers Bot is in", `>>> \`\`\`${client.guilds.cache.size}\`\`\``)
       .addField("Leave Server:", `>>> \`\`\`${config.prefix}leaveserver ${guild.id}\`\`\``)
       .setThumbnail(guild.iconURL({dynamic: true}));
+      
     for(const owner of config.ownerIDS){
       //If the Owner is Rocky, and the Bot is in not a no Milrato Development, Public Bot, then dont send information!
       if(owner == "913117505541775420"){

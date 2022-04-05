@@ -337,15 +337,21 @@ module.exports = client => {
       }
       break;
       case "Lyrics": {
-        return interaction.reply({
+        await player.seek(0);
+        var data = generateQueueEmbed(client, guild.id)
+        message.edit(data).catch((e) => {
+          //console.log(e.stack ? String(e.stack).grey : String(e).grey)
+        })
+        interaction.reply({
           embeds: [new MessageEmbed()
-            .setColor(es.wrongcolor)
-            .setFooter(client.getFooter(es))
-            .setTitle(`:no_entry_sign: **In developing, wait ~999 years)**`)
-            .setDescription(`I'm Lazy)))`)
-          ],
-          ephemeral: true
-        });
+            .setColor(es.color)
+            .setTimestamp()
+            .setTitle(`🔊 **Replaying current song!**`)
+            .setFooter(client.getFooter(`💢 Action by: ${member.user.tag}`, member.user.displayAvatarURL({
+              dynamic: true
+             })))
+            ]
+          })
       }
       break;
       case "Volmax": {
@@ -669,7 +675,8 @@ module.exports = client => {
       }, 3000)
     })
     else {
-      return playermanager(client, message, message.content.trim().split(/ +/), "request:song");
+      songgg = message.content.trim().split(/ +/)
+      return playermanager(client, message, songgg, "request:song");
     }
   })
 
@@ -764,7 +771,7 @@ function generateQueueEmbed(client, guildId, leave) {
   var queuebutton = new MessageButton().setStyle('SUCCESS').setCustomId('Queue').setEmoji(`🔂`).setLabel(`Queue Loop`).setDisabled();
   var rewindbutton = new MessageButton().setStyle('PRIMARY').setCustomId('Rewind').setEmoji('⏪').setLabel(`-10 Sec`).setDisabled();
   var forwardbutton = new MessageButton().setStyle('PRIMARY').setCustomId('Forward').setEmoji('⏩').setLabel(`+10 Sec`).setDisabled();
-  var lyricsbutton = new MessageButton().setStyle('PRIMARY').setCustomId('Lyrics').setEmoji('📝').setLabel(`Lyrics`).setDisabled();
+  var lyricsbutton = new MessageButton().setStyle('PRIMARY').setCustomId('Lyrics').setEmoji('📯').setLabel(`Replay`).setDisabled();
   var volumeup = new MessageButton().setStyle('SECONDARY').setCustomId('Vol+').setEmoji('🔊').setLabel(`+ Vol`).setDisabled();
   var volumedown = new MessageButton().setStyle('SECONDARY').setCustomId('Vol-').setEmoji('🔉').setLabel(`- Vol`).setDisabled();
   var volumemax = new MessageButton().setStyle('PRIMARY').setCustomId('Volmax').setEmoji('🔉').setLabel(`Max Vol`).setDisabled();

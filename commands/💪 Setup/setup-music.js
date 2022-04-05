@@ -81,7 +81,7 @@ module.exports = {
         new MessageButton().setStyle('SUCCESS').setCustomId('Queue').setEmoji(`🔂`).setLabel(`Queue Loop`).setDisabled(),
         new MessageButton().setStyle('PRIMARY').setCustomId('Forward').setEmoji('⏩').setLabel(`+10 Sec`).setDisabled(),
         new MessageButton().setStyle('PRIMARY').setCustomId('Rewind').setEmoji('⏪').setLabel(`-10 Sec`).setDisabled(),
-        new MessageButton().setStyle('PRIMARY').setCustomId('Lyrics').setEmoji('📝').setLabel(`Lyrics`).setDisabled(),
+        new MessageButton().setStyle('PRIMARY').setCustomId('Lyrics').setEmoji('📯').setLabel(`Replay`).setDisabled(),
       ]),
       new MessageActionRow().addComponents([
         new MessageButton().setStyle('SECONDARY').setCustomId('Vol-').setEmoji('🔉').setLabel(`- Vol`).setDisabled(),

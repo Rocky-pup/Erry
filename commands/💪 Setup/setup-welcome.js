@@ -33,8 +33,8 @@ module.exports = {
       async function first_layer(){
         let menuoptions = [
           {
-            value: "Channel Welcome Messages",
-            description: `Manage Welcome Messages in 1 CHANNEL`,
+            value: "Channel Welcome Message ",
+            description: `Manage Welcome Messages in 1 CHANNEL. TEMPORARY NOT WORKS`,
             emoji: "895066899619119105" //
           },
           {

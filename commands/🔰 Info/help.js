@@ -268,22 +268,8 @@ module.exports = {
         .setColor(es.color).setThumbnail(es.thumb ? es.footericon && (es.footericon.includes("http://") || es.footericon.includes("https://")) ? es.footericon : client.user.displayAvatarURL() : null)
         .setFooter("Page Overview\n"+ client.user.username, client.user.displayAvatarURL())
         .setTitle(`Information about __${client.user.username}__`)
-        .addField(":muscle: **__My Features__**",
-`>>> **58+ Systems**, like: **Twitter-** & **Youtube-Auto-Poster** 
-**Application-**, Ticket-, **Welcome-Images-** and Reaction Role-, ... Systems
-:notes: An advanced **Music System** with **Audio Filtering**
-<a:Tada_Yellow:950481226765066311> Many **Minigames** and :joystick: **Fun** Commands (150+)
-:no_entry_sign: **Administration** and **Auto-Moderation** and way much more!`)
-        .addField(":question: **__How do you use me?__**",
-`>>> \`${prefix}setup\` and react with the Emoji for the right action,
-but you can also do \`${prefix}setup-SYSTEM\` e.g. \`${prefix}setup-welcome\``)
-.addField(":chart_with_upwards_trend: **__STATS:__**",
-`>>> :gear: **${client.commands.map(a=>a).length} Commands**
-:file_folder: on **${client.guilds.cache.size} Guilds**
-⌚️ **${duration(client.uptime).map(i=> `\`${i}\``).join("︲")} Uptime**
-📶 **\`${Math.floor(client.ws.ping)}ms\` Ping**`)
-.addField("How to get help?", `>>> **\` 1. Way \`** *Use the Buttons, to swap the Pages*\n**\` 2. Way \`** *Use the Menu to select all Help Pages, you want to display*\n**\` 3. Way \`** *cry*`)
-
+        .addField("Choose category to see the commands",
+`>>> Commandcount: \`${client.commands.map(a=>a).length}\``)
         let err = false;
         //Send message with buttons
         let helpmsg = await message.reply({   
