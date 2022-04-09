@@ -199,7 +199,7 @@ module.exports = {
                       let ChannelRegex = message.content.match(MessageMentions.CHANNELS_PATTERN)?.map(r => message.guild.channels.cache.get(r.replace(/[<@&#>]/igu, "")))
                       var Voicechannel = ChannelRegex && ChannelRegex.length >= 1 ? ChannelRegex[0] : message.guild.channels.cache.get(message.content.trim().split(" ")[0]);
                       var Textchannel = ChannelRegex && ChannelRegex.length >= 2 ? ChannelRegex[1] : message.guild.channels.cache.get(message.content.trim().split(" ")[1]);
-                      if(!Voicechannel || !Textchannel || Voicechannel.type != "GUILD_VOICE" || Textchannel.type != "GUILD_TEXT") return message.reply("<:no:951013282607685632> **Check the example in the Embed, wrong input type!**")
+                      if(!Voicechannel || !Textchannel || Voicechannel.type != "GUILD_VOICE" || Textchannel.type != "GUILD_TEXT") return message.reply("<:no_entry_sign:951013282607685632> **Check the example in the Embed, wrong input type!**")
                       try {
                         let a = client.joinvc.get(message.guild.id, "vcmessages")
                         //remove invalid ids
@@ -263,7 +263,7 @@ module.exports = {
                     .then(collected => {
                       var message = collected.first();
                       var Voicechannel = message.mentions.channels.filter(ch=>ch.guild.id==message.guild.id && ch.type == "GUILD_VOICE").first() || message.guild.channels.cache.get(message.content.trim().split(" ")[0]);
-                      if(!Voicechannel || Voicechannel.type != "GUILD_VOICE") return message.reply("<:no:951013282607685632> **Check the example in the Embed, wrong input type!**")
+                      if(!Voicechannel || Voicechannel.type != "GUILD_VOICE") return message.reply("<:no_entry_sign:951013282607685632> **Check the example in the Embed, wrong input type!**")
                       try {
                         let a = client.joinvc.get(message.guild.id, "vcmessages")
                         //remove invalid ids
@@ -417,7 +417,7 @@ module.exports = {
                       var message = collected.first();
                       var Voicechannel = message.mentions.channels.filter(ch=>ch.guild.id==message.guild.id && ch.type == "GUILD_VOICE").first() || message.guild.channels.cache.get(message.content.trim().split(" ")[0]);
                       var Role = message.mentions.roles.filter(ch=>ch.guild.id==message.guild.id).first() || message.guild.roles.cache.get(message.content.trim().split(" ")[1]);
-                      if(!Voicechannel || !Role) return message.reply("<:no:951013282607685632> **Check the example in the Embed, wrong input type!**")
+                      if(!Voicechannel || !Role) return message.reply("<:no_entry_sign:951013282607685632> **Check the example in the Embed, wrong input type!**")
                       
                       if (message.guild.me.roles.highest.rawPosition <= Role.rawPosition)
                         return message.reply({embeds: [new MessageEmbed()
@@ -486,7 +486,7 @@ module.exports = {
                     .then(collected => {
                       var message = collected.first();
                       var Voicechannel = message.mentions.channels.filter(ch=>ch.guild.id==message.guild.id && ch.type == "GUILD_VOICE").first() || message.guild.channels.cache.get(message.content.trim().split(" ")[0]);
-                      if(!Voicechannel || Voicechannel.type != "GUILD_VOICE") return message.reply("<:no:951013282607685632> **Check the example in the Embed, wrong input type!**")
+                      if(!Voicechannel || Voicechannel.type != "GUILD_VOICE") return message.reply("<:no_entry_sign:951013282607685632> **Check the example in the Embed, wrong input type!**")
                       try {
                         let a = client.joinvc.get(message.guild.id, "vcroles")
                         //remove invalid ids

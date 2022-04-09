@@ -32,7 +32,7 @@ module.exports = {
       if(user.id != message.author.id) {
         if(!message.member.permissions.has(Discord.Permissions.FLAGS.ADMINISTRATOR))  
         {
-          return message.reply("<:no:951013282607685632> **Only Admins can add Quotes to other Users!**")
+          return message.reply("<:no_entry_sign:951013282607685632> **Only Admins can add Quotes to other Users!**")
         }
       }
       client.afkDB.ensure(user.id, {
@@ -68,7 +68,7 @@ module.exports = {
       }, "quotes");
       message.reply("Added the Quote to his Quotes!")
       let data = client.afkDB.get(user.id, "quotes")
-      if(!data || data.length == 0) return message.reply({content: "<:no:951013282607685632> **This User has no Quotes in this Server yet!**"})
+      if(!data || data.length == 0) return message.reply({content: "<:no_entry_sign:951013282607685632> **This User has no Quotes in this Server yet!**"})
       var datas = data.sort((a,b)=> b?.at - a.at).map((data, index) => 
         `\` ${index}. \` By: <@${data.by}> | At: \`${moment(data.at).format("DD/MM/YYYY HH:mm")}\` \n> ${String(data.text).length > 80 ? String(data.text).substring(0, 75) + " ..." : String(data.text)}\n`
         );

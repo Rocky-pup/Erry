@@ -2,18 +2,29 @@
   "msg": {
     "COMMENT": "IF YOU DECIDE TO USE CUSTOM EMOJIS, USE THE NAME AND THE ID IN MSG, EXAMPLE: ⬜ --> <:progressbar_left_filled:818558865268408341>",
 
-    "ERROR" : "<:no:951013282607685632>",
+    "ERROR" : "<:no_entry_sign:951013282607685632>",
     "SUCCESS" : ":white_check_mark:",
 
-    "disabled" : "<:no:951013282607685632>",
+    "disabled" : "<:no_entry_sign:951013282607685632>",
     "enabled" : ":white_check_mark:",
 
     "progress_bar": {
+      "style": "simple",         "__comment__" : "styles: 'simple', 'comlex'",
+
       "leftindicator": "[",
       "rightindicator": "]",
 
-      "emptyframe": "⬜",
-      "filledframe": "🟧"
+      "slider": "🔷",
+      "size": 25,
+      "line": "▬",
+
+                 "___comment___" : "those are for the complex style",
+      "empty_left": "<:left_empty:909415753265086504>",
+      "filled_left": "<:left_filled:909415753692897300>",
+      "empty_right": "<:right_empty:909415753416056832>", 
+      "filled_right": "<:right_filled:909415753135042562>", 
+      "emptyframe": "<:middle_empty:909415753059545139>",
+      "filledframe": "<:middle_filled:909415753462218792>"
     },
 
     "playing": "🎶",

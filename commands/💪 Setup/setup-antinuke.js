@@ -1292,7 +1292,7 @@ module.exports = {
                           var message = collected.first();
                           let thenumber = message.content;
                           if(isNaN(thenumber)){
-                            return message.reply(`<:no:951013282607685632> **Your Input is not a real Number**\n> \`${String(thenumber).substring(0, 50)}\``)
+                            return message.reply(`<:no_entry_sign:951013282607685632> **Your Input is not a real Number**\n> \`${String(thenumber).substring(0, 50)}\``)
                           }
                           thenumber = Number(thenumber)
                           client.Anti_Nuke_System.set(message.guild.id, thenumber, finalkey);

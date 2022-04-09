@@ -52,7 +52,7 @@ module.exports = {
           .setTitle(eval(client.la[ls]["cmds"]["administration"]["ban"]["variable4"]))
           .setDescription(eval(client.la[ls]["cmds"]["administration"]["ban"]["variable5"]))
         ]}).catch(()=>{});
-      if(!kickmember.communicationDisabledUntilTimestamp) return message.reply("<:no:951013282607685632> **This User is not timeouted!**");
+      if(!kickmember.communicationDisabledUntilTimestamp) return message.reply("<:no_entry_sign:951013282607685632> **This User is not timeouted!**");
       
       let time = 0;
       
@@ -71,7 +71,7 @@ module.exports = {
         return message.reply({embeds :[new MessageEmbed()
           .setColor(es.wrongcolor)
           .setFooter(client.getFooter(es))
-          .setTitle("<:no:951013282607685632> **I am not able to manage this User**")
+          .setTitle("<:no_entry_sign:951013282607685632> **I am not able to manage this User**")
         ]}).catch(()=>{});
       try{
         if(!kickmember.user.bot){

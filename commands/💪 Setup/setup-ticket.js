@@ -819,7 +819,7 @@ module.exports = {
                   message.reply(`Successfully set the <#${channel.id}> as the TICKET-LOG for ${SetupNumber ? SetupNumber : 1}. Ticketsystem`);
                 } else {
                   client.setups.set(message.guild.id, "", `ticketsystem${SetupNumber}.ticketlogid`);
-                  message.reply("<:no:951013282607685632> Disabled the Log, because you did not send a valid channel")
+                  message.reply("<:no_entry_sign:951013282607685632> Disabled the Log, because you did not send a valid channel")
                 }
               }).catch(error => {
                 return message.reply({

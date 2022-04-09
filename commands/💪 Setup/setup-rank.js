@@ -221,7 +221,7 @@ module.exports = {
             .then(collected => {
               var message = collected.first();
               let arggs = message.content.trim().split(" ");
-              if(!arggs[0] || isNaN(arggs[0])) return message.reply("**<:no:951013282607685632> YOU DID WRONG! Please read what the introduction tells you!**\nCancelled!")
+              if(!arggs[0] || isNaN(arggs[0])) return message.reply("**<:no_entry_sign:951013282607685632> YOU DID WRONG! Please read what the introduction tells you!**\nCancelled!")
               var Role = message.mentions.roles.filter(ch=>ch.guild.id==message.guild.id).first() || message.guild.roles.cache.get(arggs[1]);
                 try {
                   let oldRankRoles = client.points.get(message.guild.id, "rankroles");

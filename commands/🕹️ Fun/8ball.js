@@ -42,12 +42,8 @@ module.exports = {
         if (body.magic.type === "Contrary") embedColor = "#ba0d0d";
         if (body.magic.type === "Neutral") embedColor = "#6f7275";
 const embed3 = new Discord.MessageEmbed()
-          .setTitle("8ball")
+          .setTitle(body.magic.answer)
           .setColor(embedColor)
-          .setThumbnail(message.author.displayAvatarURL({
-            dynamic: true
-          }))
-          .addField("Reply: ", body.magic.answer, false)
         
         message.reply({embeds : [embed3]});
       });

@@ -31,7 +31,7 @@ module.exports = async (client, interaction) => {
         guild
       } = member;
       if(!guild) {
-        return interaction?.reply({content: "<:no:951013282607685632> Interactions only Works inside of GUILDS!", ephemeral: true}).catch(()=>{});
+        return interaction?.reply({content: "<:no_entry_sign:951013282607685632> Interactions only Works inside of GUILDS!", ephemeral: true}).catch(()=>{});
       }
       const CategoryName = interaction?.commandName;
       simple_databasing(client, guild.id, member.id)
@@ -149,7 +149,7 @@ module.exports = async (client, interaction) => {
             return interaction?.reply({embeds: [new MessageEmbed()
               .setColor(ee.wrongcolor)
               .setFooter({text: `${ee.footertext}`, iconURL: `${ee.footericon}`})
-              .setTitle(` <:no:951013282607685632> ** You are not a DJ and not the Song Requester! ** `)
+              .setTitle(` <:no_entry_sign:951013282607685632> ** You are not a DJ and not the Song Requester! ** `)
               .setDescription(` ** DJ - ROLES: ** \n${check_if_dj(client, interaction?.member, player.queue.current)}`)
             ],
             ephemeral: true});

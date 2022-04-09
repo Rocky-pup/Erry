@@ -40,7 +40,7 @@ module.exports = {
       .then(body => body.data);
     const selected = data[Math.floor(Math.random() * data.length)];
     if(!selected || !selected.hash) return interaction?.reply({
-      content: `<:no:951013282607685632> **Could not find a new Meme...**\n> *Try again please!*`, ephemeral: true
+      content: `<:no_entry_sign:951013282607685632> **Could not find a new Meme...**\n> *Try again please!*`, ephemeral: true
     });
     return interaction?.reply({
       content: `https://imgur.com/${selected.hash}${selected.ext.replace(/\\?.*/, '')}`

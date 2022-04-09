@@ -195,7 +195,7 @@ module.exports = client => {
                     if(message.channel.permissionsFor(message.channel.guild.me).has(Permissions.FLAGS.MANAGE_MESSAGES)){
                         message.delete().catch((e) => {console.log(e)})
                     } else {
-                        message.channel.send("<:no:951013282607685632> **I am missing the MANAGE_MESSAGES Permission!**").then(m => {
+                        message.channel.send("<:no_entry_sign:951013282607685632> **I am missing the MANAGE_MESSAGES Permission!**").then(m => {
                             setTimeout(()=>{m.delete().catch(()=>{})}, 3500)
                         })
                     }
@@ -219,7 +219,7 @@ module.exports = client => {
                                 .setDescription(eval(client.la[ls]["handlers"]["anticapsjs"]["anticaps"]["variable2"]))
                             ]}).catch(() => {});
                         }).catch(() => {
-                            return message.channel.send(`<:no:951013282607685632> **I could not timeout ${member.user.tag}**`).then(m => {
+                            return message.channel.send(`<:no_entry_sign:951013282607685632> **I could not timeout ${member.user.tag}**`).then(m => {
                                 setTimeout(() => { m.delete().catch(() => {}) }, 5000);
                             });
                         });

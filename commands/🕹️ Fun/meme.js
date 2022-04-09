@@ -42,7 +42,7 @@ module.exports = {
         if(!selected) selected = data[Math.floor(Math.random() * data.length)];
         if(!selected) selected = data[Math.floor(Math.random() * data.length)];
         if(!selected) selected = data[Math.floor(Math.random() * data.length)];
-        if(!selected) return message.reply("<:no:951013282607685632> **No Meme found, please retry!**")
+        if(!selected) return message.reply("<:no_entry_sign:951013282607685632> **No Meme found, please retry!**")
       return message.reply({content : eval(client.la[ls]["cmds"]["fun"]["meme"]["variable1"])});
     } catch (e) {
       console.log(String(e.stack).grey.bgRed)

@@ -279,7 +279,7 @@ module.exports = {
         }).catch(e=>{
           err = true;
           console.log(e.stack ? String(e.stack).grey : String(e).grey)
-          return message.reply(`<:no:951013282607685632> I couldn't send help? Maybe I am missing the Permission to **EMBED LINKS**`).catch(() => {})
+          return message.reply(`<:no_entry_sign:951013282607685632> I couldn't send help? Maybe I am missing the Permission to **EMBED LINKS**`).catch(() => {})
         });
         if(err) return;
         var edited = false;

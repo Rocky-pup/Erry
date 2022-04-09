@@ -305,7 +305,7 @@ module.exports = {
           }break;
           case "Delete Keyword": {
             let cuc = client.keyword.get(message.guild.id, "commands");
-            if(!cuc || cuc.length < 1) return message.reply("<:no:951013282607685632> There are no Custom Commands")
+            if(!cuc || cuc.length < 1) return message.reply("<:no_entry_sign:951013282607685632> There are no Custom Commands")
             let menuoptions = [
             ]
             cuc.forEach((cc, index)=>{

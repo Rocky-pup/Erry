@@ -438,7 +438,7 @@ module.exports = {
                         emoji = collected.first().emoji?.name;
                         emojiMsg = collected.first().emoji?.name;
                       } else {
-                        message.reply("<:no:951013282607685632> **No valid emoji added, using default EMOJI**");
+                        message.reply("<:no_entry_sign:951013282607685632> **No valid emoji added, using default EMOJI**");
                         emoji = null;
                         emojiMsg = NumberEmojis[data.length];
                       }
@@ -451,13 +451,13 @@ module.exports = {
                         }
                       } catch (e){
                         console.log(e)
-                        message.reply("<:no:951013282607685632> **Could not use the CUSTOM EMOJI you added, as I can't access it / use it as a reaction/emoji for the menu**\nUsing default emoji!");
+                        message.reply("<:no_entry_sign:951013282607685632> **Could not use the CUSTOM EMOJI you added, as I can't access it / use it as a reaction/emoji for the menu**\nUsing default emoji!");
                         emoji = null;
                         emojiMsg = NumberEmojis[data.length];
                       }
                       finished();
                     }).catch(() => {
-                      message.reply("<:no:951013282607685632> **No valid emoji added, using default EMOJI**");
+                      message.reply("<:no_entry_sign:951013282607685632> **No valid emoji added, using default EMOJI**");
                       emoji = null;
                       emojiMsg = NumberEmojis[data.length];
                       finished();
@@ -649,7 +649,7 @@ module.exports = {
                             emoji = collected.first().emoji?.name;
                             emojiMsg = collected.first().emoji?.name;
                           } else {
-                            message.reply("<:no:951013282607685632> **No valid emoji added, using default EMOJI**");
+                            message.reply("<:no_entry_sign:951013282607685632> **No valid emoji added, using default EMOJI**");
                             emoji = null;
                             emojiMsg = NumberEmojis[data.length];
                           }
@@ -662,13 +662,13 @@ module.exports = {
                             }
                           } catch (e){
                             console.log(e)
-                            message.reply("<:no:951013282607685632> **Could not use the CUSTOM EMOJI you added, as I can't access it / use it as a reaction/emoji for the menu**\nUsing default emoji!");
+                            message.reply("<:no_entry_sign:951013282607685632> **Could not use the CUSTOM EMOJI you added, as I can't access it / use it as a reaction/emoji for the menu**\nUsing default emoji!");
                             emoji = null;
                             emojiMsg = NumberEmojis[data.length];
                           }
                           finished();
                         }).catch(() => {
-                          message.reply("<:no:951013282607685632> **No valid emoji added, using default EMOJI**");
+                          message.reply("<:no_entry_sign:951013282607685632> **No valid emoji added, using default EMOJI**");
                           emoji = null;
                           emojiMsg = NumberEmojis[data.length];
                           finished();

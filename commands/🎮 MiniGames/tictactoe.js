@@ -534,7 +534,7 @@ class TicTacToe {
                                         }
                                 } else {
                                         return btn.reply({
-                                                content: '<:no:951013282607685632> **Wait for opponent.**',
+                                                content: '<:no_entry_sign:951013282607685632> **Wait for opponent.**',
                                                 ephemeral: true
                                         })
                                 }
@@ -648,7 +648,7 @@ module.exports = {
                         });
                 }
                 const opponent = message.mentions.users.first();
-                if (!opponent) return message.reply(`<:no:951013282607685632> **Please mention who you want to challenge at tictactoe.**`);
+                if (!opponent) return message.reply(`<:no_entry_sign:951013282607685632> **Please mention who you want to challenge at tictactoe.**`);
                 new TicTacToe({
                         message: message, //required
                         opponent: opponent, //required

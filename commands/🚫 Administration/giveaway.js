@@ -178,7 +178,7 @@ module.exports = {
                 if(bonusentriesdata.mentions.roles.size > 0){
                     let args = bonusentriesdata.content.split(",").map(i => i?.trim());
                     if(bonusentriesdata.mentions.roles.size > 1){
-                        if(!args[0]) return message.reply("<:no:951013282607685632> Invalid Input of Multiple Bonus Roles, check the EXAMPLE!")
+                        if(!args[0]) return message.reply("<:no_entry_sign:951013282607685632> Invalid Input of Multiple Bonus Roles, check the EXAMPLE!")
                         options.messages.giveaway += "\n\n**BONUS ENTRY ROLES:**\n";
                         options.messages.giveawayEnded += "\n\n**BONUS ENTRY ROLES:**\n";
                         [ ...bonusentriesdata.mentions.roles.values() ].forEach((role, index) => {
@@ -398,12 +398,12 @@ module.exports = {
         } else if (args[0].toLowerCase() === "winner"){
             args.shift();
             if (!args[0]) {
-                return message.reply({content : `<:no:951013282607685632> The right usage of this Command is: \`${prefix}giveaway winner <GiveawayId>\` ... note that GiveawayId is the MessageId of the (Embed) Giveaway-Message`});
+                return message.reply({content : `<:no_entry_sign:951013282607685632> The right usage of this Command is: \`${prefix}giveaway winner <GiveawayId>\` ... note that GiveawayId is the MessageId of the (Embed) Giveaway-Message`});
             }
             let giveaway = client.giveawayDB.find((g) => g.messageId === args[0]);
 
             if (!giveaway) {
-                return message.reply({content : "<:no:951013282607685632> Could not find Data of this Giveaway"});
+                return message.reply({content : "<:no_entry_sign:951013282607685632> Could not find Data of this Giveaway"});
             }
             if(giveaway.messages && giveaway.messages.winMessage && giveaway.messages.winMessage.includes("{winners}")){
                 return message.reply({content: `${giveaway.messages.winMessage.replace("{winners}", giveaway.winnerIds.map(d => `<@${d}>`).join(", ")).replace("{this.prize}", giveaway.prize).replace("{this.messageURL}", `https://discord.com/channels/${giveaway.guildId}/${giveaway.channelId}/${giveaway.messageId}`).replace("{this.hostedBy}", giveaway.hostedBy).substring(0, 2000)}`})

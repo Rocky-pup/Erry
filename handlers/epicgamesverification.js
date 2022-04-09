@@ -89,19 +89,19 @@ module.exports = async client => {
             })
             let Platform = await msg.channel.awaitMessageComponent({ filter: (i) => i.user.id === user.id, time: 120_000, max: 1, errors: ['time'] }).then(i => {i.deferUpdate().catch(()=>{}); return i.values[0]}).catch(() => {}) || false;
             if(!Platform) {
-                return user.send("<:no:951013282607685632> Cancelled, due to no reaction in under 2 Minutes!")
+                return user.send("<:no_entry_sign:951013282607685632> Cancelled, due to no reaction in under 2 Minutes!")
             }
             user.send(`:question: **What is your EPIC GAMES Username?**\n> Make sure to send just the Username and send it 1:1 as it is \`Epicgames.com\``)
             let Username = await msg.channel.awaitMessages({ filter: (m) => m.author.id === user.id, time: 120_000, max: 1, errors: ['time'] }).then(c => c.first()?.content).catch(() => {}) || false;
             if(!Username) {
-                return user.send("<:no:951013282607685632> Cancelled, due to not sending the Username in under 2 Minutes!")
+                return user.send("<:no_entry_sign:951013282607685632> Cancelled, due to not sending the Username in under 2 Minutes!")
             }
             let others = client.epicgamesDB.find(d => d.guild && d.guild == guildId && d.epic && d.epic == Username);
-            if(others && others.length > 0) return user.send(`<:no:951013282607685632> **Someone with the User-ID: \`${others.user}\` Linked their Account with this Epic Games Name!**`) 
+            if(others && others.length > 0) return user.send(`<:no_entry_sign:951013282607685632> **Someone with the User-ID: \`${others.user}\` Linked their Account with this Epic Games Name!**`) 
             let fortniteClient = new fortnite("e032828b-886d-4ed6-9aa1-0e2e725592a8");
             let tdata = await fortniteClient.user(Username, Platform == "others" ? "pc" : Platform).catch(() => {}) || false;
             if(!tdata || tdata.code === 404) {
-                return user.send("<:no:951013282607685632> Could not find your Epic Games Account, please try again and make sure you send the right name!")
+                return user.send("<:no_entry_sign:951013282607685632> Could not find your Epic Games Account, please try again and make sure you send the right name!")
             }
             client.epicgamesDB.set(user.id, Username, "epic");
             client.epicgamesDB.set(user.id, Platform, "Platform");

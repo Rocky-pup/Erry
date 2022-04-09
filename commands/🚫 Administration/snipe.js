@@ -44,10 +44,10 @@ const {
         var channel = message.mentions.channels.first() || message.channel;
         
         const snipes = client.snipes.get(channel.id)
-        if(!snipes) return message.reply("<:no:951013282607685632> There is no Deleted Message");
+        if(!snipes) return message.reply("<:no_entry_sign:951013282607685632> There is no Deleted Message");
         const snipe = args[0] && !isNaN(args[0]) ? Number(args[0]) - 1 : 0;
         const targetSnipe = snipes[snipe];
-        if(!targetSnipe) return message.reply("<:no:951013282607685632> There is no Deleted Message")
+        if(!targetSnipe) return message.reply("<:no_entry_sign:951013282607685632> There is no Deleted Message")
         const { tag, id, avatar, content, time, image } = targetSnipe;
 
         message.reply({embeds: [

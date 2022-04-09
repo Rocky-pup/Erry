@@ -87,7 +87,7 @@ module.exports = {
           return message.reply({embeds :[new MessageEmbed()
             .setColor(es.wrongcolor)
             .setFooter(client.getFooter(es))
-            .setTitle("<:no:951013282607685632> **I am not able to manage this User**")
+            .setTitle("<:no_entry_sign:951013282607685632> **I am not able to manage this User**")
           ]}).catch(()=>{});
 
         args.shift();
@@ -129,7 +129,7 @@ module.exports = {
             ]}).catch((_) => {})
         }).catch((e) => {
             console.log(e)
-            return message.reply(`<:no:951013282607685632> **I could not timeout ${member.user.tag}**`).then(m => {
+            return message.reply(`<:no_entry_sign:951013282607685632> **I could not timeout ${member.user.tag}**`).then(m => {
                 setTimeout(() => { m.delete().catch(() => {}) }, 5000);
             });
         });

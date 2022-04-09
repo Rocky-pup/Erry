@@ -31,7 +31,7 @@ module.exports = {
       if(user.id != message.author.id) {
         if(!message.member.permissions.has(Discord.Permissions.FLAGS.ADMINISTRATOR))  
         {
-          return message.reply("<:no:951013282607685632> **Only Admins can add Quotes to other Users!**")
+          return message.reply("<:no_entry_sign:951013282607685632> **Only Admins can add Quotes to other Users!**")
         }
       }
       client.afkDB.ensure(user.id, {
@@ -48,12 +48,12 @@ module.exports = {
         return message.reply({embeds: [new MessageEmbed()
           .setColor(es.wrongcolor)
           .setFooter(client.getFooter(es))
-          .setTitle("<:no:951013282607685632> Wrong command Usage!")
+          .setTitle("<:no_entry_sign:951013282607685632> Wrong command Usage!")
           .setDescription(`\`${prefix}removequote ${user.id} <QuoteId (E.G: 0 ... First Quote)>\``)
         ]});
         
       if(Number(id) < 0 || Number(id) > data.length - 1 || !data[Number(id)] || !data[Number(id)].text){
-        return message.reply(`<:no:951013282607685632> **Invalid Quote ID!**\n> Use one between \`0\` and \`${data.length - 1}\`\nTo see all Quotes type: \`${prefix}quotes ${user.id}\``)
+        return message.reply(`<:no_entry_sign:951013282607685632> **Invalid Quote ID!**\n> Use one between \`0\` and \`${data.length - 1}\`\nTo see all Quotes type: \`${prefix}quotes ${user.id}\``)
       }
       let embed = new MessageEmbed()
         .setColor(es.color)

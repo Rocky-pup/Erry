@@ -161,7 +161,7 @@ module.exports = {
           }
           embeds;
         } catch {}
-        if(embeds.length == 0) return message.reply("<:no:951013282607685632> No leaderboard yet!**")
+        if(embeds.length == 0) return message.reply("<:no_entry_sign:951013282607685632> No leaderboard yet!**")
         if (embeds.length === 1) return message.reply({embeds: [embeds[0]]}).catch(e => console.log("THIS IS TO PREVENT A CRASH"))
         const queueEmbed = await message.reply(
           {embeds: [embeds[currentPage].setFooter(client.getFooter(`You are: Rank #${yourrank} ・ Page: ${currentPage + 1}/${embeds.length}`, user.displayAvatarURL({dynamic: true})))]}

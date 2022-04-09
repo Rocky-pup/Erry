@@ -3,7 +3,7 @@ const config = require("./botconfig/config.json");
 const colors = require("colors");
 
 const totalShards = "auto"; // suggested is to make it that 600-900 Servers are per shard, if u want to stay save, make it that it"s 400 servers / shard, and once it reached the ~1k mark, change the amount and restart
-const shardsPerCluster = 2; // suggested is: 2-8
+const shardsPerCluster = 6; // suggested is: 2-8
 
 const manager = new Manager("./index.js", { 
     token: process.env.token || config.token,    

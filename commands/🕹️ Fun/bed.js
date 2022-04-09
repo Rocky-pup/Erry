@@ -65,7 +65,7 @@ module.exports = {
         return message.reply({embeds : [new MessageEmbed()
           .setColor(es.wrongcolor)
           .setFooter(client.getFooter(es))
-          .setTitle("<:no:951013282607685632> You forgot to ping at least one Member!")
+          .setTitle("<:no_entry_sign:951013282607685632> You forgot to ping at least one Member!")
           .setDescription(`Usage: \`${prefix}bed <@User1> [@User2]\``)
         ]});
      let avatar1 = user.displayAvatarURL({

@@ -36,7 +36,7 @@ module.exports = {
       let data = client.afkDB.get(user.id, "quotes")
       if(args[0] && !isNaN(args[0])){
         if(Number(args[0]) < 0 || Number(args[0]) > data.length - 1 || !data[Number(args[0])] || !data[Number(args[0])].text){
-          return message.reply(`<:no:951013282607685632> **Invalid Quote ID!**\n> Use one between \`0\` and \`${data.length - 1}\``)
+          return message.reply(`<:no_entry_sign:951013282607685632> **Invalid Quote ID!**\n> Use one between \`0\` and \`${data.length - 1}\``)
         }
         let embed = new MessageEmbed()
           .setColor(es.color)
@@ -52,7 +52,7 @@ module.exports = {
           embed
         ]})
       }
-      if(!data || data.length == 0) return message.reply({content: "<:no:951013282607685632> **This User has no Quotes in this Server yet!**"})
+      if(!data || data.length == 0) return message.reply({content: "<:no_entry_sign:951013282607685632> **This User has no Quotes in this Server yet!**"})
       var datas = data.sort((a,b)=> b?.at - a.at).map((data, index) => 
         `\` ${index}. \` By: <@${data.by}> | At: \`${moment(data.at).format("DD/MM/YYYY HH:mm")}\` \n> ${String(data.text).length > 80 ? String(data.text).substring(0, 75) + " ..." : String(data.text)}\n`
         );

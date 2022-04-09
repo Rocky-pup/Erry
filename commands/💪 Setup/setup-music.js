@@ -92,7 +92,7 @@ module.exports = {
       ]),
     ]
     let channel = message.mentions.channels.first();
-    if (!channel) return message.reply("<:no:951013282607685632> **You forgot to ping a Text-Channel!**")
+    if (!channel) return message.reply("<:no_entry_sign:951013282607685632> **You forgot to ping a Text-Channel!**")
     //send the data in the channel
     channel.send({
       embeds,

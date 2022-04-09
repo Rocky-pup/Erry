@@ -110,7 +110,7 @@ module.exports = {
 
       if (time.toLowerCase().includes("pe")) {
         try{
-          return message.reply(`<:no:951013282607685632> **Perma is __not__ allowed with tempmute!**\nUse: \`${prefix}mute ${member.id} perma ...\` for it!`)
+          return message.reply(`<:no_entry_sign:951013282607685632> **Perma is __not__ allowed with tempmute!**\nUse: \`${prefix}mute ${member.id} perma ...\` for it!`)
         }catch(e){
           return message.reply({
             embeds: [new MessageEmbed()

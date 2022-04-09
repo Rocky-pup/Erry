@@ -30,7 +30,7 @@ module.exports = (client, preindex) => {
       }
     }
     if (!index) {
-      return interaction?.editReply("<:no:951013282607685632> Could not find the Database for your Ticket!");
+      return interaction?.editReply("<:no_entry_sign:951013282607685632> Could not find the Database for your Ticket!");
     }
 
     let filename = `ticket${index}`;
@@ -271,7 +271,7 @@ module.exports = (client, preindex) => {
       }
       await interaction?.editReply({ content: `:white_check_mark: **Your Ticket is created!** <#${ch.id}>`, ephemeral: true });
     }).catch(e => {
-      interaction?.editReply({ content: "<:no:951013282607685632> **Something went wrong!**", ephemeral: true })
+      interaction?.editReply({ content: "<:no_entry_sign:951013282607685632> **Something went wrong!**", ephemeral: true })
       console.error(e)
     })
   });

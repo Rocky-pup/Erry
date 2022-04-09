@@ -20,7 +20,7 @@ module.exports = {
       if(!Channel) 
       return message.reply(handlemsg(client.la[ls].cmds.info.getinvitechannel.error)) 
       if(!Channel.permissionsFor(Channel.guild.me).has(Permissions.FLAGS.CREATE_INSTANT_INVITE)){
-        return `<:no:951013282607685632> **I am missing the CREATE_INSTANT_INVITE PERMISSION for \`${Channel.name}\`**`
+        return `<:no_entry_sign:951013282607685632> **I am missing the CREATE_INSTANT_INVITE PERMISSION for \`${Channel.name}\`**`
       }
       await Channel.createInvite().then(invite => {
         if(invite.error){

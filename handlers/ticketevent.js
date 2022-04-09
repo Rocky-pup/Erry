@@ -56,7 +56,7 @@ module.exports = client => {
 
         if(!client.setups.has(channel.id)){
             if(interaction.customId != "ticket_verify"){
-                interaction?.reply({content: "<:no:951013282607685632> This channel is not a Ticket", ephemeral: true})
+                interaction?.reply({content: "<:no_entry_sign:951013282607685632> This channel is not a Ticket", ephemeral: true})
             }
             return 
         }
@@ -588,7 +588,7 @@ module.exports = client => {
                             if (element.id == user.id) {
                                 if (!element.allow.includes("VIEW_CHANNEL")) {
                                     if(!channel.permissionsFor(channel.guild.me).has(Permissions.FLAGS.MANAGE_CHANNELS)){
-                                        return channel.send(`<:no:951013282607685632> **I am missing the Permissions MANAGE_CHANNELS for: \`${channel.name}\`**`);
+                                        return channel.send(`<:no_entry_sign:951013282607685632> **I am missing the Permissions MANAGE_CHANNELS for: \`${channel.name}\`**`);
                                     }
                                     channel.permissionOverwrites.edit(user.id, {
                                             SEND_MESSAGES: true,
@@ -634,7 +634,7 @@ module.exports = client => {
                                         });
                                 } else {
                                     if(!channel.permissionsFor(channel.guild.me).has(Permissions.FLAGS.MANAGE_CHANNELS)){
-                                        return channel.send(`<:no:951013282607685632> **I am missing the Permissions MANAGE_CHANNELS for: \`${channel.name}\`**`);
+                                        return channel.send(`<:no_entry_sign:951013282607685632> **I am missing the Permissions MANAGE_CHANNELS for: \`${channel.name}\`**`);
                                     }
                                     channel.permissionOverwrites.edit(user.id, {
                                             SEND_MESSAGES: false,
@@ -663,7 +663,7 @@ module.exports = client => {
                         });
                     } else {
                         if(!channel.permissionsFor(channel.guild.me).has(Permissions.FLAGS.MANAGE_CHANNELS)){
-                            return channel.send(`<:no:951013282607685632> **I am missing the Permissions MANAGE_CHANNELS for: \`${channel.name}\`**`);
+                            return channel.send(`<:no_entry_sign:951013282607685632> **I am missing the Permissions MANAGE_CHANNELS for: \`${channel.name}\`**`);
                         }
                         channel.permissionOverwrites.edit(user.id, {
                             SEND_MESSAGES: true,
@@ -781,7 +781,7 @@ module.exports = client => {
                             if (element.id == user.id) {
                                 if (!element.allow.includes("VIEW_CHANNEL")) {
                                     if(!channel.permissionsFor(channel.guild.me).has(Permissions.FLAGS.MANAGE_CHANNELS)){
-                                        return channel.send(`<:no:951013282607685632> **I am missing the Permissions MANAGE_CHANNELS for: \`${channel.name}\`**`);
+                                        return channel.send(`<:no_entry_sign:951013282607685632> **I am missing the Permissions MANAGE_CHANNELS for: \`${channel.name}\`**`);
                                     }
                                     channel.permissionOverwrites.edit(user.id, {
                                             SEND_MESSAGES: true,
@@ -826,7 +826,7 @@ module.exports = client => {
                                         });
                                 } else {
                                     if(!channel.permissionsFor(channel.guild.me).has(Permissions.FLAGS.MANAGE_CHANNELS)){
-                                        return channel.send(`<:no:951013282607685632> **I am missing the Permissions MANAGE_CHANNELS for: \`${channel.name}\`**`);
+                                        return channel.send(`<:no_entry_sign:951013282607685632> **I am missing the Permissions MANAGE_CHANNELS for: \`${channel.name}\`**`);
                                     }
                                     channel.permissionOverwrites.edit(user.id, {
                                             SEND_MESSAGES: false,
@@ -854,7 +854,7 @@ module.exports = client => {
                         });
                     } else {
                         if(!channel.permissionsFor(channel.guild.me).has(Permissions.FLAGS.MANAGE_CHANNELS)){
-                            return channel.send(`<:no:951013282607685632> **I am missing the Permissions MANAGE_CHANNELS for: \`${channel.name}\`**`);
+                            return channel.send(`<:no_entry_sign:951013282607685632> **I am missing the Permissions MANAGE_CHANNELS for: \`${channel.name}\`**`);
                         }
                         channel.permissionOverwrites.edit(user.id, {
                                 SEND_MESSAGES: true,
@@ -926,12 +926,12 @@ module.exports = client => {
             let data = client.setups.get(channel.id, "ticketdata");
             if(!channel.permissionsFor(member).has(Discord.Permissions.FLAGS.SEND_MESSAGES)){
                 if(!channel.permissionsFor(channel.guild.me).has(Permissions.FLAGS.MANAGE_CHANNELS)){
-                    return channel.send(`<:no:951013282607685632> **I am missing the Permissions MANAGE_CHANNELS for: \`${channel.name}\`**`);
+                    return channel.send(`<:no_entry_sign:951013282607685632> **I am missing the Permissions MANAGE_CHANNELS for: \`${channel.name}\`**`);
                 }
                 channel.permissionOverwrites.edit(member.user, {
                     SEND_MESSAGES: true
                 }).catch(e=>{
-                    return interaction?.reply({ephemeral: true, content: "<:no:951013282607685632> **Can't change the Permissions of you!**"});
+                    return interaction?.reply({ephemeral: true, content: "<:no_entry_sign:951013282607685632> **Can't change the Permissions of you!**"});
                 });
             }
             message.edit({content: message.content, embeds: [message.embeds[0]], components: message.components}).catch(e => {console.log(e.stack ? String(e.stack).grey : String(e).grey)});
@@ -968,7 +968,7 @@ module.exports = client => {
                 if(interaction.placeholder) {
                     if(!interaction.placeholder.includes("Menu-Apply System!")) return
                 }
-                if(interaction.replied) return interaction?.editReply("<:no:951013282607685632> Could not find the Database for your Application!");
+                if(interaction.replied) return interaction?.editReply("<:no_entry_sign:951013282607685632> Could not find the Database for your Application!");
                 else return
             }
             let pre = `menuticket${DBindex}`;
@@ -997,7 +997,7 @@ module.exports = client => {
             if(message.id == settings.messageId && (channelId == settings.channelId || message.channelId == settings.channelId)){
                let index = settings.data.findIndex(v => v.value == values[0]);
                 if(index < 0) {
-                    return interaction?.reply({ephemeral: true, content: "<:no:951013282607685632> **Could not find the Ticket-Settings for this Option**"});
+                    return interaction?.reply({ephemeral: true, content: "<:no_entry_sign:951013282607685632> **Could not find the Ticket-Settings for this Option**"});
                 }
                 let data = settings.data[index];
                 let replyMsg = data.replyMsg;
@@ -1239,7 +1239,7 @@ module.exports = client => {
                 if(interaction.placeholder) {
                     if(!interaction.placeholder.includes("Menu-Apply System!")) return
                 }
-                if(interaction.replied) return interaction?.editReply("<:no:951013282607685632> Could not find the Database for your Application!");
+                if(interaction.replied) return interaction?.editReply("<:no_entry_sign:951013282607685632> Could not find the Database for your Application!");
                 else return
             }
             let theDB = client.autosupport
@@ -1263,7 +1263,7 @@ module.exports = client => {
             if(message.id == settings.messageId && (channelId == settings.channelId || message.channelId == settings.channelId)){
                 let index = settings.data.findIndex(v => v.value == values[0]);
                 if(index < 0) {
-                    return interaction?.reply({ephemeral: true, content: "<:no:951013282607685632> **Could not find the Auto-Support-Data-Settings for this Option**"});
+                    return interaction?.reply({ephemeral: true, content: "<:no_entry_sign:951013282607685632> **Could not find the Auto-Support-Data-Settings for this Option**"});
                 }
                 let data = settings.data[index];
                 let {sendEmbed, replyMsg} = data;
@@ -1297,7 +1297,7 @@ module.exports = client => {
                 if(interaction.placeholder) {
                     if(!interaction.placeholder.includes("Menu-Apply System!")) return
                 }
-                if(interaction.replied) return interaction?.editReply("<:no:951013282607685632> Could not find the Database for your Application!");
+                if(interaction.replied) return interaction?.editReply("<:no_entry_sign:951013282607685632> Could not find the Database for your Application!");
                 else return
             }
             let pre = `menuapply${DBindex}`;
@@ -1320,10 +1320,10 @@ module.exports = client => {
             const settings = theDB.get(guild.id, pre);
             const index = settings.data.findIndex(v => v.value == values[0]);
             if(index < 0) {
-                return interaction?.reply({ephemeral: true, content: "<:no:951013282607685632> **Could not find the Ticket-Settings for this Option**"});
+                return interaction?.reply({ephemeral: true, content: "<:no_entry_sign:951013282607685632> **Could not find the Ticket-Settings for this Option**"});
             }
             const data = settings.data[index];
-            if(!data) return interaction?.reply({ephemeral: true, content: "<:no:951013282607685632> **Could not find the Data for this System**"});
+            if(!data) return interaction?.reply({ephemeral: true, content: "<:no_entry_sign:951013282607685632> **Could not find the Data for this System**"});
             require(`./apply.js`).ApplySystem({ guild: guild, channel: message.channel, user: user, message: message, interaction: interaction, es: es, ls: ls, preindex: Number(data.applySystemExecution) })
         }
     })

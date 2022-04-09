@@ -309,8 +309,8 @@ module.exports = {
               var message = collected.first();
               if (message.content) {
                 let number = message.content;
-                if(isNaN(number)) return message.reply("<:no:951013282607685632> **Not a valid Number**");
-                if(Number(number) < 0 || Number(number) > 15) return message.reply("<:no:951013282607685632> **The Number must be between `0` and `15`**");
+                if(isNaN(number)) return message.reply("<:no_entry_sign:951013282607685632> **Not a valid Number**");
+                if(Number(number) < 0 || Number(number) > 15) return message.reply("<:no_entry_sign:951013282607685632> **The Number must be between `0` and `15`**");
                 
                 try {
                   client.settings.set(message.guild.id, Number(number), "antimention.mute_amount");

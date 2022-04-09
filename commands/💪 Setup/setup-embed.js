@@ -94,7 +94,7 @@ module.exports = {
                       newcolor = resolveColor(color);
                       if(!newcolor) throw { message: "Invalid Color Added, make sure to stick to the Example-Rules" };
                     }catch (e){
-                      return message.reply({embeds: [new MessageEmbed().setColor("RED").setTitle("<:no:951013282607685632> INVALID COLOR ADDED").setDescription(`\`\`\`${String(e.message ? e.message : e).substring(0, 2000)}\`\`\``)]})
+                      return message.reply({embeds: [new MessageEmbed().setColor("RED").setTitle("<:no_entry_sign:951013282607685632> INVALID COLOR ADDED").setDescription(`\`\`\`${String(e.message ? e.message : e).substring(0, 2000)}\`\`\``)]})
                     }
                     client.settings.set(message.guild.id, color ,"embed.color")
                     es = client.settings.get(message.guild.id, "embed")

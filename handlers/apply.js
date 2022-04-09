@@ -1,4 +1,3 @@
-//all reactions for the finished channel
 const moment = require('moment');
 const { dbEnsure } = require(`./functions`);
 const config = require(`../botconfig/config.json`)
@@ -31,21 +30,21 @@ module.exports = client => {
   const applySystemAmount = 100;
 
   //define the apply system variable
-  async function ApplySystem({ guild, channel, user, message, interaction, es, ls, preindex = true }) {
+  async function ApplySystem({ guild, channel, user, message, interaction, es, ls, preindex = false }) {
     let index = preindex ? preindex : false;
-    if(!index) {
+        if(!index) {
       let d = client.apply
       if(d.has(guild.id)) {
         let dData = d.get(guild.id);
         for(let i = 1; i<=applySystemAmount; i++) {
           let pre = `apply${i}`;
-          if(message.id === dData[`${pre}`][`message_id`] && channel.id === dData[`${pre}`][`channel_id`]) index = i;
+          if(dData[`${pre}`] && message.id === dData[`${pre}`][`message_id`] && channel.id === dData[`${pre}`][`channel_id`]) index = i;
         }
       }
     }
     if(!index) {
-      if(!interaction.replied) return interaction?.reply(`<:no:951013282607685632> Could not find the Database for your Application!`);
-      else return interaction?.editReply(`<:no:951013282607685632> Could not find the Database for your Application!`);
+      if(!interaction.replied) return interaction?.reply({ephemeral: true, content: `:x: Could not find the Database for your Application!`});
+      else return interaction?.editReply({ephemeral: true, content: `:x: Could not find the Database for your Application!`});
     }
     let applyname = `apply${index}`;
     let applytickets = `applytickets${index}`; 

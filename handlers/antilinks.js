@@ -322,7 +322,7 @@ module.exports = client => {
                                         ]
                                     }).catch(() => {});
                                 }).catch(() => {
-                                    return message.channel.send(`<:no:951013282607685632> **I could not timeout ${member.user.tag}**`).then(m => {
+                                    return message.channel.send(`<:no_entry_sign:951013282607685632> **I could not timeout ${member.user.tag}**`).then(m => {
                                         setTimeout(() => { m.delete().catch(() => {}) }, 5000);
                                     });
                                 });

@@ -43,7 +43,7 @@ module.exports = async (client, message) => {
     const [, matchedPrefix] = message.content.match(prefixRegex);
     //CHECK PERMISSIONS
     if(!message.guild.me.permissions.has(Discord.Permissions.FLAGS.USE_EXTERNAL_EMOJIS))
-      return message.reply(`<:no:951013282607685632> **I am missing the Permission to USE EXTERNAL EMOJIS**`).catch(()=>{})
+      return message.reply(`<:no_entry_sign:951013282607685632> **I am missing the Permission to USE EXTERNAL EMOJIS**`).catch(()=>{})
     if(!message.guild.me.permissions.has(Discord.Permissions.FLAGS.EMBED_LINKS))
       return message.reply(`:no_entry_sign: **I am missing the Permission to EMBED LINKS (Sending Embeds)**`).catch(()=>{})
     if(!message.guild.me.permissions.has(Discord.Permissions.FLAGS.ADD_REACTIONS))
@@ -249,7 +249,7 @@ module.exports = async (client, message) => {
                 if(!player.queue || !player.queue.current){
                   return message.reply({embeds : [new MessageEmbed()
                     .setColor(es.wrongcolor)
-                    .setTitle("<:no:951013282607685632> There is no current Queue / Song Playing!")
+                    .setTitle("<:no_entry_sign:951013282607685632> There is no current Queue / Song Playing!")
                   ]}).catch(()=>{})
                 }
               }
@@ -329,7 +329,7 @@ module.exports = async (client, message) => {
   console.log(e.stack ? String(e.stack).grey : String(e).grey)
   return message.reply({embeds: [new MessageEmbed()
     .setColor("RED")
-    .setTitle("<:no:951013282607685632> An error occurred")
+    .setTitle("<:no_entry_sign:951013282607685632> An error occurred")
     .setDescription(`\`\`\`${e.message ? e.message : String(e).grey.substring(0, 2000)}\`\`\``)]}).catch(()=>{})
 }
 }

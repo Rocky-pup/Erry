@@ -300,7 +300,7 @@ module.exports = {
           break;
           case 5: {
             let antisettings = client.settings.get(message.guild.id, "antilink.whitelistedlinks")
-            if(antisettings.length < 1) return message.reply("<:no:951013282607685632> There are no links whitelisted...")
+            if(antisettings.length < 1) return message.reply("<:no_entry_sign:951013282607685632> There are no links whitelisted...")
             tempmsg = await message.reply({embeds: [new Discord.MessageEmbed()
               .setTitle("Which Link do you want to disable again?\nSend the Link in the Chat")
               .setColor(es.color)
@@ -368,8 +368,8 @@ module.exports = {
               var message = collected.first();
               if (message.content) {
                 let number = message.content;
-                if(isNaN(number)) return message.reply("<:no:951013282607685632> **Not a valid Number**");
-                if(Number(number) < 0 || Number(number) > 15) return message.reply("<:no:951013282607685632> **The Number must be between `0` and `15`**");
+                if(isNaN(number)) return message.reply("<:no_entry_sign:951013282607685632> **Not a valid Number**");
+                if(Number(number) < 0 || Number(number) > 15) return message.reply("<:no_entry_sign:951013282607685632> **The Number must be between `0` and `15`**");
                 
                 try {
                   client.settings.set(message.guild.id, Number(number), "antilink.mute_amount");

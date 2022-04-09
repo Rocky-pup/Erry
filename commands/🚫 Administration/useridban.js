@@ -53,7 +53,7 @@ module.exports = {
         return message.reply({embeds: [new MessageEmbed()
           .setColor(es.wrongcolor)
           .setFooter(client.getFooter(es))
-          .setTitle("<:no:951013282607685632> Please add a USERID")
+          .setTitle("<:no_entry_sign:951013282607685632> Please add a USERID")
           .setDescription(`Usage: \`${prefix}useridban <ID> [REASON]\``)
         ]});
       let reason = args.slice(1).join(" ") || 'No reason given.'

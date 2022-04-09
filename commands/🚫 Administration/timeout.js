@@ -53,9 +53,9 @@ module.exports = {
           .setDescription(eval(client.la[ls]["cmds"]["administration"]["ban"]["variable5"]))
         ]}).catch(()=>{});
       if(!message.member || message.member.roles ||!message.member.roles.highest) await message.member.fetch().catch(() => {});
-      if(kickmember.communicationDisabledUntilTimestamp) return message.reply("<:no:951013282607685632> **This User is already timeouted!**");
+      if(kickmember.communicationDisabledUntilTimestamp) return message.reply("<:no_entry_sign:951013282607685632> **This User is already timeouted!**");
       let time = 0;
-      if(!args[1]) return message.reply(`<:no:951013282607685632> **No time added!**\nTry something like this:\n> \`${prefix}timeout ${kickmember.id} 1h+15min Stop spamming!\``)
+      if(!args[1]) return message.reply(`<:no_entry_sign:951013282607685632> **No time added!**\nTry something like this:\n> \`${prefix}timeout ${kickmember.id} 1h+15min Stop spamming!\``)
       let timeargs = [args[1]];
       if(timeargs[0].includes("+")) {
         timeargs = timeargs[0].split("+");
@@ -63,7 +63,7 @@ module.exports = {
       for(const a of timeargs.filter(Boolean)){
         time += ms(a)
       }
-      if(!time || isNaN(time)) return message.reply(`<:no:951013282607685632> **You added a invalid time!**\nTry something like this:\n> \`${prefix}timeout ${kickmember.id} 1h+15min Stop spamming!\``)
+      if(!time || isNaN(time)) return message.reply(`<:no_entry_sign:951013282607685632> **You added a invalid time!**\nTry something like this:\n> \`${prefix}timeout ${kickmember.id} 1h+15min Stop spamming!\``)
       
       let reason = args.slice(2).join(` `);
       if (!reason) {
@@ -84,7 +84,7 @@ module.exports = {
         return message.reply({embeds :[new MessageEmbed()
           .setColor(es.wrongcolor)
           .setFooter(client.getFooter(es))
-          .setTitle("<:no:951013282607685632> **I am not able to manage this User**")
+          .setTitle("<:no_entry_sign:951013282607685632> **I am not able to manage this User**")
         ]}).catch(()=>{});
       try{
         if(!kickmember.user.bot){

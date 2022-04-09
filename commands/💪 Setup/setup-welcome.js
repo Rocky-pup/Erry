@@ -620,7 +620,7 @@ module.exports = {
                               .setFooter(client.getFooter(es))
                             ]});  
                           } else {
-                            button?.reply("<:no:951013282607685632> **Only the Command Executor is allowed to react!**")
+                            button?.reply("<:no_entry_sign:951013282607685632> **Only the Command Executor is allowed to react!**")
                           }
                         })
                       } break;
@@ -1291,7 +1291,7 @@ module.exports = {
                               .setFooter(client.getFooter(es))
                             ]});
                           } else {
-                            button?.reply("<:no:951013282607685632> **Only the Command Executor is allowed to react!**")
+                            button?.reply("<:no_entry_sign:951013282607685632> **Only the Command Executor is allowed to react!**")
                           }
                         })
                       } break;

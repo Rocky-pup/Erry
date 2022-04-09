@@ -53,8 +53,8 @@ module.exports = async (client, message, args, type, slashCommand = false, extra
     ]}).catch((e)=>console.log(String(e).grey));
   }
   if(botchannel && channel.userLimit != 0 && channel.full){
-    if(slashCommand)  return slashCommand.reply({embeds: [new MessageEmbed().setTitle("<:no:951013282607685632> Your Voice Channel is full!").setColor(es.wrongcolor).setFooter(client.getFooter(es))]}).catch(()=>{});
-    return message.reply({embeds: [new MessageEmbed().setTitle("<:no:951013282607685632> Your Voice Channel is full!").setColor(es.wrongcolor).setFooter(client.getFooter(es))]}).catch(()=>{});
+    if(slashCommand)  return slashCommand.reply({embeds: [new MessageEmbed().setTitle("<:no_entry_sign:951013282607685632> Your Voice Channel is full!").setColor(es.wrongcolor).setFooter(client.getFooter(es))]}).catch(()=>{});
+    return message.reply({embeds: [new MessageEmbed().setTitle("<:no_entry_sign:951013282607685632> Your Voice Channel is full!").setColor(es.wrongcolor).setFooter(client.getFooter(es))]}).catch(()=>{});
   }
   if (method[0] === "song")
     require("./playermanagers/song")(client, message, args, type, slashCommand, extras); 

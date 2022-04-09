@@ -108,7 +108,7 @@ module.exports = {
         const collector = menumsg.createMessageComponentCollector({filter: (i) => i?.isSelectMenu() && i?.user && i?.message.author.id == client.user.id, time: 180e3, max: 1 });
         collector.on("collect", async b => {
           if(b?.user.id !== message.author.id)
-          return b?.reply({content: "<:no:951013282607685632> Only the one who typed the Command is allowed to select Things!", ephemeral: true});
+          return b?.reply({content: "<:no_entry_sign:951013282607685632> Only the one who typed the Command is allowed to select Things!", ephemeral: true});
        
           let enabled = 0, disabled = 0;
           for(const value of b?.values) {
@@ -121,7 +121,7 @@ module.exports = {
           b?.reply(`:white_check_mark: **\`Enabled ${enabled} Auto-Warn-Rules\` and \`Disabled ${disabled} Auto-Warn-Rules\` out of \`${b?.values.length} selected Auto-Warn-Rules\`**`)
         })
         collector.on('end', collected => {
-          menumsg.edit({content: "<:no:951013282607685632> Time ran out/Input finished! Cancelled", embeds: [
+          menumsg.edit({content: "<:no_entry_sign:951013282607685632> Time ran out/Input finished! Cancelled", embeds: [
             menumsg.embeds[0]
               .setDescription(`${getMenuOptions().map(option => `> ${option.emoji == "✅" ? "❌": "✅"} **${option.value}-Auto-Warn-Rules**: ${option.description.includes("disabled") ? `\`Now Disabled [❌]\`` : `\`Now Enabled [✅]\``}`).join("\n\n")}`)
           ], components: []}).catch((e)=>{})

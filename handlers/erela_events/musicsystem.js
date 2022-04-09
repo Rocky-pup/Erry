@@ -53,7 +53,7 @@ module.exports = client => {
     //if the member is not connected to a vc, return
     if (!member.voice.channel) return interaction.reply({
       ephemeral: true,
-      content: "<:no:951013282607685632> **Please Connect to a Voice Channel first!**"
+      content: "<:no_entry_sign:951013282607685632> **Please Connect to a Voice Channel first!**"
     })
     //now its time to start the music system
     if (!member.voice.channel)
@@ -69,13 +69,13 @@ module.exports = client => {
         content: `:no_entry_sign: **Please join __my__ Voice Channel first! <#${player.voiceChannel}>**`,
         ephemeral: true
       })
-    if (interaction.isButton()) {
-      if (!player || !player.queue || !player.queue.current) {
-        return interaction.reply({
-          content: ":no_entry_sign: Nothing Playing yet",
-          ephemeral: true
-        })
-      }
+    if (interaction.isButton()) { 
+          if (interaction?.customId != "Join" && interaction?.customId != "Leave" && (!player || !player.queue || !player.queue.current)) {
+            return interaction.reply({
+              content: ":no_entry_sign: Nothing Playing yet",
+              ephemeral: true
+            })
+          }
       //here i use my check_if_dj function to check if he is a dj if not then it returns true, and it shall stop!
       if (player && interaction.customId != `Lyrics` && check_if_dj(client, member, player.queue.current)) {
         return interaction.reply({
@@ -89,6 +89,53 @@ module.exports = client => {
         });
       }
       switch (interaction.customId) {
+        case "Join": {
+          //create the player
+          player = await client.manager.create({
+              guild: guild.id,
+              voiceChannel: member.voice.channel.id,
+              textChannel: channel.id,
+              selfDeafen: config.settings.selfDeaf,
+          });
+          await player.connect();
+          await player.stop();
+           interaction?.reply({embeds: [new MessageEmbed()
+              .setColor(es.color)
+              .setTitle(client.la[ls].cmds.music.join.title)
+              .setDescription(`Channel: <#${member.voice.channel.id}>`)]
+          });
+          //edit the message so that it's right!
+          var data = generateQueueEmbed(client, guild.id)
+          message.edit(data).catch((e) => {
+            //console.log(e.stack ? String(e.stack).grey : String(e).grey)
+          })
+      }
+      break;
+      case "Leave": {
+        //Stop the player
+        interaction?.reply({
+          embeds: [new MessageEmbed()
+          .setColor(ee.color)
+          .setTimestamp()
+          .setTitle(`:wave: **Left the Channel**`)
+          .setFooter(client.getFooter(`💢 Action by: ${member.user.tag}`, member.user.displayAvatarURL({dynamic: true})))]
+        }) 
+        if(player){
+            await player.destroy();
+            //edit the message so that it's right!
+            var data = generateQueueEmbed(client, guild.id, true)
+            message.edit(data).catch((e) => {
+              //console.log(e.stack ? String(e.stack).grey : String(e).grey)
+            })
+        } else {
+            //edit the message so that it's right!
+            var data = generateQueueEmbed(client, guild.id, true)
+            message.edit(data).catch((e) => {
+            //console.log(e.stack ? String(e.stack).grey : String(e).grey)
+            })
+        }
+    }
+    break;
         case "Skip": {
           //if ther is nothing more to skip then stop music and leave the Channel
           if (!player.queue || !player.queue.size || player.queue.size === 0) {
@@ -777,6 +824,9 @@ function generateQueueEmbed(client, guildId, leave) {
   var volumemax = new MessageButton().setStyle('PRIMARY').setCustomId('Volmax').setEmoji('🔉').setLabel(`Max Vol`).setDisabled();
   var volumemid = new MessageButton().setStyle('PRIMARY').setCustomId('Volmid').setEmoji('🔉').setLabel(`90 Vol`).setDisabled();
   var volumemin = new MessageButton().setStyle('PRIMARY').setCustomId('Volmin').setEmoji('🔉').setLabel(`Min Vol`).setDisabled();
+  var joinbutton = new MessageButton().setStyle('SUCCESS').setCustomId('Join').setEmoji(`👌`).setLabel(`Join`).setDisabled(false);
+  var leavebutton = new MessageButton().setStyle('DANGER').setCustomId('Leave').setEmoji(`👋`).setLabel(`Leave`).setDisabled();
+
   if (!leave && player && player.queue && player.queue.current) {
     skipbutton = skipbutton.setDisabled(false);
     shufflebutton = shufflebutton.setDisabled(false);
@@ -836,10 +886,22 @@ function generateQueueEmbed(client, guildId, leave) {
       queuebutton = queuebutton.setStyle('SECONDARY')
     }
   }
+  if(player){
+    joinbutton = joinbutton.setDisabled()
+    leavebutton = leavebutton.setDisabled(false);
+  }
+  if(leave){
+    joinbutton = joinbutton.setDisabled(false)
+    leavebutton = leavebutton.setDisabled(true);
+  }
   //now we add the components!
   var components = [
     new MessageActionRow().addComponents([
       musicmixMenu
+    ]),
+    new MessageActionRow().addComponents([
+      joinbutton,
+      leavebutton,
     ]),
     new MessageActionRow().addComponents([
       skipbutton,

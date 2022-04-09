@@ -1,10 +1,10 @@
 {
-    "token": "",
+    "token": "OTI0OTIyMjQ0NDM2NzUwNDA2.Yclm9w.MqpEQMn687uVZj28F9viALElfGM",
     "prefix": ".",
     "ownerIDS": [
         "913117505541775420"
     ],
-    "memer_api": "",
+    "memer_api": "UetuSPOZPry",
     "status": {
         "text": "{prefix}help || {songsplayed} песен сыграно",
         "text2": "Rocky || {songsplayed} songs played",
@@ -15,15 +15,40 @@
     "clientsettings": {
         "nodes": [
             {
-                "host": "lava.link",
-                "port": 80,
-                "password": "lvserver"
+                "host": "kerosine.darrennathanael.com",
+                "port": 2124,
+                "password": "SleepingOnTrains",
+                "secure": false
+            },
+            {
+                "host": "usa.lavalink.mitask.tech",
+                "port": 2333,
+                "password": "lvserver",
+                "secure": false
+            },
+            {
+                "host": "weez-node.cf",
+                "port": 2333,
+                "password": "FreeLava",
+                "secure": false
+            },           
+            {
+                "host": "lavalink.islantay.tk",
+                "port": 8880,
+                "password": "waifufufufu",
+                "secure": false
+            },
+            {
+                "host": "us1.lavalink.creavite.co",
+                "port": 20080,
+                "password": "auto.creavite.co",
+                "secure": false
             }
         ]
     },
     "spotify": {
-        "clientSecret": "",
-        "clientID": ""
+        "clientSecret": "3b12ea16c3a046bd9f6f81ef4c26fed4",
+        "clientID": "59cbf0f1902b4760b99945284bf2f61b"
     },
     "settings": {
         "leaveOnEmpty_Channel": {
@@ -31,7 +56,7 @@
             "time_delay": 30000
         },
         "LeaveOnEmpty_Queue": {
-            "enabled": false,
+            "enabled": true,
             "time_delay": 30000
         },
         "selfDeaf": true

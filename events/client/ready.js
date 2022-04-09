@@ -55,7 +55,7 @@ function change_status(client){
       .replace("{tag}", client.user.tag)
       .replace("{commands}", client.commands.size)
       .replace("{usedcommands}", nFormatter(Math.ceil(client.stats.get("global", "commands") * [...client.guilds.cache.values()].length / 10), 2))
-      .replace("{songsplayed}", Math.ceil(stats.songs * [...client.guilds.cache.values()].length / 10))
+      .replace("{songsplayed}", Math.ceil(stats.songs))
     , {type: config.status.type1, url: config.status.url});
   } else {
     client.user.setActivity(`${config.status.text2}`
@@ -68,7 +68,7 @@ function change_status(client){
     .replace("{tag}", client.user.tag)
     .replace("{commands}", client.commands.size)
     .replace("{usedcommands}", nFormatter(Math.ceil(client.stats.get("global", "commands") * [...client.guilds.cache.values()].length / 10), 2))
-    .replace("{songsplayed}", Math.ceil(stats.songs * [...client.guilds.cache.values()].length / 10))
+    .replace("{songsplayed}", Math.ceil(stats.songs))
     , {type: config.status.type2, url: config.status.url});
   }
   state = !state;

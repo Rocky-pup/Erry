@@ -40,8 +40,8 @@ module.exports = {
       }
       let member = message.guild.members.cache.get(user.id) || await message.guild.members.fetch(user.id).catch(() => {}) || false;
       
-      if(!member) return message.reply("<:no:951013282607685632> **This User is not a Member of this Guild!**")
-      if(!member.voice || !member.voice.channel) return message.reply("<:no:951013282607685632> **This User is not Connected to a Voicechannel!**")
+      if(!member) return message.reply("<:no_entry_sign:951013282607685632> **This User is not a Member of this Guild!**")
+      if(!member.voice || !member.voice.channel) return message.reply("<:no_entry_sign:951013282607685632> **This User is not Connected to a Voicechannel!**")
       
 
       const embed = new Discord.MessageEmbed()
