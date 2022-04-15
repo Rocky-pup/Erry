@@ -9,14 +9,17 @@ const { duration, handlemsg } = require(`${process.cwd()}/handlers/functions`);
 const { connected } = require("process");
 module.exports = {
     name: "botinfo",
+    aliases: ["info", "about", "stats"],
+    category: "🔰 Info",
     description: "Sends detailed info about the client",
-    run: async (client, interaction, cmduser, es, ls, prefix, player, message) => {
-    //things u can directly access in an interaction!
-    const { member, channelId, guildId, applicationId, commandName, deferred, replied, ephemeral, options, id, createdTimestamp } = interaction; 
-    const { guild } = member;    
+    usage: "botinfo",
+    type: "bot",
+    run: async (client, message, args, cmduser, text, prefix) => {
+    let es = client.settings.get(message.guild.id, "embed");let ls = client.settings.get(message.guild.id, "language")
+    
     try{
-      let tempmsg = await interaction?.reply({embeds: [new Discord.MessageEmbed().setColor(es.color)
-      .setAuthor(client.la[ls].cmds.info.botinfo.loading, "https://cdn.discordapp.com/emojis/756773010123522058.gif")], ephemeral: true})
+      let tempmsg = await message.reply({embeds: [new Discord.MessageEmbed().setColor(es.color)
+      .setAuthor(client.la[ls].cmds.info.botinfo.loading, "https://cdn.discordapp.com/emojis/756773010123522058.gif", "https://discord.gg/milrato")]})
       cpuStat.usagePercent(function (e, percent, seconds) {
           if (e) {
               return console.log(e.stack ? String(e.stack).grey : String(e).grey);
@@ -29,12 +32,6 @@ module.exports = {
         const totalGuilds = client.guilds.cache.size;
         const totalMembers = client.users.cache.size;
         countertest = 0;
-        let message = { //for the eval()
-          guild,
-          member,
-          author: member.user,
-          createdTimestamp
-        }
         const botinfo = new Discord.MessageEmbed()
             .setAuthor(client.user.tag + " Information", es.footericon && (es.footericon.includes("http://") || es.footericon.includes("https://")) ? es.footericon : client.user.displayAvatarURL(), `https://discord.com/api/oauth2/authorize?client_id=${client.user.id}&permissions=8&scope=bot%20applications.commands`) 
             .setDescription(eval(client.la[ls]["cmds"]["info"]["botinfo"]["variable1"]))
@@ -44,12 +41,17 @@ module.exports = {
             .addField(client.la[ls].cmds.info.botinfo.field3.title, handlemsg(client.la[ls].cmds.info.botinfo.field3.value, {cpu: percent.toFixed(2), ram: (process.memoryUsage().heapUsed/1024/1024).toFixed(2)}))
             .addField(client.la[ls].cmds.info.botinfo.field4.title, `\`\`\`yml\nName: Rocky\nID: [913117505541775420]\`\`\``, true)
             .addField(client.la[ls].cmds.info.botinfo.field5.title, handlemsg(client.la[ls].cmds.info.botinfo.field5.value, {invitelink: `https://discord.com/api/oauth2/authorize?client_id=${client.user.id}&permissions=8&scope=bot%20applications.commands`}))
-            .setFooter(client.getFooter(es.footertext+ ` ︲ You're on Cluster #${client.cluster.id} and Shard #${message.guild.shard.id}`, es.footericon));
-        interaction?.editReply({embeds: [botinfo], ephemeral: true});
+            .setFooter(client.getFooter(es));
+        tempmsg.edit({embeds: [botinfo]});
       });
     } catch (e) {
         console.log(String(e.stack).grey.bgRed)
+        return message.reply({embeds: [new MessageEmbed()
+          .setColor(es.wrongcolor)
+          .setFooter(client.getFooter(es))
+          .setTitle(client.la[ls].common.erroroccur)
+          .setDescription(eval(client.la[ls]["cmds"]["info"]["color"]["variable2"]))
+        ]});
     }
   },
 };
-

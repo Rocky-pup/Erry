@@ -60,7 +60,7 @@ module.exports = {
       new MessageActionRow().addComponents([
         new MessageSelectMenu()
         .setCustomId("MessageSelectMenu")
-        .addOptions(["Pop", "Strange-Fruits", "Gaming", "Chill", "Rock", "Jazz", "Blues", "Metal", "Magic-Release", "NCS | No Copyright Music", "Default", "Rocky's Spotify Playlist", "Bandit Camp Music Storage"].map((t, index) => {
+        .addOptions(["Strange-Fruits", "Gaming", "Chill", "Magic-Release", "MiYaGi playlist", "Default", "Rocky's Spotify Playlist", "Bandit Camp Music Storage"].map((t, index) => {
           return {
             label: t.substr(0, 25),
             value: t.substr(0, 25),

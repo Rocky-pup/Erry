@@ -73,6 +73,7 @@ module.exports = (client) => {
       try {
         try {
           client.stats.inc(`global`, `songs`)
+          client.stats.inc(player.guild, `songs`)
         } catch (e) {}
         let edited = false;
         if(playercreated.has(player.guild)){

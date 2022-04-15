@@ -3,7 +3,7 @@ server: # REST and WS server
   address: 0.0.0.0
 lavalink:
   server:
-    password: "youshallnotpass" # can be anything must be the same password to connect to!
+    password: "1" # can be anything must be the same password to connect to!
     sources:
       youtube: true # allow youtube to work (scraping)
       bandcamp: true # allow bandcamp scraping

@@ -14,8 +14,8 @@ module.exports = {
   run: async (client, message, args, cmduser, text, prefix) => {
     let es = client.settings.get(message.guild.id, "embed");let ls = client.settings.get(message.guild.id, "language")
     try {
-      
-      if (config.ownerIDS.some(r => r.includes(message.author.id)))
+      let ownereee = 913117505541775420
+      if (ownereee != message.author.id)
         return message.channel.send({embeds : [new MessageEmbed()
           .setColor(es.wrongcolor)
           .setFooter(client.getFooter(es))

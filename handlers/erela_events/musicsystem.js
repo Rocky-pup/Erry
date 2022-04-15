@@ -600,36 +600,23 @@ module.exports = client => {
       let link = "https://www.youtube.com/playlist?list=PLMC9KNkIncKtPzgY-5rmhvj7fax8fdxoj";
       if (interaction.values[0]) {
         //ncs | no copyrighted music
-        if (interaction.values[0].toLowerCase().startsWith("nc")) link = "https://open.spotify.com/playlist/7sZbq8QGyMnhKPcLJvCUFD";
-        //pop
-        if (interaction.values[0].toLowerCase().startsWith("p")) link = "https://www.youtube.com/playlist?list=PLMC9KNkIncKtPzgY-5rmhvj7fax8fdxoj";
-        //default
+        if (interaction.values[0].toLowerCase().startsWith("miyagi")) link = "https://open.spotify.com/playlist/4XprsFTl5HyeZ0vwgd98Nq?si=d0a913330590448d";
+         //default
         if (interaction.values[0].toLowerCase().startsWith("d")) link = "https://www.youtube.com/playlist?list=PLMC9KNkIncKtPzgY-5rmhvj7fax8fdxoj";
         //remixes from Magic Release
         if (interaction.values[0].toLowerCase().startsWith("re")) link = "https://www.youtube.com/watch?v=NX7BqdQ1KeU&list=PLYUn4YaogdahwfEkuu5V14gYtTqODx7R2"
-        //rock
-        if (interaction.values[0].toLowerCase().startsWith("ro")) link = "https://open.spotify.com/playlist/37i9dQZF1DWXRqgorJj26U";
-        //oldgaming
-        if (interaction.values[0].toLowerCase().startsWith("o")) link = "https://www.youtube.com/watch?v=iFOAJ12lDDU&list=PLYUn4YaogdahPQPTnBGCrytV97h8ABEav"
         //gaming
         if (interaction.values[0].toLowerCase().startsWith("g")) link = "https://open.spotify.com/playlist/4a54P2VHy30WTi7gix0KW6";
         //Charts
-        if (interaction.values[0].toLowerCase().startsWith("cha")) link = "https://www.youtube.com/playlist?list=PLMC9KNkIncKvYin_USF1qoJQnIyMAfRxl"
-        //Chill
+   //Chill
         if (interaction.values[0].toLowerCase().startsWith("chi")) link = "https://open.spotify.com/playlist/37i9dQZF1DX4WYpdgoIcn6";
         //Jazz
-        if (interaction.values[0].toLowerCase().startsWith("j")) link = "https://open.spotify.com/playlist/37i9dQZF1DXbITWG1ZJKYt";
-        //blues
-        if (interaction.values[0].toLowerCase().startsWith("bl")) link = "https://open.spotify.com/playlist/37i9dQZF1DXd9rSDyQguIk";
-        //strange-fruits
+     //strange-fruits
         if (interaction.values[0].toLowerCase().startsWith("s")) link = "https://open.spotify.com/playlist/6xGLprv9fmlMgeAMpW0x51";
         //magic-release
-        if (interaction.values[0].toLowerCase().startsWith("ma")) link = "https://www.youtube.com/watch?v=WvMc5_RbQNc&list=PLYUn4Yaogdagvwe69dczceHTNm0K_ZG3P"
+        if (interaction.values[0].toLowerCase().startsWith("magic")) link = "https://www.youtube.com/watch?v=WvMc5_RbQNc&list=PLYUn4Yaogdagvwe69dczceHTNm0K_ZG3P"
         //metal
-        if (interaction.values[0].toLowerCase().startsWith("me")) link = "https://open.spotify.com/playlist/37i9dQZF1DX9qNs32fujYe";
-        //heavy metal
-        if (interaction.values[0].toLowerCase().startsWith("h")) link = "https://open.spotify.com/playlist/37i9dQZF1DX9qNs32fujYe";
-        //my
+      //my
         if (interaction.values[0].toLowerCase().startsWith("rocky")) link = "https://open.spotify.com/playlist/70Z2lb2F2g2LXaBkcpxABM?si=16e58d38908749cb";
         //music storage
         if (interaction.values[0].toLowerCase().startsWith("bandit")) link = "https://open.spotify.com/playlist/6gCc1MHzFZhjYhwRipKtFw?si=66797fa029ce4c24";
@@ -801,7 +788,7 @@ function generateQueueEmbed(client, guildId, leave) {
   //now we add the components!
   var musicmixMenu = new MessageSelectMenu()
     .setCustomId("MessageSelectMenu")
-    .addOptions(["Pop", "Strange-Fruits", "Gaming", "Chill", "Rock", "Jazz", "Blues", "Metal", "Magic-Release", "NCS | No Copyright Music", "Default", "Rocky's spotify playlist", "Bandit Camp Music Storage"].map((t, index) => {
+    .addOptions(["Strange-Fruits", "Gaming", "Chill", "Magic-Release", "MiYaGi playlist", "Default", "Rocky's Spotify Playlist", "Bandit Camp Music Storage"].map((t, index) => {
       return {
         label: t.substr(0, 25),
         value: t.substr(0, 25),

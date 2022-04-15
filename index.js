@@ -31,6 +31,7 @@ const emojis = require("./botconfig/emojis.json")
 const config = require("./botconfig/config.json")
 const advertisement = require("./botconfig/advertisement.json")
 const { delay } = require("./handlers/functions")
+const { Manager } = require("discord-hybrid-sharding");
 
 
 /**********************************************************
@@ -40,7 +41,8 @@ const client = new Discord.Client({
   fetchAllMembers: false,
   restTimeOffset: 0,
   failIfNotExists: false,
-  shards: "auto",
+  shards: Cluster.data.SHARD_LIST,        //  A Array of Shard list, which will get spawned
+  shardCount: Cluster.data.TOTAL_SHARDS,
   allowedMentions: {
     parse: ["roles", "users"],
     repliedUser: false,

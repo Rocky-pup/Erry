@@ -146,7 +146,7 @@ function isValidURL(string) {
   return url;
 };
 function GetUser(message, arg){
-  var errormessage = ":no_entry_sign: I failed finding that User...";
+  var errormessage = "<:no:833101993668771842> I failed finding that User...";
   return new Promise(async (resolve, reject) => {
     var args = arg, client = message.client;
     if(!client || !message) return reject("CLIENT IS NOT DEFINED")
@@ -160,7 +160,6 @@ function GetUser(message, arg){
       return resolve(user);
     }
 
-    
     else if(!user && args[0]){
       let alluser = message.guild.members.cache.map(member=> String(member.user.tag).toLowerCase())
       user = alluser.find(user => user.startsWith(args.join(" ").toLowerCase()))
@@ -182,7 +181,7 @@ function GetUser(message, arg){
   })
 }
 function GetRole(message, arg){
-  var errormessage = ":no_entry_sign: I failed finding that Role...";
+  var errormessage = "<:no:833101993668771842> I failed finding that Role...";
   return new Promise(async (resolve, reject) => {
     var args = arg, client = message.client;
     if(!client || !message) return reject("CLIENT IS NOT DEFINED")
@@ -208,7 +207,7 @@ function GetRole(message, arg){
   })
 }
 function GetGlobalUser(message, arg){
-  var errormessage = ":no_entry_sign: I failed finding that User...";
+  var errormessage = "<:no:833101993668771842> I failed finding that User...";
   return new Promise(async (resolve, reject) => {
     var args = arg, client = message.client;
     if(!client || !message) return reject("CLIENT IS NOT DEFINED")
@@ -672,7 +671,7 @@ async function create_transcript_buffer(Messages, Channel, Guild){
                 subcontent += `<div class="content"><div class="markdown"><span class="preserve-whitespace">${markdowntohtml(String(msg.cleanContent ? msg.cleanContent : msg.content).replace(/\n/ig, "<br/>"))}</div></div>` 
               } 
               if (msg.embeds[0]){
-                subcontent += `<div class="embed"><div class="embed-color-pill" style="background-color: ${msg.embeds[0].color ? msg.embeds[0].color : "transparent"}"></div><div class="embed-content-container"><div class="embed-content"><div class="embed-text">` 
+                  subcontent += `<div class="embed"><div class=embed-color-pill style=background-color:"${msg.embeds[0].color ? msg.embeds[0].color : "transparent"}"></div><div class=embed-content-container><div class=embed-content><div class=embed-text>` 
                   
                   if(msg.embeds[0].author){
                     subcontent += `<div class="embed-ath">`;
@@ -1041,51 +1040,40 @@ function getRandomNum(min, max) {
   }
 }
 
-  /**
-   * 
-   * @param {*} total Number | Time in Milliseconds
-   * @param {*} current  Number | Time in Milliseconds | Current Music Position
-   * @param {*} size Number | Amount of Letters in the Bar (SIZE) Default is: 25
-   * @param {*} line EMOJI | the default line is: "▬"
-   * @param {*} slider EMOJI | the default slider is: "🔷"
-   * @returns STRING a BAR [▬▬▬▬▬🔷▬▬▬▬▬▬▬▬]
-   */
+function createBar(player) {
+  let { size, line, slider, leftindicator, rightindicator, style } = emoji.msg.progress_bar;
+  if(style == "simple") {
+    //player.queue.current.duration == 0 ? player.position : player.queue.current.duration, player.position, 25, "▬", "🔷")
+    if (!player.queue.current) return `**[${slider}${line.repeat(size - 1)}${rightindicator}**\n**00:00:00 / 00:00:00**`;
+    let current = player.queue.current.duration !== 0 ? player.position : player.queue.current.duration;
+    let total = player.queue.current.duration;
 
-   function createBar(player) {
-    let { size, line, slider, leftindicator, rightindicator, style } = emoji.msg.progress_bar;
-    if(style == "simple") {
-      //player.queue.current.duration == 0 ? player.position : player.queue.current.duration, player.position, 25, "▬", "🔷")
+    let bar = current > total ? [line.repeat(size / 2 * 2), (current / total) * 100] : [line.repeat(Math.round(size / 2 * (current / total))).replace(/.$/, slider) + line.repeat(size - Math.round(size * (current / total)) + 1), current / total];
+    return `**${leftindicator}${bar[0]}${rightindicator}**\n**${new Date(player.position).toISOString().substr(11, 8)+" / "+(player.queue.current.duration==0?" ◉ LIVE":new Date(player.queue.current.duration).toISOString().substr(11, 8))}**`;
+  } else {
+    try {
+      if (!player.queue.current) return `**${emoji.msg.progress_bar.empty_left}${emoji.msg.progress_bar.filledframe}${emoji.msg.progress_bar.emptyframe.repeat(size - 1)}${emoji.msg.progress_bar.empty_right}**\n**00:00:00 / 00:00:00**`;
+      let current = player.queue.current.duration !== 0 ? player.position : player.queue.current.duration;
+      let total = player.queue.current.duration;
+      size -= 10;
+      let rightside = size - Math.round(size * (current / total));
+      let leftside = Math.round(size * (current / total));
+      let bar;
+      if (leftside < 1) bar = String(emoji.msg.progress_bar.empty_left) + String(emoji.msg.progress_bar.emptyframe).repeat(rightside) + String(emoji.msg.progress_bar.empty_right);
+      else bar = String(emoji.msg.progress_bar.filled_left) + String(emoji.msg.progress_bar.filledframe).repeat(leftside) + String(emoji.msg.progress_bar.emptyframe).repeat(rightside) + String(size - rightside !== 1 ? emoji.msg.progress_bar.empty_right : emoji.msg.progress_bar.filled_right);
+      return `**${bar}**\n**${new Date(player.position).toISOString().substr(11, 8)+" / "+(player.queue.current.duration==0?" ◉ LIVE":new Date(player.queue.current.duration).toISOString().substr(11, 8))}**`;
+    } catch (e) {
+      //if problem, then redo with the new size
       if (!player.queue.current) return `**[${slider}${line.repeat(size - 1)}${rightindicator}**\n**00:00:00 / 00:00:00**`;
       let current = player.queue.current.duration !== 0 ? player.position : player.queue.current.duration;
       let total = player.queue.current.duration;
-  
+
       let bar = current > total ? [line.repeat(size / 2 * 2), (current / total) * 100] : [line.repeat(Math.round(size / 2 * (current / total))).replace(/.$/, slider) + line.repeat(size - Math.round(size * (current / total)) + 1), current / total];
       if (!String(bar).includes(slider)) return `**${leftindicator}${slider}${line.repeat(size - 1)}${rightindicator}**\n**00:00:00 / 00:00:00**`;
       return `**${leftindicator}${bar[0]}${rightindicator}**\n**${new Date(player.position).toISOString().substr(11, 8)+" / "+(player.queue.current.duration==0?" ◉ LIVE":new Date(player.queue.current.duration).toISOString().substr(11, 8))}**`;
-    } else {
-      try {
-        if (!player.queue.current) return `**${emoji.msg.progress_bar.empty_left}${emoji.msg.progress_bar.filledframe}${emoji.msg.progress_bar.emptyframe.repeat(size - 1)}${emoji.msg.progress_bar.empty_right}**\n**00:00:00 / 00:00:00**`;
-        let current = player.queue.current.duration !== 0 ? player.position : player.queue.current.duration;
-        let total = player.queue.current.duration;
-        size -= 10;
-        let rightside = size - Math.round(size * (current / total));
-        let leftside = Math.round(size * (current / total));
-        let bar;
-        if (leftside < 1) bar = String(emoji.msg.progress_bar.empty_left) + String(emoji.msg.progress_bar.emptyframe).repeat(rightside) + String(emoji.msg.progress_bar.empty_right);
-        else bar = String(emoji.msg.progress_bar.filled_left) + String(emoji.msg.progress_bar.filledframe).repeat(leftside) + String(emoji.msg.progress_bar.emptyframe).repeat(rightside) + String(size - rightside !== 1 ? emoji.msg.progress_bar.empty_right : emoji.msg.progress_bar.filled_right);
-        return `**${bar}**\n**${new Date(player.position).toISOString().substr(11, 8)+" / "+(player.queue.current.duration==0?" ◉ LIVE":new Date(player.queue.current.duration).toISOString().substr(11, 8))}**`;
-      } catch (e) {
-        //if problem, then redo with the new size
-        if (!player.queue.current) return `**[${slider}${line.repeat(size - 1)}${rightindicator}**\n**00:00:00 / 00:00:00**`;
-        let current = player.queue.current.duration !== 0 ? player.position : player.queue.current.duration;
-        let total = player.queue.current.duration;
-  
-        let bar = current > total ? [line.repeat(size / 2 * 2), (current / total) * 100] : [line.repeat(Math.round(size / 2 * (current / total))).replace(/.$/, slider) + line.repeat(size - Math.round(size * (current / total)) + 1), current / total];
-        if (!String(bar).includes(slider)) return `**${leftindicator}${slider}${line.repeat(size - 1)}${rightindicator}**\n**00:00:00 / 00:00:00**`;
-        return `**${leftindicator}${bar[0]}${rightindicator}**\n**${new Date(player.position).toISOString().substr(11, 8)+" / "+(player.queue.current.duration==0?" ◉ LIVE":new Date(player.queue.current.duration).toISOString().substr(11, 8))}**`;
-      }
     }
   }
+}
 
 function format(millis) {
   try {
@@ -1381,22 +1369,11 @@ function nFormatter(num, digits = 2) {
 }
 
 async function swap_pages(client, message, description, TITLE) {
-  dbEnsure(client.settings, message.guild.id, {
-    prefix: config.prefix,
-    embed: {
-      "color": ee.color,
-      "thumb": true,
-      "wrongcolor": ee.wrongcolor,
-      "footertext": client.guilds.cache.get(message.guild.id) ? client.guilds.cache.get(message.guild.id).name : ee.footertext,
-      "footericon": client.guilds.cache.get(message.guild.id) ? client.guilds.cache.get(message.guild.id).iconURL({
-        dynamic: true
-      }) : ee.footericon,
-    }
-  })
-  let es = client.settings.get(message.guild.id, "embed");
-  let prefix = client.settings.get(message.guild.id, "prefix");
+  const settings = client.settings.get(message.guild.id)
+  let es = settings.embed;
+  let prefix = settings.prefix
+  let ls = settings.language;
   let cmduser = message.author;
-
 
 
   let currentPage = 0;
@@ -1443,7 +1420,9 @@ async function swap_pages(client, message, description, TITLE) {
   let button_back = new MessageButton().setStyle('SUCCESS').setCustomId('1').setEmoji("833802907509719130").setLabel("Back")
   let button_home = new MessageButton().setStyle('DANGER').setCustomId('2').setEmoji("🏠").setLabel("Home")
   let button_forward = new MessageButton().setStyle('SUCCESS').setCustomId('3').setEmoji('832598861813776394').setLabel("Forward")
-  const allbuttons = [new MessageActionRow().addComponents([button_back, button_home, button_forward])]
+  let button_blank = new MessageButton().setStyle('SECONDARY').setCustomId('button_blank').setLabel("\u200b").setDisabled();
+  let button_stop = new MessageButton().setStyle('DANGER').setCustomId('stop').setEmoji("🛑").setLabel("Stop")
+  const allbuttons = [new MessageActionRow().addComponents([button_back, button_home, button_forward, button_blank, button_stop])]
   //Send message with buttons
   let swapmsg = await message.channel.send({   
       content: `***Click on the __Buttons__ to swap the Pages***`,
@@ -1455,42 +1434,56 @@ async function swap_pages(client, message, description, TITLE) {
   //array of all embeds, here simplified just 10 embeds with numbers 0 - 9
   collector.on('collect', async b => {
       if(b?.user.id !== message.author.id)
-        return b?.reply({content: `:no_entry_sign: **Only the one who typed ${prefix}help is allowed to react!**`, ephemeral: true})
+        return b?.reply({content: `<:no:833101993668771842> **Only the one who typed ${prefix}help is allowed to react!**`, ephemeral: true})
         //page forward
         if(b?.customId == "1") {
+          collector.resetTimer();
           //b?.reply("***Swapping a PAGE FORWARD***, *please wait 2 Seconds for the next Input*", true)
             if (currentPage !== 0) {
               currentPage -= 1
-              await swapmsg.edit({embeds: [embeds[currentPage]], components: allbuttons});
+              await swapmsg.edit({embeds: [embeds[currentPage]], components: getDisabledComponents[swapmsg.components]}).catch(() => {});
               await b?.deferUpdate();
             } else {
                 currentPage = embeds.length - 1
-                await swapmsg.edit({embeds: [embeds[currentPage]], components: allbuttons});
+                await swapmsg.edit({embeds: [embeds[currentPage]], components: getDisabledComponents[swapmsg.components]}).catch(() => {});
                 await b?.deferUpdate();
             }
         }
         //go home
         else if(b?.customId == "2"){
+          collector.resetTimer();
           //b?.reply("***Going Back home***, *please wait 2 Seconds for the next Input*", true)
             currentPage = 0;
-            await swapmsg.edit({embeds: [embeds[currentPage]], components: allbuttons});
+            await swapmsg.edit({embeds: [embeds[currentPage]], components: getDisabledComponents[swapmsg.components]}).catch(() => {});
             await b?.deferUpdate();
         } 
         //go forward
         else if(b?.customId == "3"){
+          collector.resetTimer();
           //b?.reply("***Swapping a PAGE BACK***, *please wait 2 Seconds for the next Input*", true)
             if (currentPage < embeds.length - 1) {
                 currentPage++;
-                await swapmsg.edit({embeds: [embeds[currentPage]], components: allbuttons});
+                await swapmsg.edit({embeds: [embeds[currentPage]], components: getDisabledComponents[swapmsg.components]}).catch(() => {});
                 await b?.deferUpdate();
             } else {
                 currentPage = 0
-                await swapmsg.edit({embeds: [embeds[currentPage]], components: allbuttons});
+                await swapmsg.edit({embeds: [embeds[currentPage]], components: getDisabledComponents[swapmsg.components]}).catch(() => {});
                 await b?.deferUpdate();
             }
         
-      }
+        } 
+        //go forward
+        else if(b?.customId == "stop"){
+            await swapmsg.edit({embeds: [embeds[currentPage]], components: getDisabledComponents(swapmsg.components)}).catch(() => {});
+            await b?.deferUpdate();
+            collector.stop("stopped");
+        }
   });
+  collector.on("end", (reason) => {
+    if(reason != "stopped"){
+      swapmsg.edit({embeds: [embeds[currentPage]], components: getDisabledComponents(swapmsg.components)}).catch(() => {});
+    }
+  })
 
 
 }
@@ -1501,7 +1494,9 @@ async function swap_pages2(client, message, embeds) {
   let button_back = new MessageButton().setStyle('SUCCESS').setCustomId('1').setEmoji("833802907509719130").setLabel("Back")
   let button_home = new MessageButton().setStyle('DANGER').setCustomId('2').setEmoji("🏠").setLabel("Home")
   let button_forward = new MessageButton().setStyle('SUCCESS').setCustomId('3').setEmoji('832598861813776394').setLabel("Forward")
-  const allbuttons = [new MessageActionRow().addComponents([button_back, button_home, button_forward])]
+  let button_blank = new MessageButton().setStyle('SECONDARY').setCustomId('button_blank').setLabel("\u200b").setDisabled();
+  let button_stop = new MessageButton().setStyle('DANGER').setCustomId('stop').setEmoji("🛑").setLabel("Stop")
+  const allbuttons = [new MessageActionRow().addComponents([button_back, button_home, button_forward, button_blank, button_stop])]
   let prefix = client.settings.get(message.guild.id, "prefix");
   //Send message with buttons
   let swapmsg = await message.channel.send({   
@@ -1514,43 +1509,64 @@ async function swap_pages2(client, message, embeds) {
   //array of all embeds, here simplified just 10 embeds with numbers 0 - 9
   collector.on('collect', async b => {
       if(b?.user.id !== message.author.id)
-        return b?.reply({content: `:no_entry_sign: **Only the one who typed ${prefix}help is allowed to react!**`, ephemeral: true})
+        return b?.reply({content: `<:no:833101993668771842> **Only the one who typed ${prefix}help is allowed to react!**`, ephemeral: true})
         //page forward
         if(b?.customId == "1") {
+          collector.resetTimer();
           //b?.reply("***Swapping a PAGE FORWARD***, *please wait 2 Seconds for the next Input*", true)
             if (currentPage !== 0) {
               currentPage -= 1
-              await swapmsg.edit({embeds: [embeds[currentPage]], components: allbuttons});
+              await swapmsg.edit({embeds: [embeds[currentPage]], components: getDisabledComponents[swapmsg.components]}).catch(() => {});
               await b?.deferUpdate();
             } else {
                 currentPage = embeds.length - 1
-                await swapmsg.edit({embeds: [embeds[currentPage]], components: allbuttons});
+                await swapmsg.edit({embeds: [embeds[currentPage]], components: getDisabledComponents[swapmsg.components]}).catch(() => {});
                 await b?.deferUpdate();
             }
         }
         //go home
         else if(b?.customId == "2"){
+          collector.resetTimer();
           //b?.reply("***Going Back home***, *please wait 2 Seconds for the next Input*", true)
             currentPage = 0;
-            await swapmsg.edit({embeds: [embeds[currentPage]], components: allbuttons});
+            await swapmsg.edit({embeds: [embeds[currentPage]], components: getDisabledComponents[swapmsg.components]}).catch(() => {});
             await b?.deferUpdate();
         } 
         //go forward
         else if(b?.customId == "3"){
+          collector.resetTimer();
           //b?.reply("***Swapping a PAGE BACK***, *please wait 2 Seconds for the next Input*", true)
             if (currentPage < embeds.length - 1) {
                 currentPage++;
-                await swapmsg.edit({embeds: [embeds[currentPage]], components: allbuttons});
+                await swapmsg.edit({embeds: [embeds[currentPage]], components: getDisabledComponents[swapmsg.components]}).catch(() => {});
                 await b?.deferUpdate();
             } else {
                 currentPage = 0
-                await swapmsg.edit({embeds: [embeds[currentPage]], components: allbuttons});
+                await swapmsg.edit({embeds: [embeds[currentPage]], components: getDisabledComponents[swapmsg.components]}).catch(() => {});
                 await b?.deferUpdate();
             }
         
-      }
+        } 
+        //go forward
+        else if(b?.customId == "stop"){
+            await swapmsg.edit({embeds: [embeds[currentPage]], components: getDisabledComponents(swapmsg.components)}).catch(() => {});
+            await b?.deferUpdate();
+            collector.stop("stopped");
+        }
   });
+  collector.on("end", (reason) => {
+    if(reason != "stopped"){
+      swapmsg.edit({embeds: [embeds[currentPage]], components: getDisabledComponents(swapmsg.components)}).catch(() => {});
+    }
+  })
 
+}
+function getDisabledComponents (MessageComponents) {
+  if(!MessageComponents) return []; // Returning so it doesn't crash
+  return MessageComponents.map(({components}) => {
+      return new MessageActionRow()
+          .addComponents(components.map(c => c.setDisabled(true)))
+  });
 }
 async function swap_pages2_interaction(client, interaction, embeds) {
   let currentPage = 0;
@@ -1559,7 +1575,9 @@ async function swap_pages2_interaction(client, interaction, embeds) {
   let button_back = new MessageButton().setStyle('SUCCESS').setCustomId('1').setEmoji("833802907509719130").setLabel("Back")
   let button_home = new MessageButton().setStyle('DANGER').setCustomId('2').setEmoji("🏠").setLabel("Home")
   let button_forward = new MessageButton().setStyle('SUCCESS').setCustomId('3').setEmoji('832598861813776394').setLabel("Forward")
-  const allbuttons = [new MessageActionRow().addComponents([button_back, button_home, button_forward])]
+  let button_blank = new MessageButton().setStyle('SECONDARY').setCustomId('button_blank').setLabel("\u200b").setDisabled();
+  let button_stop = new MessageButton().setStyle('DANGER').setCustomId('stop').setEmoji("🛑").setLabel("Stop")
+  const allbuttons = [new MessageActionRow().addComponents([button_back, button_home, button_forward, button_blank, button_stop])]
   let prefix = client.settings.get(interaction?.member.guild.id, "prefix");
   //Send message with buttons
   let swapmsg = await interaction?.reply({   
@@ -1573,42 +1591,56 @@ async function swap_pages2_interaction(client, interaction, embeds) {
   //array of all embeds, here simplified just 10 embeds with numbers 0 - 9
   collector.on('collect', async b => {
       if(b?.user.id !== cmduser.id)
-        return b?.reply({content: `:no_entry_sign: **Only the one who typed ${prefix}help is allowed to react!**`, ephemeral: true})
+        return b?.reply({content: `<:no:833101993668771842> **Only the one who typed ${prefix}help is allowed to react!**`, ephemeral: true})
         //page forward
         if(b?.customId == "1") {
+          collector.resetTimer();
           //b?.reply("***Swapping a PAGE FORWARD***, *please wait 2 Seconds for the next Input*", true)
             if (currentPage !== 0) {
               currentPage -= 1
-              await swapmsg.edit({ephemeral: true,embeds: [embeds[currentPage]], components: allbuttons});
+              await swapmsg.edit({embeds: [embeds[currentPage]], components: getDisabledComponents[swapmsg.components]}).catch(() => {});
               await b?.deferUpdate();
             } else {
                 currentPage = embeds.length - 1
-                await swapmsg.edit({ephemeral: true,embeds: [embeds[currentPage]], components: allbuttons});
+                await swapmsg.edit({embeds: [embeds[currentPage]], components: getDisabledComponents[swapmsg.components]}).catch(() => {});
                 await b?.deferUpdate();
             }
         }
         //go home
         else if(b?.customId == "2"){
+          collector.resetTimer();
           //b?.reply("***Going Back home***, *please wait 2 Seconds for the next Input*", true)
             currentPage = 0;
-            await swapmsg.edit({ephemeral: true,embeds: [embeds[currentPage]], components: allbuttons});
+            await swapmsg.edit({embeds: [embeds[currentPage]], components: getDisabledComponents[swapmsg.components]}).catch(() => {});
             await b?.deferUpdate();
         } 
         //go forward
         else if(b?.customId == "3"){
+          collector.resetTimer();
           //b?.reply("***Swapping a PAGE BACK***, *please wait 2 Seconds for the next Input*", true)
             if (currentPage < embeds.length - 1) {
                 currentPage++;
-                await swapmsg.edit({ephemeral: true,embeds: [embeds[currentPage]], components: allbuttons});
+                await swapmsg.edit({embeds: [embeds[currentPage]], components: getDisabledComponents[swapmsg.components]}).catch(() => {});
                 await b?.deferUpdate();
             } else {
                 currentPage = 0
-                await swapmsg.edit({ephemeral: true,embeds: [embeds[currentPage]], components: allbuttons});
+                await swapmsg.edit({embeds: [embeds[currentPage]], components: getDisabledComponents[swapmsg.components]}).catch(() => {});
                 await b?.deferUpdate();
             }
         
-      }
+        } 
+        //go forward
+        else if(b?.customId == "stop"){
+            await swapmsg.edit({embeds: [embeds[currentPage]], components: getDisabledComponents(swapmsg.components)}).catch(() => {});
+            await b?.deferUpdate();
+            collector.stop("stopped");
+        }
   });
+  collector.on("end", (reason) => {
+    if(reason != "stopped"){
+      swapmsg.edit({embeds: [embeds[currentPage]], components: getDisabledComponents(swapmsg.components)}).catch(() => {});
+    }
+  })
 
 }
 function databasing(client, guildid, userid) {
@@ -1865,7 +1897,7 @@ function databasing(client, guildid, userid) {
           }) : ee.footericon,
         },
         logger: {
-          "channel": "",
+          "channel": "no",
           "webhook_id": "",
           "webhook_token": ""
         },
@@ -1942,17 +1974,17 @@ function databasing(client, guildid, userid) {
       dbEnsure(client.jtcsettings, guildid, {
         prefix: ".",
         channel: "",
-        channelname: "{user}'s Room",
+        channelname: "{user}' Room",
         guild: guildid,
       });
       dbEnsure(client.jtcsettings2, guildid, {
         channel: "",
-        channelname: "{user}'s Channel",
+        channelname: "{user}' Channel",
         guild: guildid,
       });
       dbEnsure(client.jtcsettings3, guildid, {
         channel: "",
-        channelname: "{user}'s Lounge",
+        channelname: "{user}' Lounge",
         guild: guildid,
       });
     }

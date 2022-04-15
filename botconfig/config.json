@@ -4,11 +4,11 @@
     "ownerIDS": [
         "913117505541775420"
     ],
-    "memer_api": "",
+    "memer_api": "UetuSPOZPry",
     "status": {
-        "text": "{prefix}help || {songsplayed} песен сыграно",
-        "text2": "Rocky || {songsplayed} songs played",
-        "type1": "WATCHING",
+        "text": "by Rocky || {prefix}help",
+        "text2": "{usedcommands} cmds used || {songsplayed} songs played",
+        "type1": "PLAYING",
         "type2": "LISTENING",
         "url": "https://twitch.tv/rockygamespaw"
     },
@@ -17,7 +17,8 @@
             {
                 "host": "lava.link",
                 "port": 80,
-                "password": "lvserver"
+                "password": "1",
+                "secure": false
             }
         ]
     },
@@ -31,7 +32,7 @@
             "time_delay": 30000
         },
         "LeaveOnEmpty_Queue": {
-            "enabled": false,
+            "enabled": true,
             "time_delay": 30000
         },
         "selfDeaf": true

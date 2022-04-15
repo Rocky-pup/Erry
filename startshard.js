@@ -13,11 +13,11 @@ const manager = new Manager("./index.js", {
     mode: "process", // "process" or: "worker"
     respawn: true, 
     usev13: true,
-    /*keepAlive: {
-       interval: 2000,
+    keepAlive: {
+       interval: 20000,
        maxMissedHeartbeats: 5,
        maxClusterRestarts: 3,
-    }*/
+    }
 });
 manager.on("clusterCreate", cluster => {
     console.log(`[SHARDING-MANAGER]: `.magenta + `Launched Cluster #${cluster.id} | ${cluster.id+1}/${cluster.manager.totalClusters} [${cluster.manager.shardsPerClusters}/${cluster.manager.totalShards} Shards]`.green)

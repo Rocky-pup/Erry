@@ -75,7 +75,7 @@
                 },
                 "field5": {
                     "title": "<:arrow:950884679114952715> Important Links",
-                    "value": "**[Invite Link]({invitelink})**"
+                    "value": "**[Invite Link]({invitelink})・[Support Server](https://dsc.gg/banditcamp)**"
                 },
                 "variable1": "`\\`\\`\\`yml\\nName: ${client.user.tag} [${client.user.id}]\\nBot Latency: ${Math.round(Date.now() - message.createdTimestamp)}ms\\nApi Latency: ${Math.round(client.ws.ping)}ms\\nRuntime: ${duration(client.uptime).join(\"︲\")}\\`\\`\\``",
                 "variable2": "`\\`\\`\\` ${e.message ? e.message : e.stack ? String(e.stack).substr(0, 2000) : String(e).substr(0, 2000)}\\`\\`\\``"
@@ -590,9 +590,9 @@
             },
             "playmusicmix": {
                 "variable1": "`:notes: __**Other Options could be:**__`",
-                "variable2": "`>>> \\`\\`\\`blues, charts, chill, default, heavymetal, gaming, jazz, metal, magic-release, ncs, nocopyright, oldgaming, pop, remixes, rock, strange-fruits-gaming\\`\\`\\``",
+                "variable2": "`>>> \\`\\`\\`chill, default, gaming, magic-release, strange-fruits-gaming, rocky's spotify, MiYaGi, bandit camp music storage\\`\\`\\``",
                 "variablex_3": "`:muscle: **To play a different one type:**`",
-                "variable3": "`> \\`${prefix}playmusicmix <NAME>\\`\\n💡 **Example:**\\n> \\`${prefix}playmusicmix pop\\``",
+                "variable3": "`> \\`${prefix}playmusicmix <NAME>\\`\\n💡 **Example:**\\n> \\`${prefix}playmusicmix rocky's spotify\\``",
                 "variable4": "`\\`\\`\\`${e.message}\\`\\`\\``"
             },
             "playsc": {
