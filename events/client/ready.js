@@ -45,31 +45,41 @@ function change_status(client){
   let stats = client.stats.get("global");
   config = require(`${process.cwd()}/botconfig/config.json`)
   if(!state){
-    client.user.setActivity(`${config.status.text}`
-      .replace("{prefix}", config.prefix)
-      .replace("{guildcount}", nFormatter(client.guilds.cache.size, 2))
-      .replace("{membercount}", nFormatter(client.guilds.cache.reduce((a, b) => a + b?.memberCount, 0), 2))
-      .replace("{created}", moment(client.user.createdTimestamp).format("DD/MM/YYYY"))
-      .replace("{createdime}", moment(client.user.createdTimestamp).format("HH:mm:ss"))
-      .replace("{name}", client.user.username)
-      .replace("{tag}", client.user.tag)
-      .replace("{commands}", client.commands.size)
-      .replace("{usedcommands}", nFormatter(Math.ceil(client.stats.get("global", "commands") * [...client.guilds.cache.values()].length / 10), 2))
-      .replace("{songsplayed}", Math.ceil(stats.songs))
-    , {type: config.status.type1, url: config.status.url});
+    client.user.setPresence({
+      activities: [{
+      name: `${config.status.text}`
+        .replace("{prefix}", config.prefix)
+        .replace("{guildcount}", nFormatter(client.guilds.cache.size, 2))
+        .replace("{membercount}", nFormatter(client.guilds.cache.reduce((a, b) => a + b?.memberCount, 0), 2))
+        .replace("{created}", moment(client.user.createdTimestamp).format("DD/MM/YYYY"))
+        .replace("{createdime}", moment(client.user.createdTimestamp).format("HH:mm:ss"))
+        .replace("{name}", client.user.username)
+        .replace("{tag}", client.user.tag)
+        .replace("{commands}", client.commands.size)
+        .replace("{usedcommands}", Math.ceil(stats.commands))
+        .replace("{songsplayed}", Math.ceil(stats.songs)),
+        type: config.status.type1
+    }],
+    status: "idle"
+    })
   } else {
-    client.user.setActivity(`${config.status.text2}`
-    .replace("{prefix}", config.prefix)
-    .replace("{guildcount}", nFormatter(client.guilds.cache.size, 2))
-    .replace("{membercount}", nFormatter(client.guilds.cache.reduce((a, b) => a + b?.memberCount, 0), 2))
-    .replace("{created}", moment(client.user.createdTimestamp).format("DD/MM/YYYY"))
-    .replace("{createdime}", moment(client.user.createdTimestamp).format("HH:mm:ss"))
-    .replace("{name}", client.user.username)
-    .replace("{tag}", client.user.tag)
-    .replace("{commands}", client.commands.size)
-    .replace("{usedcommands}", Math.ceil(stats.commands))
-    .replace("{songsplayed}", Math.ceil(stats.songs))
-    , {type: config.status.type2, url: config.status.url});
+    client.user.setPresence({
+      activities: [{
+      name: `${config.status.text2}`
+        .replace("{prefix}", config.prefix)
+        .replace("{guildcount}", nFormatter(client.guilds.cache.size, 2))
+        .replace("{membercount}", nFormatter(client.guilds.cache.reduce((a, b) => a + b?.memberCount, 0), 2))
+        .replace("{created}", moment(client.user.createdTimestamp).format("DD/MM/YYYY"))
+        .replace("{createdime}", moment(client.user.createdTimestamp).format("HH:mm:ss"))
+        .replace("{name}", client.user.username)
+        .replace("{tag}", client.user.tag)
+        .replace("{commands}", client.commands.size)
+        .replace("{usedcommands}", Math.ceil(stats.commands))
+        .replace("{songsplayed}", Math.ceil(stats.songs)),
+        type: config.status.type2
+    }],
+    status: "idle"
+    })
   }
   state = !state;
   if(client.ad.enabled){

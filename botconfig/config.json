@@ -4,10 +4,10 @@
     "ownerIDS": [
         "913117505541775420"
     ],
-    "memer_api": "UetuSPOZPry",
+    "memer_api": "",
     "status": {
-        "text": "by Rocky || {prefix}help",
-        "text2": "{usedcommands} cmds used || {songsplayed} songs played",
+        "text": "by Rocky || {songsplayed} songs played",
+        "text2": "{prefix}help || {usedcommands} cmds used",
         "type1": "PLAYING",
         "type2": "LISTENING",
         "url": "https://twitch.tv/rockygamespaw"
@@ -16,8 +16,8 @@
         "nodes": [
             {
                 "host": "lava.link",
-                "port": 80,
-                "password": "1",
+                "port": 2333,
+                "password": "",
                 "secure": false
             }
         ]

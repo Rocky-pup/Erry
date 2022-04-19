@@ -1614,8 +1614,8 @@
                 "variable5": "\"<:no_entry_sign:951013282607685632> Cancelled the Setup!\"",
                 "variable6": "`${emoji.msg.ERROR} ERROR Writing the File`",
                 "variable7": "`\\`\\`\\` ${e.message ? e.message : e.stack ? String(e.stack).substr(0, 2000) : String(e).substr(0, 2000)}\\`\\`\\``",
-                "variable8": "`${emoji.msg.SUCCESS} The Bero-Host Advertisement System is now ${d2p(client.ad.enabled)}`",
-                "variable9": "`📑 Settings of the Bero-Host Advertisement System`",
+                "variable8": "`${emoji.msg.SUCCESS} The Advertisement System is now ${d2p(client.ad.enabled)}`",
+                "variable9": "`📑 Settings of the Advertisement System`",
                 "variable10": "`\\`\\`\\` ${e.message ? e.message : e.stack ? String(e.stack).substr(0, 2000) : String(e).substr(0, 2000)}\\`\\`\\``"
             },
             "setup-owner": {

@@ -22,7 +22,7 @@ module.exports = {
     if (config.ownerIDS.some(r => r.includes(message.author.id))){
       try {
         await message.reply("NOW RESTARTING!");
-        require("child_process").exec(`pm2 restart Erry`, (error, stdout, stderr) => {
+        require("child_process").exec(`pm2 restart Erry --update-env`, (error, stdout, stderr) => {
           if (error) {
             console.error(`exec error: ${error}`);
             message.reply({content : eval(client.la[ls]["cmds"]["owner"]["restartbot"]["variable4"])})

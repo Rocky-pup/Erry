@@ -21,7 +21,7 @@ module.exports = {
   cooldown: 5,
   usage: "setup-advertise  -->  Follow the Steps",
   type: "bot",
-  description: "Changes if the Advertisement of BERO-HOST.de Should be there or NOT",
+  description: "Changes if the Advertisement Should be there or NOT",
   run: async (client, message, args, cmduser, text, prefix) => {
     
     let es = client.settings.get(message.guild.id, "embed");let ls = client.settings.get(message.guild.id, "language")
