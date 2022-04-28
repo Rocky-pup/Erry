@@ -68,7 +68,7 @@
                 },
                 "field3": {
                     "title": "<:arrow:950884679114952715> System -- Stats",
-                    "value": "```yml\nOS: Linux | Debian\nCPU Usage: {cpu} %\nRAM Usage: {ram} MB```"
+                    "value": "```yml\nOS: Linux | Debian\nRAM Usage: {ram} MB```"
                 },
                 "field4": {
                     "title": "<:arrow:950884679114952715> Developer"
@@ -77,7 +77,7 @@
                     "title": "<:arrow:950884679114952715> Important Links",
                     "value": "**[Invite Link]({invitelink})・[Support Server](https://dsc.gg/banditcamp)**"
                 },
-                "variable1": "`\\`\\`\\`yml\\nName: ${client.user.tag} [${client.user.id}]\\nBot Latency: ${Math.round(Date.now() - message.createdTimestamp)}ms\\nApi Latency: ${Math.round(client.ws.ping)}ms\\nRuntime: ${duration(client.uptime).join(\"︲\")}\\`\\`\\``",
+                "variable1": "`\\`\\`\\`yml\\nName: ${client.user.tag} [${client.user.id}]\\nApi Latency: ${Math.round(client.ws.ping)}ms\\nRuntime: ${duration(client.uptime).join(\"︲\")}\\`\\`\\``",
                 "variable2": "`\\`\\`\\` ${e.message ? e.message : e.stack ? String(e.stack).substr(0, 2000) : String(e).substr(0, 2000)}\\`\\`\\``"
             },
             "color": {

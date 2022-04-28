@@ -203,7 +203,7 @@ module.exports = client => {
 
                     if (Number(countermap.get(message.author.id)) > mute_amount) {
                         let time = 10 * 60 * 1000; let mutetime = time;
-                        let reason = "Mentioning too Many People in a short period of time";
+                        let reason = "Mentioning too Many People";
                         
                         member.timeout(mutetime, reason).then(() => {   
                             message.channel.send({embeds: [new MessageEmbed()

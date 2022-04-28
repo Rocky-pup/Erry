@@ -310,7 +310,7 @@ module.exports = client => {
 
                             if (Number(countermap.get(message.author.id)) > mute_amount) {
                                 let time = 10 * 60 * 1000; let mutetime = time;
-                                let reason = "Sending too many Links in a Short Time";
+                                let reason = "Links";
                                 
                                 member.timeout(mutetime, reason).then(() => {
                                     message.channel.send({

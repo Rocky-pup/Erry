@@ -164,7 +164,7 @@ module.exports = {
           },
           {
             value: "Cancel",
-            description: `Cancel and stop the Ticket-Setup!`,
+            description: `Cancel and stop the JTC-Setup!`,
             emoji: "862306766338523166"
           }
         ]
@@ -228,7 +228,7 @@ module.exports = {
             message.guild.channels.create("Join to Create", {
               type: 'GUILD_VOICE',
               bitrate: maxbitrate,
-              userLimit: 4,
+              userLimit: 1,
               permissionOverwrites: [ //update the permissions
                 { //the role "EVERYONE" is just able to VIEW_CHANNEL and CONNECT
                   id: message.guild.id,

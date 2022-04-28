@@ -214,7 +214,7 @@ module.exports = {
                     var buffer = "";
                     for (var i = 0; i < objet.Parameters.length; i++) {
                       try {
-                        buffer += objet.Parameters[i].Emojimsg + "  **==**  <@&" + objet.Parameters[i].Role + ">\n";
+                        buffer += objet.Parameters[i].Emojimsg + "  ** will give you **  <@&" + objet.Parameters[i].Role + ">\n";
                       } catch (e) {
                         console.log(e.stack ? String(e.stack).grey : String(e).grey)
                       }

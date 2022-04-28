@@ -1008,7 +1008,7 @@ module.exports = function (client) {
                 }).then(async ()=>{    
                     const attachment2 = new Discord.MessageAttachment(canvas2.toBuffer(), "ranking-image.png");
                     tempmessage.delete().catch(() => {})
-                    message.channel.send({content:`Top 10 Leaderboard of **${message.guild.name}** Sorted after VOICE-POINTS\n> **Type:** \`leaderboard all\` to see all Ranks\n*Rank is counted for the \`${type.toUpperCase()}-RANK\`*\n> ${type != "voice" ? `To see the **Voice Leaderboard** type: \`voiceleaderbaord [all]\`` : `To see the **Text Leaderboard** type: \`leaderbaord [all]\``}`, files: [attachment, attachment2]}).catch(() => {});
+                    message.channel.send({content:`Top 10 Leaderboard of **${message.guild.name}** Sorted after VOICE-POINTS\n> **Type:** \`leaderboard all\` to see all Ranks\n*Rank is counted for the \`${type.toUpperCase()}-RANK\`*`, files: [attachment]}).catch(() => {});
                     message.channel.send({content:`Top 10 Leaderboard of **${message.guild.name}** Sorted after VOICE-TIME`, files: [attachment2]}).catch(() => {});
                 })
             })

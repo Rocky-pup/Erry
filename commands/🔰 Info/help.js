@@ -277,7 +277,7 @@ module.exports = {
 :video_game: Many **Minigames** and :joystick: **Fun** Commands (150+)
 :no_entry_sign: **Administration** and **Auto-Moderation** and way much more!`)
           .addField(":question: **__How do you use me?__**",
-            `>>> \`${prefix}setup\` and react with the Emoji for the right action,
+            `>>> \`${prefix}setup\` and choose categories for the right action,
 but you can also do \`${prefix}setup-SYSTEM\` e.g. \`${prefix}setup-welcome\``)
           .addField(":chart_with_upwards_trend: **__STATS:__**",
             `>>> :gear: **${client.commands.map(a => a).length} Commands**
