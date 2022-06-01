@@ -16,8 +16,8 @@ module.exports = {
     { "String": { name: "text", description: "What should I send? [ +n+ = Newline ]", required: true } }, //to use in the code: interacton.getString("title")
   ],
   run: async (client, interaction, cmduser, es, ls, prefix, player, message) => {
-
-    if (!client.settings.get(message.guild.id, "FUN")) {
+    let GuildSettings = client.settings.get(`${interaction.guild.id}`)
+    if (GuildSettings.FUN === false) {
       return interaction?.reply({
         embeds: [new MessageEmbed()
           .setColor(es.wrongcolor)
@@ -38,7 +38,7 @@ module.exports = {
         .setTitle(eval(client.la[ls]["cmds"]["fun"]["shit"]["variable2"]))
         .setDescription(eval(client.la[ls]["cmds"]["fun"]["shit"]["variable3"]))
       ]
-    }).catch(() => {})
+    }).catch(() => null)
 
     //get the memer image
     client.memer.shit(text).then(image => {
@@ -52,7 +52,7 @@ module.exports = {
           .setAuthor(`Meme for: ${message.author.tag}`, message.author.displayAvatarURL())
           .setImage("attachment://shit.png")
         ], files: [attachment], ephemeral: true
-      }).catch(() => {})
+      }).catch(() => null)
     })
 
   }

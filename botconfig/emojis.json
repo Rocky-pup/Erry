@@ -2,29 +2,18 @@
   "msg": {
     "COMMENT": "IF YOU DECIDE TO USE CUSTOM EMOJIS, USE THE NAME AND THE ID IN MSG, EXAMPLE: ⬜ --> <:progressbar_left_filled:818558865268408341>",
 
-    "ERROR" : "<:no_entry_sign:951013282607685632>",
+    "ERROR" : ":x:",
     "SUCCESS" : ":white_check_mark:",
 
-    "disabled" : "<:no_entry_sign:951013282607685632>",
+    "disabled" : ":x:",
     "enabled" : ":white_check_mark:",
 
     "progress_bar": {
-      "style": "complex",         "__comment__" : "styles: 'simple', 'comlex'",
-
       "leftindicator": "[",
       "rightindicator": "]",
 
-      "slider": "🔷",
-      "size": 25,
-      "line": "▬",
-
-                 "___comment___" : "those are for the complex style",
-      "empty_left": "<:left_empty:962778202449780757>",
-      "filled_left": "<:left_filled:962778353331478668>",
-      "empty_right": "<:right_empty:962778567685578892>", 
-      "filled_right": "<:right_filled:962778720756695050>", 
-      "emptyframe": "<:middle_empty:962778872154308648>",
-      "filledframe": "<:middle_filled:962779034654212237>"
+      "emptyframe": "⬜",
+      "filledframe": "🟧"
     },
 
     "playing": "🎶",
@@ -59,7 +48,8 @@
     "autoplay_mode": "♾",
     "shuffle": "🔀",
     "show_queue": "📑",
-    "show_current_track": "🩸"
+    "show_current_track": "🩸",
+    "arrow": "<:arrow:950884679114952715>"
   },
   "react": {
 

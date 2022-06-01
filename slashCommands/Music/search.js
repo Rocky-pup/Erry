@@ -23,9 +23,9 @@ const { handlemsg } = require(`${process.cwd()}/handlers/functions`);
 		{"String": { name: "what_song", description: "What Song/Playlist do you want to search? <LINK/SEARCH-QUERY>", required: true }}, 
 	],
   run: async (client, interaction, cmduser, es, ls, prefix, player, message) => {
-    
-    //let es = client.settings.get(message.guild.id, "embed");let ls = client.settings.get(message.guild.id, "language")
-    if (!client.settings.get(message.guild.id, "MUSIC")) {
+    let GuildSettings = client.settings.get(`${interaction.guild.id}`)
+    //
+    if(GuildSettings.MUSIC === false) {
       return message.reply({embeds :[new MessageEmbed()
         .setColor(es.wrongcolor)
         .setFooter(client.getFooter(es))

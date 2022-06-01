@@ -1,6 +1,4 @@
-const {
-  MessageEmbed
-} = require(`discord.js`);
+const {MessageEmbed} = require("discord.js");
 const config = require(`${process.cwd()}/botconfig/config.json`);
 const ee = require(`${process.cwd()}/botconfig/embed.json`);
 const emoji = require(`${process.cwd()}/botconfig/emojis.json`);
@@ -21,9 +19,10 @@ const { handlemsg } = require(`${process.cwd()}/handlers/functions`);
     {"Integer": { name: "volume", description: "To What % do you want to change the volume to?", required: true }}, 
   ],
   run: async (client, interaction, cmduser, es, ls, prefix, player, message) => {
-    
-    //let es = client.settings.get(message.guild.id, "embed");let ls = client.settings.get(message.guild.id, "language")
-    if (!client.settings.get(message.guild.id, "MUSIC")) {
+    let GuildSettings = client.settings.get(`${interaction.guild.id}`)
+    //
+
+    if(GuildSettings.MUSIC === false) {
       return interaction?.reply({ephemeral: true, embeds : [new MessageEmbed()
         .setColor(es.wrongcolor)
         .setFooter(client.getFooter(es))
@@ -35,14 +34,14 @@ const { handlemsg } = require(`${process.cwd()}/handlers/functions`);
       let args = [interaction?.options.getInteger("volume")]
       //if the Volume Number is out of Range return error msg
       if (Number(args[0]) <= 0 || Number(args[0]) > 150)
-        return interaction?.reply({embeds:  [new MessageEmbed()
+        return interaction?.reply({ephemeral: true, embeds:  [new MessageEmbed()
           .setColor(es.wrongcolor)
           .setTitle(eval(client.la[ls]["cmds"]["music"]["volume"]["variable1"]))
           .setDescription(eval(client.la[ls]["cmds"]["music"]["volume"]["variable2"]))
         ]});
       //if its not a Number return error msg
       if (isNaN(args[0]))
-        return interaction?.reply({embeds : [new MessageEmbed()
+        return interaction?.reply({ephemeral: true, embeds : [new MessageEmbed()
           .setColor(es.wrongcolor)
           .setTitle(eval(client.la[ls]["cmds"]["music"]["volume"]["variable3"]))
           .setDescription(eval(client.la[ls]["cmds"]["music"]["volume"]["variable4"]))
@@ -50,14 +49,14 @@ const { handlemsg } = require(`${process.cwd()}/handlers/functions`);
       //change the volume
       player.setVolume(Number(args[0]));
       //send success message
-      return interaction?.reply({embeds : [new MessageEmbed()
+      return interaction?.reply({ephemeral: true, embeds : [new MessageEmbed()
         .setTitle(eval(client.la[ls]["cmds"]["music"]["volume"]["variable5"]))
         .setDescription(eval(client.la[ls]["cmds"]["music"]["volume"]["variable6"]))
         .setColor(es.color)
       ]});
     } catch (e) {
       console.log(String(e.stack).dim.bgRed)
-      return interaction?.reply({embeds :[new MessageEmbed()
+      return interaction?.reply({ephemeral: true, embeds :[new MessageEmbed()
         .setColor(es.wrongcolor)
         .setTitle(client.la[ls].common.erroroccur)
         .setDescription(eval(client.la[ls]["cmds"]["music"]["volume"]["variable7"]))

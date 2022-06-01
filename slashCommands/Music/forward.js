@@ -22,9 +22,9 @@ const { handlemsg } = require(`${process.cwd()}/handlers/functions`);
     {"Integer": { name: "seconds", description: "How many Seconds do you want to forward?", required: true }}, 
   ],
   run: async (client, interaction, cmduser, es, ls, prefix, player, message) => {
-    
-    //let es = client.settings.get(message.guild.id, "embed");let ls = client.settings.get(message.guild.id, "language")
-    if (!client.settings.get(message.guild.id, "MUSIC")) {
+    let GuildSettings = client.settings.get(`${interaction.guild.id}`)
+    //
+    if(GuildSettings.MUSIC === false) {
       return interaction?.reply({ephemeral: true, embed : [new MessageEmbed()
         .setColor(es.wrongcolor)
         .setFooter(client.getFooter(es))
@@ -36,7 +36,7 @@ const { handlemsg } = require(`${process.cwd()}/handlers/functions`);
       let args = [interaction?.options.getInteger("seconds")]
       //if no args available, return error
       if (!args[0])
-        return interaction?.reply({embeds : [new MessageEmbed()
+        return interaction?.reply({ephemeral: true, embeds : [new MessageEmbed()
           .setColor(es.wrongcolor)
           .setTitle(handlemsg(client.la[ls].cmds.music.forward.allowed, {duration: player.queue.current.duration}))
         ]});
@@ -49,7 +49,7 @@ const { handlemsg } = require(`${process.cwd()}/handlers/functions`);
       //seek to the new Seek position
       player.seek(Number(seektime));
       //Send Success Message
-      return interaction?.reply({embeds : [new MessageEmbed()
+      return interaction?.reply({ephemeral: true, embeds : [new MessageEmbed()
         .setTitle(client.la[ls].cmds.music.forward.title)
         .setDescription(handlemsg(client.la[ls].cmds.music.forward.description, {amount: args[0], time: format(Number(player.position))}))
         .addField(client.la[ls].cmds.music.forward.field, createBar(player))

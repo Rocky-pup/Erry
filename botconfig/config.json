@@ -4,6 +4,8 @@
     "ownerIDS": [
         "913117505541775420"
     ],
+    "fnbr": "DISABLED",
+    "fortnitetracker": "",
     "memer_api": "",
     "status": {
         "text": "by Rocky || {songsplayed} songs played",
@@ -15,10 +17,9 @@
     "clientsettings": {
         "nodes": [
             {
-                "host": "lava.link",
+                "host": "localhost",
                 "port": 2333,
-                "password": "",
-                "secure": false
+                "password": "1"
             }
         ]
     },
@@ -36,5 +37,12 @@
             "time_delay": 30000
         },
         "selfDeaf": true
+    },
+    "lyricssettings": {
+        "lyrics_finder": false,
+        "ksoft_api": {
+            "use_this_instead": false,
+            "api_key": "DISABLED"
+        }
     }
 }

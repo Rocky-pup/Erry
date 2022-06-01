@@ -15,9 +15,9 @@ module.exports = {
     "previoussong": false
   },
   run: async (client, interaction, cmduser, es, ls, prefix, player, message) => {
-    
-    //let es = client.settings.get(message.guild.id, "embed");let ls = client.settings.get(message.guild.id, "language")
-    if (!client.settings.get(message.guild.id, "MUSIC")) {
+    let GuildSettings = client.settings.get(`${interaction.guild.id}`)
+    //
+    if(GuildSettings.MUSIC === false) {
       return interaction?.reply({ephemeral: true, embed : [new MessageEmbed()
         .setColor(es.wrongcolor)
         .setFooter(client.getFooter(es))
@@ -29,7 +29,7 @@ module.exports = {
       //seek to 0
       player.seek(0);
       //send informational message
-      interaction?.reply({embeds: [new MessageEmbed()
+      interaction?.reply({ephemeral: true, embeds: [new MessageEmbed()
         .setColor(es.color)
         .setTitle(`🔃 Replaying the Track!`)
       ]})

@@ -16,6 +16,7 @@ module.exports = {
 		//{"StringChoices": { name: "what_ping", description: "What Ping do you want to get?", required: true, choices: [["Bot", "botping"], ["Discord Api", "api"]] }}, //here the second array input MUST BE A STRING // TO USE IN THE CODE: interacton.getString("what_ping")
   ],
   run: async (client, interaction, cmduser, es, ls, prefix, player, message) => {
+    let GuildSettings = client.settings.get(`${interaction.guild.id}`)
     //things u can directly access in an interaction!
 		let { member, channelId, guildId, applicationId, commandName, deferred, replied, ephemeral, options, id, createdTimestamp } = interaction; 
     let { guild } = member;
@@ -39,11 +40,11 @@ module.exports = {
         })
       }
       let embed = new MessageEmbed()
-      .setAuthor(handlemsg(client.la[ls].cmds.info.avatar.author, {
+      .setAuthor(client.getAuthor(handlemsg(client.la[ls].cmds.info.avatar.author, {
         usertag: user.tag
       }), user.displayAvatarURL({
         dynamic: true
-      }))
+      }), "https://dsc.gg/banditcamp"))
       .setColor(es.color).setThumbnail(es.thumb ? es.footericon && (es.footericon.includes("http://") || es.footericon.includes("https://")) ? es.footericon : client.user.displayAvatarURL() : null)
       .addField("<:arrow:950884679114952715> PNG", `[\`LINK\`](${user.displayAvatarURL({format: "png"})})`, true)
       .addField("<:arrow:950884679114952715> JPEG", `[\`LINK\`](${user.displayAvatarURL({format: "jpg"})})`, true)
@@ -58,7 +59,9 @@ module.exports = {
       }))
       if(customavatar)
         embed.setDescription(`**This User has a Custom Avatar too!**\n\n> [**\`Click here to get the LINK of it\`**](${customavatar})\n\n> **There is also:** \`${prefix}customavatar [@User]\``)
-      //message.reply({ embeds: [embed] });
+        interaction?.reply({ephemeral: true,
+        embeds: [embed]
+      });
       
       interaction?.reply({ephemeral: true, embeds: [embed]});
     } catch (e) {

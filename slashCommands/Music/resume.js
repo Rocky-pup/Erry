@@ -22,10 +22,10 @@ const { handlemsg } = require(`${process.cwd()}/handlers/functions`);
     "previoussong": false
   },
   run: async (client, interaction, cmduser, es, ls, prefix, player, message) => {
-    
-    //let es = client.settings.get(message.guild.id, "embed");let ls = client.settings.get(message.guild.id, "language")
-    if (!client.settings.get(message.guild.id, "MUSIC")) {
-      return interaction?.reply({embeds :[new MessageEmbed()
+    let GuildSettings = client.settings.get(`${interaction.guild.id}`)
+    //
+    if(GuildSettings.MUSIC === false) {
+      return interaction?.reply({ephemeral: true, embeds :[new MessageEmbed()
         .setColor(es.wrongcolor)
         .setFooter(client.getFooter(es))
         .setTitle(client.la[ls].common.disabled.title)
@@ -43,7 +43,7 @@ const { handlemsg } = require(`${process.cwd()}/handlers/functions`);
       //pause the player
       player.pause(false);
       //send success message
-      interaction?.reply({embeds: [new MessageEmbed()
+      interaction?.reply({ephemeral: true, embeds: [new MessageEmbed()
         .setColor(es.color)
         .setTitle(`${emoji?.msg.resume} Resumed the Track!`)
       ]})

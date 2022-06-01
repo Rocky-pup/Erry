@@ -13,6 +13,7 @@ module.exports = {
   name: "commandcount",
   description: "Shows the Amount of Commands I have!",
   run: async (client, interaction, cmduser, es, ls, prefix, player, message) => {
+let GuildSettings = client.settings.get(`${interaction.guild.id}`)
     //things u can directly access in an interaction!
 		const { member, channelId, guildId, applicationId, commandName, deferred, replied, ephemeral, options, id, createdTimestamp } = interaction; 
     const { guild } = member;
@@ -22,7 +23,7 @@ module.exports = {
       await interaction?.reply({embeds: [new MessageEmbed()
         .setColor(es.color)
         .setFooter(client.getFooter("It could take up to 30 Seconds ...", client.user.displayAvatarURL()))
-        .setAuthor(client.getAuthor(handlemsg(client.la[ls].cmds.info.commandcount.tempmsg), "https://cdn.discordapp.com/emojis/756773010123522058.gif"))
+        .setAuthor(client.getAuthor(handlemsg(client.la[ls].cmds.info.commandcount.tempmsg), "https://cdn.discordapp.com/emojis/756773010123522058.gif", "https://dsc.gg/banditcamp"))
       ], ephemeral: true})
       let lines = 0
       let letters = 0
@@ -42,7 +43,7 @@ module.exports = {
         });
         return results;
       }
-      for(const source of walk(process.cwd())){
+      for await (const source of walk(process.cwd())){
         try{
           let data = fs.readFileSync(source, 'utf8')
           letters += data.length;

@@ -19,9 +19,10 @@ const { handlemsg } = require(`${process.cwd()}/handlers/functions`);
     "previoussong": false
   },
   run: async (client, interaction, cmduser, es, ls, prefix, player, message) => {
-    
-    //let es = client.settings.get(message.guild.id, "embed");let ls = client.settings.get(message.guild.id, "language")
-    if (!client.settings.get(message.guild.id, "MUSIC")) {
+    let GuildSettings = client.settings.get(`${interaction.guild.id}`)
+    //
+
+    if(GuildSettings.MUSIC === false) {
       return interaction?.reply({ephemeral: true, embed : [new MessageEmbed()
         .setColor(es.wrongcolor)
         .setFooter(client.getFooter(es))
@@ -32,7 +33,7 @@ const { handlemsg } = require(`${process.cwd()}/handlers/functions`);
     try {
       //if the player is paused return error
       if (!player.playing)
-        return interaction?.reply({embeds:  [new MessageEmbed()
+        return interaction?.reply({ephemeral: true, embeds:  [new MessageEmbed()
           .setColor(es.wrongcolor)
           .setTitle(eval(client.la[ls]["cmds"]["music"]["pause"]["variable1"]))
           .setDescription(eval(client.la[ls]["cmds"]["music"]["pause"]["variable2"]))
@@ -40,7 +41,7 @@ const { handlemsg } = require(`${process.cwd()}/handlers/functions`);
       //pause the player
       player.pause(true);
       //return success message
-      interaction?.reply({embeds: [new MessageEmbed()
+      interaction?.reply({ephemeral: true, embeds: [new MessageEmbed()
         .setColor(es.color)
         .setTitle(`${emoji?.msg.pause} Paused the Track!`)
       ]})

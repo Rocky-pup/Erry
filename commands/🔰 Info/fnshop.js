@@ -3,14 +3,14 @@ const Canvas = require("discord-canvas");
 const {
   MessageEmbed
 } = require("discord.js");
-const config = require(`${process.cwd()}/botconfig/config.json`);
-var ee = require(`${process.cwd()}/botconfig/embed.json`);
-const emoji = require(`${process.cwd()}/botconfig/emojis.json`);
+const config = require(`../../botconfig/config.json`);
+var ee = require(`../../botconfig/embed.json`);
+const emoji = require(`../../botconfig/emojis.json`);
 const {
   GetUser,
   GetGlobalUser,
   handlemsg
-} = require(`${process.cwd()}/handlers/functions`)
+} = require(`../../handlers/functions`)
 module.exports = {
   name: "fnshop",
   aliases: ["fortniteshop", "fshop"],
@@ -18,17 +18,15 @@ module.exports = {
   description: "Shows the current Fortnite Shop",
   usage: "fnshop",
   type: "games",
-  run: async (client, message, args, cmduser, text, prefix) => {
+  run: async (client, message, args, cmduser, text, prefix, player, es, ls, GuildSettings) => {
     
-    let es = client.settings.get(message.guild.id, "embed");let ls = client.settings.get(message.guild.id, "language")
+    
     try {
       let themsg = await message.reply("<a:Loading:950883677255118898> Getting the Shop-Data")
       const shop = new Canvas.FortniteShop();
-      const image = await shop.setToken("a6f38e28-5a9b-428d-bb5f-9bcd3842bc25").setBackground("#23272A").toAttachment();
+      const image = await shop.setToken(process.env.fnbr || config.fnbr).setBackground("#23272A").toAttachment();
       let attachment = new Discord.MessageAttachment(image, "FortniteShop.png");
-      themsg.edit({content: "Todays Fortnite Shop:", files: [attachment]}).catch(()=>{
-
-      })
+      themsg.edit({content: "Todays Fortnite Shop:", files: [attachment]}).catch(() => null)
     } catch (e) {
       console.log(String(e.stack).grey.bgRed)
       return message.reply({embeds: [new MessageEmbed()

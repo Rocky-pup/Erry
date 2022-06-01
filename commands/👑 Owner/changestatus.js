@@ -6,15 +6,15 @@ var {
   MessageSelectMenu,
 } = require(`discord.js`);
 var Discord = require(`discord.js`);
-var config = require(`${process.cwd()}/botconfig/config.json`);
-var ee = require(`${process.cwd()}/botconfig/embed.json`);
-var emoji = require(`${process.cwd()}/botconfig/emojis.json`);
+var config = require(`../../botconfig/config.json`);
+var ee = require(`../../botconfig/embed.json`);
+var emoji = require(`../../botconfig/emojis.json`);
 const fs = require('fs');
 var {
-  databasing,
+  dbEnsure,
   isValidURL,
   nFormatter
-} = require(`${process.cwd()}/handlers/functions`);
+} = require(`../../handlers/functions`);
 const moment = require("moment")
 module.exports = {
   name: "changestatus",
@@ -24,10 +24,10 @@ module.exports = {
   cooldown: 5,
   usage: "changestatus  -->  Follow the Steps",
   description: "Changes the Status of the BOT",
-  run: async (client, message, args, cmduser, text, prefix) => {
+  run: async (client, message, args, cmduser, text, prefix, player, es, ls, GuildSettings) => {
     
-    let es = client.settings.get(message.guild.id, "embed");let ls = client.settings.get(message.guild.id, "language")
-    if (!config.ownerIDS.some(r => r.includes(message.author.id)))
+    
+    if (!config.ownerIDS.some(r => r.includes(message.author?.id)))
       return message.channel.send({embeds: [new MessageEmbed()
         .setColor(es.wrongcolor).setFooter(client.getFooter(es))
         .setTitle(eval(client.la[ls]["cmds"]["owner"]["changestatus"]["variable1"]))
@@ -88,24 +88,24 @@ module.exports = {
         //define the embed
         let MenuEmbed = new MessageEmbed()
           .setColor(es.color)
-          .setAuthor('Change Status', 'https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/au-kddi/190/purple-heart_1f49c.png')
+          .setAuthor('Change Status', 'https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/au-kddi/190/purple-heart_1f49c.png', 'https://dsc.gg/banditcamp')
           .setDescription(eval(client.la[ls]["cmds"]["setup"]["setup-ticket"]["variable2"]))
         //send the menu msg
         let menumsg = await message.reply({embeds: [MenuEmbed], components: [new MessageActionRow().addComponents(Selection)]})
         //Create the collector
         const collector = menumsg.createMessageComponentCollector({ 
-          filter: i => i?.isSelectMenu() && i?.message.author.id == client.user.id && i?.user,
+          filter: i => i?.isSelectMenu() && i?.message.author?.id == client.user.id && i?.user,
           time: 90000
         })
         //Menu Collections
-        collector.on('collect', menu => {
+        collector.on('collect', async menu => {
           if (menu?.user.id === cmduser.id) {
             collector.stop();
             if(menu?.values[0] == "Cancel") return menu?.reply(eval(client.la[ls]["cmds"]["setup"]["setup-ticket"]["variable3"]))
             menu?.deferUpdate();
             handle_the_picks(menu?.values[0])
           }
-          else menu?.reply({content: `:no_entry_sign: You are not allowed to do that! Only: <@${cmduser.id}>`, ephemeral: true});
+          else menu?.reply({content: `:x: You are not allowed to do that! Only: <@${cmduser.id}>`, ephemeral: true});
         });
         //Once the Collections ended edit the menu message
         collector.on('end', collected => {
@@ -120,7 +120,7 @@ module.exports = {
               var tempmsg = await message.reply({embeds: [new MessageEmbed()
                 .setTitle(eval(client.la[ls]["cmds"]["owner"]["changestatus"]["variable7"]))
                 .setColor(es.color)
-                .setDescription(`Example: \`${prefix}help | ${client.user.username.split(" ")[0]} | by: Rocky\`
+                .setDescription(`Example: \`${prefix}help\`
       
               *Enter the text now!*`).setFooter(client.getFooter(es))
               .addField("KEYWORDS which get replaced:", `\`{guildcount}\` .. Shows all guilds
@@ -177,7 +177,7 @@ module.exports = {
                     ]})
                   });
                 }).catch(e => {
-                  console.log(e)
+                  console.error(e)
                   return message.reply({embeds: [new MessageEmbed()
                     .setTitle(eval(client.la[ls]["cmds"]["owner"]["changestatus"]["variable11"]))
                     .setColor(es.wrongcolor)
@@ -192,7 +192,7 @@ module.exports = {
               var tempmsg = await message.reply({embeds: [new MessageEmbed()
                 .setTitle(eval(client.la[ls]["cmds"]["owner"]["changestatus"]["variable7"]))
                 .setColor(es.color)
-                .setDescription(`Example: \`${prefix}help | ${client.user.username.split(" ")[0]} | by: Rocky\`
+                .setDescription(`Example: \`${prefix}help\`
       
               *Enter the text now!*`).setFooter(client.getFooter(es))
               .addField("KEYWORDS which get replaced:", `\`{guildcount}\` .. Shows all guilds
@@ -249,7 +249,7 @@ module.exports = {
                     ]})
                   });
                 }).catch(e => {
-                  console.log(e)
+                  console.error(e)
                   return message.reply({embeds: [new MessageEmbed()
                     .setTitle(eval(client.la[ls]["cmds"]["owner"]["changestatus"]["variable11"]))
                     .setColor(es.wrongcolor)
@@ -310,17 +310,17 @@ module.exports = {
                   //define the embed
                   let MenuEmbed = new MessageEmbed()
                     .setColor(es.color)
-                    .setAuthor('Change Status', 'https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/au-kddi/190/purple-heart_1f49c.png')
+                    .setAuthor('Change Status', 'https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/au-kddi/190/purple-heart_1f49c.png', 'https://dsc.gg/banditcamp')
                     .setDescription(eval(client.la[ls]["cmds"]["setup"]["setup-ticket"]["variable2"]))
                   //send the menu msg
                   let menumsg = await message.reply({embeds: [MenuEmbed], components: [new MessageActionRow().addComponents(Selection)]})
                   //Create the collector
                   const collector = menumsg.createMessageComponentCollector({ 
-                    filter: i => i?.isSelectMenu() && i?.message.author.id == client.user.id && i?.user,
+                    filter: i => i?.isSelectMenu() && i?.message.author?.id == client.user.id && i?.user,
                     time: 90000
                   })
                   //Menu Collections
-                  collector.on('collect', menu => {
+                  collector.on('collect', async menu => {
                     if (menu?.user.id === cmduser.id) {
                       collector.stop();
                       if(menu?.values[0] == "Cancel") return menu?.reply(eval(client.la[ls]["cmds"]["setup"]["setup-ticket"]["variable3"]))
@@ -349,7 +349,7 @@ module.exports = {
                         ]})
                       });
                     }
-                    else menu?.reply({content: `:no_entry_sign: You are not allowed to do that! Only: <@${cmduser.id}>`, ephemeral: true});
+                    else menu?.reply({content: `:x: You are not allowed to do that! Only: <@${cmduser.id}>`, ephemeral: true});
                   });
                   //Once the Collections ended edit the menu message
                   collector.on('end', collected => {
@@ -409,7 +409,7 @@ module.exports = {
                   ]})
                 });
               }).catch(e => {
-                console.log(e)
+                console.error(e)
                 return message.reply({embeds: [new MessageEmbed()
                   .setTitle(eval(client.la[ls]["cmds"]["owner"]["changestatus"]["variable28"]))
                   .setColor(es.wrongcolor)
@@ -464,17 +464,17 @@ module.exports = {
                   //define the embed
                   let MenuEmbed = new MessageEmbed()
                     .setColor(es.color)
-                    .setAuthor('Change Status', 'https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/au-kddi/190/purple-heart_1f49c.png')
+                    .setAuthor('Change Status', 'https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/au-kddi/190/purple-heart_1f49c.png', 'https://dsc.gg/banditcamp')
                     .setDescription(eval(client.la[ls]["cmds"]["setup"]["setup-ticket"]["variable2"]))
                   //send the menu msg
                   let menumsg = await message.reply({embeds: [MenuEmbed], components: [new MessageActionRow().addComponents(Selection)]})
                   //Create the collector
                   const collector = menumsg.createMessageComponentCollector({ 
-                    filter: i => i?.isSelectMenu() && i?.message.author.id == client.user.id && i?.user,
+                    filter: i => i?.isSelectMenu() && i?.message.author?.id == client.user.id && i?.user,
                     time: 90000
                   })
                   //Menu Collections
-                  collector.on('collect', menu => {
+                  collector.on('collect', async menu => {
                     if (menu?.user.id === cmduser.id) {
                       collector.stop();
                       if(menu?.values[0] == "Cancel") return menu?.reply(eval(client.la[ls]["cmds"]["setup"]["setup-ticket"]["variable3"]))
@@ -487,7 +487,7 @@ module.exports = {
                         .setTitle(eval(client.la[ls]["cmds"]["owner"]["changestatus"]["variable20"]))
                       ]})
                     }
-                    else menu?.reply({content: `:no_entry_sign: You are not allowed to do that! Only: <@${cmduser.id}>`, ephemeral: true});
+                    else menu?.reply({content: `:x: You are not allowed to do that! Only: <@${cmduser.id}>`, ephemeral: true});
                   });
                   //Once the Collections ended edit the menu message
                   collector.on('end', collected => {

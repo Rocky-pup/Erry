@@ -3,14 +3,14 @@ const Canvas = require("discord-canvas");
 const {
   MessageEmbed
 } = require("discord.js");
-const config = require(`${process.cwd()}/botconfig/config.json`);
-var ee = require(`${process.cwd()}/botconfig/embed.json`);
-const emoji = require(`${process.cwd()}/botconfig/emojis.json`);
+const config = require(`../../botconfig/config.json`);
+var ee = require(`../../botconfig/embed.json`);
+const emoji = require(`../../botconfig/emojis.json`);
 const {
   GetUser,
   GetGlobalUser,
-  handlemsg
-} = require(`${process.cwd()}/handlers/functions`)
+  handlemsg,dbEnsure 
+} = require(`../../handlers/functions`)
 module.exports = {
   name: "fnstats",
   aliases: ["fortnitestats", "fstats"],
@@ -18,23 +18,23 @@ module.exports = {
   description: "Shows the Fortnite Stats of a User",
   usage: "fnstatns @USER | fnstats <platform> <Epic> | usermentions will only work if the user verification is setup",
   type: "games",
-  run: async (client, message, args, cmduser, text, prefix) => {
+  run: async (client, message, args, cmduser, text, prefix, player, es, ls, GuildSettings) => {
     
-    let es = client.settings.get(message.guild.id, "embed");let ls = client.settings.get(message.guild.id, "language")
+    
     try {
       let usermention = message.mentions.users.first();
       let Epic, platform;
       if(!usermention){
         if(!args[0] || !args[1]) {
-          client.epicgamesDB.ensure(message.author.id, { 
+          await dbEnsure(client.epicgamesDB, message.author?.id, { 
             epic: "",
-            user: message.author.id,
+            user: message.author?.id,
             guild: message.guild.id,
             Platform: "",
             InputMethod: "",
           });
-          let data = client.epicgamesDB.get(message.author.id);
-          if(!data.epic || data.epic.length < 5) return message.reply(`❌ **Your Account is not linked!**\nPlease enter a Epic Games name for individual Search!\n>Usage: \`fnstats <platform> <Epic>\``)
+          let data = await client.epicgamesDB.get(message.author?.id);
+          if(!data || !data.epic || data.epic.length < 5) return message.reply(`❌ **Your Account is not linked!**\nPlease enter a Epic Games name for individual Search!\n>Usage: \`fnstats <platform> <Epic>\``)
           Epic = data.epic;
           platform = data.Platform;
         } else {
@@ -44,15 +44,15 @@ module.exports = {
           if (platform !== "pc" && platform !== "xbl" && platform !== "psn") return message.channel.send("Please enter a valid platform\n> Valid Platforms: `xbl, psn, pc`\n> Usage: `fnstats <platform> <Epic>`")
         }
       } else {
-        client.epicgamesDB.ensure(message.author.id, { 
+        await dbEnsure(client.epicgamesDB, usermention.id, { 
           epic: "",
-          user: message.author.id,
+          user: usermention.id,
           guild: message.guild.id,
           Platform: "",
           InputMethod: "",
         });
-        let data = client.epicgamesDB.get(message.author.id);
-        if(!data.epic || data.epic.length < 5) return message.reply(`❌ **${message.author.tag}** did not verify/connect their Epic Games Account`)
+        let data = await client.epicgamesDB.get(usermention.id);
+        if(!data || !data.epic || data.epic.length < 5) return message.reply(`❌ **${usermention.tag}** did not verify/connect their Epic Games Account`)
         Epic = data.epic;
         platform = data.Platform;
       }
@@ -60,7 +60,9 @@ module.exports = {
         if (platform !== "pc" && platform !== "xbl" && platform !== "psn") platform = "pc";
         let themsg = await message.reply(`<a:Loading:950883677255118898> Getting the Fortnite Stats of ${Epic}`)
         const stats = new Canvas.FortniteStats()
-        const image = await stats.setToken("e032828b-886d-4ed6-9aa1-0e2e725592a8")
+        const image = await stats.setToken(
+          process.env.fortnitetracker || config.fortnitetracker
+          )
           .setUser(Epic)
           .setPlatform(platform.toLowerCase())
           .toAttachment();
@@ -68,8 +70,8 @@ module.exports = {
         let attachment = new Discord.MessageAttachment(image.toBuffer(), "FortniteStats.png");
         themsg.edit({content: `Stats of: \`${Epic}\` on \`${platform}\``, files: [attachment]});
       }catch (e){
-        console.log(e.stack ? String(e.stack).grey : String(e).grey)
-        message.channel.send("EPIC INVALID")
+        console.error(e)
+        message.channel.send("EPIC INVALID").catch(() => null)
       }
     } catch (e) {
       console.log(String(e.stack).grey.bgRed)

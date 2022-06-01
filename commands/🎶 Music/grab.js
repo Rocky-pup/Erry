@@ -1,14 +1,14 @@
 const {
   MessageEmbed
 } = require(`discord.js`);
-const config = require(`${process.cwd()}/botconfig/config.json`);
-const ee = require(`${process.cwd()}/botconfig/embed.json`);
-const emoji = require(`${process.cwd()}/botconfig/emojis.json`);
+const config = require(`../../botconfig/config.json`);
+const ee = require(`../../botconfig/embed.json`);
+const emoji = require(`../../botconfig/emojis.json`);
 const {
   createBar,
   format
-} = require(`${process.cwd()}/handlers/functions`);
-const { handlemsg } = require(`${process.cwd()}/handlers/functions`);
+} = require(`../../handlers/functions`);
+const { handlemsg } = require(`../../handlers/functions`);
     module.exports = {
   name: `grab`,
   category: `🎶 Music`,
@@ -21,11 +21,11 @@ const { handlemsg } = require(`${process.cwd()}/handlers/functions`);
     "previoussong": false
   },
   type: "song",
-  run: async (client, message, args, cmduser, text, prefix, player) => {
+  run: async (client, message, args, cmduser, text, prefix, player, es, ls, GuildSettings) => {
     try{
       
-      let es = client.settings.get(message.guild.id, "embed");let ls = client.settings.get(message.guild.id, "language")
-      if (!client.settings.get(message.guild.id, "MUSIC")) {
+      
+      if(GuildSettings.MUSIC === false) {
         return message.reply({embeds : [new MessageEmbed()
           .setColor(es.wrongcolor)
           .setFooter(client.getFooter(es))
@@ -43,7 +43,7 @@ const { handlemsg } = require(`${process.cwd()}/handlers/functions`);
         .setTitle(eval(client.la[ls]["cmds"]["music"]["grab"]["variable1"]))
         .addField(client.la[ls].cmds.music.grab?.field1, `\`${format(player.queue.current.duration)}\``, true)
         .addField(client.la[ls].cmds.music.grab?.field2, `\`${player.queue.current.author}\``, true)
-        .addField(client.la[ls].cmds.music.grab?.field3, `\`${player.queue.length} Songs\``, true)
+        .addField(client.la[ls].cmds.music.grab?.field3, `\`${player.queue.length} ${client.la[ls]["cmds"]["music"]["musicsystem"]["songg"]}\``, true)
         .addField(client.la[ls].cmds.music.grab?.field4, `\`${prefix}play ${player.queue.current.uri}\``)
         .addField(client.la[ls].cmds.music.grab?.field5, `<#${message.channel.id}>`)
         .setFooter(
@@ -54,7 +54,7 @@ const { handlemsg } = require(`${process.cwd()}/handlers/functions`);
       ]}).catch(e => {
         return message.reply({content : client.la[ls].common.dms_disabled})
       })
-      message.react(emoji?.react.SUCCESS).catch(e => console.log("Could not react"))
+      message.react("<:save:978918412673753098>").catch(e => console.log("Could not react"))
     } catch (e) {
       console.log(String(e.stack).dim.bgRed)
       return message.reply({embeds : [new MessageEmbed()

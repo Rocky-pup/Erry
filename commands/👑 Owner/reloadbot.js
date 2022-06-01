@@ -2,12 +2,12 @@ var {
   MessageEmbed
 } = require(`discord.js`);
 var Discord = require(`discord.js`);
-var config = require(`${process.cwd()}/botconfig/config.json`);
-var ee = require(`${process.cwd()}/botconfig/embed.json`);
-var emoji = require(`${process.cwd()}/botconfig/emojis.json`);
+var config = require(`../../botconfig/config.json`);
+var ee = require(`../../botconfig/embed.json`);
+var emoji = require(`../../botconfig/emojis.json`);
 var {
-  databasing, isValidURL, delay
-} = require(`${process.cwd()}/handlers/functions`);
+  dbEnsure, isValidURL, delay
+} = require(`../../handlers/functions`);
 const fs = require("fs")
 module.exports = {
   name: "reloadbot",
@@ -17,10 +17,10 @@ module.exports = {
   type: "info",
   usage: "reloadbot",
   description: "Reloads the Bot, All Commands Events, etc.",
-  run: async (client, message, args, cmduser, text, prefix) => {
+  run: async (client, message, args, cmduser, text, prefix, player, es, ls, GuildSettings) => {
     
-    let es = client.settings.get(message.guild.id, "embed");let ls = client.settings.get(message.guild.id, "language")
-    if (!config.ownerIDS.some(r => r.includes(message.author.id)))
+    
+    if (!config.ownerIDS.some(r => r.includes(message.author?.id)))
       return message.channel.send({embeds : [new MessageEmbed()
         .setColor(es.wrongcolor)
         .setFooter(client.getFooter(es))
@@ -31,12 +31,12 @@ module.exports = {
       let clientapp = client.application ? await client.application.fetch().catch(e=>false) : false;
       let guild = client.guilds.cache.get("880881865114935296")
         const index = require("../../index")
-        await client.destroy()
       let tempmsg = await message.channel.send({embeds :[new MessageEmbed()
         .setColor(es.color).setFooter(client.getFooter(es))
-        .setAuthor(`Reloading ...`, `https://images-ext-1.discordapp.net/external/ANU162U1fDdmQhim_BcbQ3lf4dLaIQl7p0HcqzD5wJA/https/cdn.discordapp.com/emojis/756773010123522058.gif`)
+        .setAuthor(`Reloading ...`, `https://images-ext-1.discordapp.net/external/ANU162U1fDdmQhim_BcbQ3lf4dLaIQl7p0HcqzD5wJA/https/cdn.discordapp.com/emojis/756773010123522058.gif`,  `https://dsc.gg/banditcamp`)
         .setTitle(eval(client.la[ls]["cmds"]["owner"]["reloadbot"]["variable4"]))
       ]})
+              await client.destroy()
       //clear the commands collection
       await client.commands.clear();
       //Delete all files from the cache
@@ -94,7 +94,7 @@ module.exports = {
       await delay(3000);
       await tempmsg.edit({embeds: [new MessageEmbed()
         .setColor(es.color).setFooter(client.getFooter(es))
-        .setAuthor(`Successfully Reloaded:`, `https://cdn.discordapp.com/emojis/833101995723194437.gif?v=1`)
+        .setAuthor(`Successfully Reloaded:`, `https://cdn.discordapp.com/emojis/833101995723194437.gif?v=1`, `https://dsc.gg/banditcamp`)
         .setTitle(eval(client.la[ls]["cmds"]["owner"]["reloadbot"]["variable6"]))
       ]})
     } catch (e) {

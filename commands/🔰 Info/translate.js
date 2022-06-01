@@ -1,22 +1,22 @@
 const {
   MessageEmbed
 } = require("discord.js");
-const config = require(`${process.cwd()}/botconfig/config.json`);
-var ee = require(`${process.cwd()}/botconfig/embed.json`);
-const emoji = require(`${process.cwd()}/botconfig/emojis.json`);
+const config = require(`../../botconfig/config.json`);
+var ee = require(`../../botconfig/embed.json`);
+const emoji = require(`../../botconfig/emojis.json`);
 const translate = require("translatte");
-const { handlemsg } = require(`${process.cwd()}/handlers/functions`);
+const { handlemsg } = require(`../../handlers/functions`);
 module.exports = {
   name: "translate",
   category: "🔰 Info",
   aliases: ["trans", "tran", "tr"],
   cooldown: 5,
   usage: "translate <from> <to> <TEXT>",
-  description: "Gives you an Invite link for this Bot",
+  description: "Translates Text from a Language to another one!",
   type: "util",
-  run: async (client, message, args, cmduser, text, prefix) => {
+  run: async (client, message, args, cmduser, text, prefix, player, es, ls, GuildSettings) => {
     
-    let es = client.settings.get(message.guild.id, "embed");let ls = client.settings.get(message.guild.id, "language")
+    
     try {
       if(!args[0]) return message.reply(handlemsg(client.la[ls].cmds.info.translate.error, {prefix: prefix}))
       if(!args[1]) return message.reply(handlemsg(client.la[ls].cmds.info.translate.error, {prefix: prefix}))
@@ -25,7 +25,7 @@ module.exports = {
       translate(args.slice(2).join(" "), {from: args[0], to: args[1]}).then(res=>{
         let embed = new MessageEmbed()
         .setColor(es.color)
-        .setAuthor(handlemsg(client.la[ls].cmds.info.translate.to, { to: args[1] }), "https://imgur.com/0DQuCgg.png")
+        .setAuthor(handlemsg(client.la[ls].cmds.info.translate.to, { to: args[1] }), "https://imgur.com/0DQuCgg.png", "https://dsc.gg/banditcamp")
         .setFooter(handlemsg(client.la[ls].cmds.info.translate.from, { from: args[0] }), message.author.displayAvatarURL({dynamic:true}))
         .setDescription(eval(client.la[ls]["cmds"]["info"]["translate"]["variable1"]))
         message.reply({embeds: [embed]})

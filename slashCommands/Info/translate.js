@@ -10,6 +10,7 @@ module.exports = {
   name: "translate",
   description: "Gives you an Invite link for this Bot",
   run: async (client, interaction, cmduser, es, ls, prefix, player, message) => {
+let GuildSettings = client.settings.get(`${interaction.guild.id}`)
     //things u can directly access in an interaction!
     const { member, channelId, guildId, applicationId, commandName, deferred, replied, ephemeral, options, id, createdTimestamp } = interaction; 
     const { guild } = member;
@@ -23,7 +24,7 @@ module.exports = {
       translate(args.slice(2).join(" "), {from: args[0], to: args[1]}).then(res=>{
         let embed = new MessageEmbed()
         .setColor(es.color)
-        .setAuthor(handlemsg(client.la[ls].cmds.info.translate.to, { to: args[1] }), "https://imgur.com/0DQuCgg.png")
+        .setAuthor(handlemsg(client.la[ls].cmds.info.translate.to, { to: args[1] }), "https://imgur.com/0DQuCgg.png", "https://dsc.gg/banditcamp")
         .setFooter(handlemsg(client.la[ls].cmds.info.translate.from, { from: args[0] }), member.user.displayAvatarURL({dynamic:true}))
         .setDescription(eval(client.la[ls]["cmds"]["info"]["translate"]["variable1"]))
         interaction?.reply({ephemeral: true, embeds: [embed]})

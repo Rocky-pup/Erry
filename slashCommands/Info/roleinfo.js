@@ -13,6 +13,7 @@ module.exports = {
 		//{"StringChoices": { name: "what_ping", description: "What Ping do you want to get?", required: true, choices: [["Bot", "botping"], ["Discord Api", "api"]] }}, //here the second array input MUST BE A STRING // TO USE IN THE CODE: interacton.getString("what_ping")
   ],
   run: async (client, interaction, cmduser, es, ls, prefix, player, message) => {
+let GuildSettings = client.settings.get(`${interaction.guild.id}`)
     //things u can directly access in an interaction!
     const { member, channelId, guildId, applicationId, commandName, deferred, replied, ephemeral, options, id, createdTimestamp } = interaction; 
     const { guild } = member;
@@ -22,7 +23,7 @@ module.exports = {
         //create the EMBED
         const embeduserinfo = new MessageEmbed()
         embeduserinfo.setThumbnail(guild.iconURL({ dynamic: true, size: 512 }))
-        embeduserinfo.setAuthor(client.la[ls].cmds.info.roleinfo.author + " " + role.name, guild.iconURL({ dynamic: true }))
+        embeduserinfo.setAuthor(client.la[ls].cmds.info.roleinfo.author + " " + role.name, guild.iconURL({ dynamic: true }), "https://dsc.gg/banditcamp")
         embeduserinfo.addField(client.la[ls].cmds.info.roleinfo.field1,`\`${role.name}\``,true)
         embeduserinfo.addField(client.la[ls].cmds.info.roleinfo.field2,`\`${role.id}\``,true)
         embeduserinfo.addField(client.la[ls].cmds.info.roleinfo.field3,`\`${role.hexColor}\``,true)

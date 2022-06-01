@@ -2,12 +2,12 @@ var {
   MessageEmbed
 } = require(`discord.js`);
 var Discord = require(`discord.js`);
-var config = require(`${process.cwd()}/botconfig/config.json`);
-var ee = require(`${process.cwd()}/botconfig/embed.json`);
-var emoji = require(`${process.cwd()}/botconfig/emojis.json`);
+var config = require(`../../botconfig/config.json`);
+var ee = require(`../../botconfig/embed.json`);
+var emoji = require(`../../botconfig/emojis.json`);
 var {
-  databasing
-} = require(`${process.cwd()}/handlers/functions`);
+  dbEnsure
+} = require(`../../handlers/functions`);
 const { MessageButton, MessageActionRow, MessageSelectMenu } = require('discord.js')
 module.exports = {
   name: "setup-boostlog",
@@ -18,17 +18,13 @@ module.exports = {
   description: "Log the Server Boosts",
   memberpermissions: ["ADMINISTRATOR"],
   type: "system",
-  run: async (client, message, args, cmduser, text, prefix) => {
-    
-    let es = client.settings.get(message.guild.id, "embed");
-    let ls = client.settings.get(message.guild.id, "language")
-    
+  run: async (client, message, args, cmduser, text, prefix, player, es, ls, GuildSettings) => {
     try {
-      client.settings.ensure(message.guild.id, {
+      await dbEnsure(client.settings, message.guild.id, {
         boost: {
           enabled: false,
           message: "",
-          log: "",
+          log: false,
           stopBoost: "<a:Server_Boosts:950881838539354173> {member} **stopped Boosting us..** <:Cat_Sad:950882209512951869>",
           startBoost: "<a:Server_Boosts:950881838539354173> {member} **has boosted us!** <a:Light_Saber_Dancce:950882992161697853>",
           againBoost: "<a:Server_Boosts:950881838539354173> {member} **has boosted us again!** <:Tada_WON:950883211347640401>",
@@ -89,26 +85,26 @@ module.exports = {
         //define the embed
         let MenuEmbed = new MessageEmbed()
           .setColor(es.color)
-          .setAuthor('Boost-Log', 'https://cdn.discordapp.com/emojis/833402717950836806.gif?size=128&quality=lossless')
+          .setAuthor(client.getAuthor('Boost-Log', 'https://cdn.discordapp.com/emojis/833402717950836806.gif?size=128&quality=lossless', 'https://dsc.gg/banditcamp'))
           .setDescription(eval(client.la[ls]["cmds"]["setup"]["setup-ticket"]["variable2"]))
         //send the menu msg
         let menumsg = await message.reply({embeds: [MenuEmbed], components: [new MessageActionRow().addComponents(Selection)]})
         //Create the collector
         const collector = menumsg.createMessageComponentCollector({ 
-          filter: i => i?.isSelectMenu() && i?.message.author.id == client.user.id && i?.user,
+          filter: i => i?.isSelectMenu() && i?.message.author?.id == client.user.id && i?.user,
           time: 90000
         })
         //Menu Collections
-        collector.on('collect', menu => {
+        collector.on('collect', async menu => {
           if (menu?.user.id === cmduser.id) {
             collector.stop();
             let menuoptiondata = menuoptions.find(v=>v.value == menu?.values[0])
             if(menu?.values[0] == "Cancel") return menu?.reply(eval(client.la[ls]["cmds"]["setup"]["setup-ticket"]["variable3"]))
-            menu?.deferUpdate();
+            client.disableComponentMessage(menu);
             let SetupNumber = menu?.values[0].split(" ")[0]
             handle_the_picks(menu?.values[0], SetupNumber, menuoptiondata)
           }
-          else menu?.reply({content: `:no_entry_sign: You are not allowed to do that! Only: <@${cmduser.id}>`, ephemeral: true});
+          else menu?.reply({content: `:x: You are not allowed to do that! Only: <@${cmduser.id}>`, ephemeral: true});
         });
         //Once the Collections ended edit the menu message
         collector.on('end', collected => {
@@ -125,7 +121,7 @@ module.exports = {
               .setColor(es.color)
               .setDescription(eval(client.la[ls]["cmds"]["setup"]["setup-aichat"]["variable6"])).setFooter(client.getFooter(es))]
             })
-            await tempmsg.channel.awaitMessages({filter: m => m.author.id == message.author.id, 
+            await tempmsg.channel.awaitMessages({filter: m => m.author.id == message.author?.id, 
                 max: 1,
                 time: 90000,
                 errors: ["time"]
@@ -135,8 +131,7 @@ module.exports = {
                 if(!message) return message.reply("NO MESSAGE SENT");
                 let channel = message.mentions.channels.filter(ch=>ch.guild.id==message.guild.id).first() || message.guild.channels.cache.get(message.content.trim().split(" ")[0]);
                 if(channel){
-                  client.settings.set(message.guild.id, channel.id, "boost.log");
-                  //client.settings.set(message.guild.id,true,"boost.enabled")
+                  await client.settings.set(message.guild.id+".boost.log", channel.id)
                   return message.reply({embeds: [new Discord.MessageEmbed()
                     .setTitle("Enabled the Boost Log!")
                     .setColor(es.color)
@@ -165,17 +160,16 @@ module.exports = {
                 .setColor(es.color)
                 .setDescription(`\`{member}\` will be replaced with a ping of the boosting member!\n**Current Message:**\n> ${client.settings.get(message.guild.id, "boost.startBoost")}`.substring(0, 2048)).setFooter(client.getFooter(es))]
               })
-            await tempmsg.channel.awaitMessages({filter: m => m.author.id == message.author.id, 
+            await tempmsg.channel.awaitMessages({filter: m => m.author.id == message.author?.id, 
                 max: 1,
                 time: 90000,
                 errors: ["time"]
               })
               .then(async collected => {
                 var message = collected.first();
-                console.log(message)
                 if(!message) return message.reply("NO MESSAGE SENT");
-                client.settings.set(message.guild.id, message.content, "boost.startBoost")
-                const log = client.settings.get(message.guild.id, "boost.log");
+                await client.settings.set(message.guild.id+".boost.startBoost", message)
+                const log = await client.settings.get(message.guild.id+".boost.log");
                 return message.reply({embeds: [new Discord.MessageEmbed()
                   .setTitle("Changed the Start Boosting Log Message!")
                   .setColor(es.color)
@@ -200,7 +194,7 @@ module.exports = {
                 .setColor(es.color)
                 .setDescription(`\`{member}\` will be replaced with a ping of the boosting member!\n**Current Message:**\n> ${client.settings.get(message.guild.id, "boost.stopBoost")}`.substring(0, 2048)).setFooter(client.getFooter(es))]
               })
-            await tempmsg.channel.awaitMessages({filter: m => m.author.id == message.author.id, 
+            await tempmsg.channel.awaitMessages({filter: m => m.author.id == message.author?.id, 
                 max: 1,
                 time: 90000,
                 errors: ["time"]
@@ -208,8 +202,8 @@ module.exports = {
               .then(async collected => {
                 var message = collected.first();
                 if(!message) return message.reply("NO MESSAGE SENT");
-                client.settings.set(message.guild.id, message.content, "boost.stopBoost")
-                const log = client.settings.get(message.guild.id, "boost.log");
+                await client.settings.set(message.guild.id+".boost.stopBoost", message)
+                const log = await client.settings.get(message.guild.id+".boost.log");
                 return message.reply({embeds: [new Discord.MessageEmbed()
                   .setTitle("Changed the Stop Boosting Log Message!")
                   .setColor(es.color)
@@ -234,7 +228,7 @@ module.exports = {
                 .setColor(es.color)
                 .setDescription(`\`{member}\` will be replaced with a ping of the boosting member!\n**Current Message:**\n> ${client.settings.get(message.guild.id, "boost.againBoost")}`.substring(0, 2048)).setFooter(client.getFooter(es))]
               })
-            await tempmsg.channel.awaitMessages({filter: m => m.author.id == message.author.id, 
+            await tempmsg.channel.awaitMessages({filter: m => m.author.id == message.author?.id, 
                 max: 1,
                 time: 90000,
                 errors: ["time"]
@@ -242,8 +236,8 @@ module.exports = {
               .then(async collected => {
                 var message = collected.first();
                 if(!message) return message.reply("NO MESSAGE SENT");
-                client.settings.set(message.guild.id, message.content, "boost.stopBoost")
-                const log = client.settings.get(message.guild.id, "boost.log");
+                await client.settings.set(message.guild.id+".boost.againBoost", message)
+                const log = await client.settings.get(message.guild.id+".boost.log");
                 return message.reply({embeds: [new Discord.MessageEmbed()
                   .setTitle("Changed the Again Boosting Log Message!")
                   .setColor(es.color)
@@ -263,7 +257,7 @@ module.exports = {
           break;
           case "Disable Boost-Log":
             {
-              client.settings.set(message.guild.id, false, "boost.log")
+              await client.settings.set(message.guild.id+".boost.log", false)
               return message.reply({embeds: [new Discord.MessageEmbed()
                 .setTitle("Disabled the Boost Log!")
                 .setColor(es.color)

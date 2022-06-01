@@ -24,8 +24,8 @@ module.exports = {
   type: "user",
   description: "*Image cmd in the style:* " + path.parse(__filename).name,
   run: async (client, interaction, cmduser, es, ls, prefix, player, message) => {
-
-    if (!client.settings.get(message.guild.id, "FUN")) {
+    let GuildSettings = client.settings.get(`${interaction.guild.id}`)
+    if (GuildSettings.FUN === false) {
       return interaction?.reply({
         embeds: [new MessageEmbed()
           .setColor(es.wrongcolor)
@@ -40,7 +40,7 @@ module.exports = {
       .then(body => body.data);
     const selected = data[Math.floor(Math.random() * data.length)];
     if(!selected || !selected.hash) return interaction?.reply({
-      content: `<:no_entry_sign:951013282607685632> **Could not find a new Meme...**\n> *Try again please!*`, ephemeral: true
+      content: `:x: **Could not find a new Meme...**\n> *Try again please!*`, ephemeral: true
     });
     return interaction?.reply({
       content: `https://imgur.com/${selected.hash}${selected.ext.replace(/\\?.*/, '')}`

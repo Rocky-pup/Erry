@@ -66,7 +66,7 @@ var {
           identifier: x.identifier || x.host,
           retryAmount: x.retryAmount ? Number(x.retryAmount) : 5,
           retryDelay: x.retryDelay ? Number(x.retryDelay) : 5000,
-          secure: x.secure
+          secure: x.secure ? x.secure : false
       };
     });
 }

@@ -2,12 +2,12 @@ var {
   MessageEmbed
 } = require(`discord.js`);
 var Discord = require(`discord.js`);
-var config = require(`${process.cwd()}/botconfig/config.json`);
-var ee = require(`${process.cwd()}/botconfig/embed.json`);
-var emoji = require(`${process.cwd()}/botconfig/emojis.json`);
+var config = require(`../../botconfig/config.json`);
+var ee = require(`../../botconfig/embed.json`);
+var emoji = require(`../../botconfig/emojis.json`);
 var {
-  databasing
-} = require(`${process.cwd()}/handlers/functions`);
+  dbEnsure, dbRemove, dbKeys
+} = require(`../../handlers/functions`);
 const { MessageButton, MessageActionRow, MessageSelectMenu } = require('discord.js')
 module.exports = {
   name: "setup-autowarn",
@@ -18,11 +18,11 @@ module.exports = {
   description: "Enable / Disable Auto-Warn-Rules, on my Security Systems, like antispam, anticaps, antilinks, blacklist and more!",
   memberpermissions: ["ADMINISTRATOR"],
   type: "security",
-  run: async (client, message, args, cmduser, text, prefix) => {
-    
-    let es = client.settings.get(message.guild.id, "embed");let ls = client.settings.get(message.guild.id, "language")
+  run: async (client, message, args, cmduser, text, prefix, player, es, ls, GuildSettings) => {
+  
     try {
-      client.settings.ensure(message.guild.id,{
+      if(!GuildSettings.autowarn) {
+        const defaultSettings = {
           autowarn: {
               antispam: false,
               antiselfbot: false,
@@ -33,7 +33,10 @@ module.exports = {
               blacklist: false,
               ghost_ping_detector: false,
           }
-      })
+        };
+        await dbEnsure(client.settings, message.guild.id, defaultSettings);
+        GuildSettings.autowarn = defaultSettings;
+      }
       first_layer()
       async function first_layer(){
         function getMenuOptions(){
@@ -42,50 +45,50 @@ module.exports = {
             {
               label: "Anti Spam",
               value: `antispam`,
-              description: `${client.settings.get(message.guild.id, "autowarn.antispam") ? "Disable Auto warning if someone spams": "Enable Auto warning if someone spams"}`,
-              emoji: `${client.settings.get(message.guild.id, "autowarn.antispam") ? "❌": "✅"}`,
+              description: `${GuildSettings.autowarnantispam ? "Disable Auto warning if someone spams": "Enable Auto warning if someone spams"}`,
+              emoji: `${GuildSettings.autowarnantispam ? "❌": "✅"}`,
             },
             {
               label: "Anti Mention",
               value: `antimention`,
-              description: `${client.settings.get(message.guild.id, "autowarn.antimention") ? "Disable Auto warning if someone mentions": "Enable Auto warning if someone mentions"}`,
-              emoji: `${client.settings.get(message.guild.id, "autowarn.antimention") ? "❌": "✅"}`,
+              description: `${GuildSettings.autowarnantimention ? "Disable Auto warning if someone mentions": "Enable Auto warning if someone mentions"}`,
+              emoji: `${GuildSettings.autowarnantimention ? "❌": "✅"}`,
             },
             {
               label: "Anti Links",
               value: `antilinks`,
-              description: `${client.settings.get(message.guild.id, "autowarn.antilinks") ? "Disable Auto warning if someone send Links": "Enable Auto warning if someone send Links"}`,
-              emoji: `${client.settings.get(message.guild.id, "autowarn.antilinks") ? "❌": "✅"}`,
+              description: `${GuildSettings.autowarnantilinks ? "Disable Auto warning if someone send Links": "Enable Auto warning if someone send Links"}`,
+              emoji: `${GuildSettings.autowarnantilinks ? "❌": "✅"}`,
             },
             {
               label: "Anti Discord",
               value: `antidiscord`,
-              description: `${client.settings.get(message.guild.id, "autowarn.antidiscord") ? "Disable Auto warning if someone send Discord Links": "Enable Auto warning if someone Discord Links"}`,
-              emoji: `${client.settings.get(message.guild.id, "autowarn.antidiscord") ? "❌": "✅"}`,
+              description: `${GuildSettings.autowarnantidiscord ? "Disable Auto warning if someone send Discord Links": "Enable Auto warning if someone Discord Links"}`,
+              emoji: `${GuildSettings.autowarnantidiscord ? "❌": "✅"}`,
             },
             {
               label: "Anti Caps",
               value: `anticaps`,
-              description: `${client.settings.get(message.guild.id, "autowarn.anticaps") ? "Disable Auto warning if someone send CAPS": "Enable Auto warning if someone send CAPS"}`,
-              emoji: `${client.settings.get(message.guild.id, "autowarn.anticaps") ? "❌": "✅"}`,
+              description: `${GuildSettings.autowarnanticaps ? "Disable Auto warning if someone send CAPS": "Enable Auto warning if someone send CAPS"}`,
+              emoji: `${GuildSettings.autowarnanticaps ? "❌": "✅"}`,
             },
             {
               label: "Blacklist",
               value: `blacklist`,
-              description: `${client.settings.get(message.guild.id, "autowarn.blacklist") ? "Disable Auto warn if someone send blacklist words": "Enable Auto warn if someone send blacklist word"}`,
-              emoji: `${client.settings.get(message.guild.id, "autowarn.blacklist") ? "❌": "✅"}`,
+              description: `${GuildSettings.autowarnblacklist ? "Disable Auto warn if someone send blacklist words": "Enable Auto warn if someone send blacklist word"}`,
+              emoji: `${GuildSettings.autowarnblacklist ? "❌": "✅"}`,
             },
             {
               label: "Ghost Ping Detector",
               value: `ghost_ping_detector`,
-              description: `${client.settings.get(message.guild.id, "autowarn.ghost_ping_detector") ? "Disable Auto warning if someone ghost pings": "Enable Auto warning if someone ghost pings"}`,
-              emoji: `${client.settings.get(message.guild.id, "autowarn.ghost_ping_detector") ? "❌": "✅"}`,
+              description: `${GuildSettings.autowarnghost_ping_detector ? "Disable Auto warning if someone ghost pings": "Enable Auto warning if someone ghost pings"}`,
+              emoji: `${GuildSettings.autowarnghost_ping_detector ? "❌": "✅"}`,
             },
             {
               label: "Anti Self Bot",
               value: `antiselfbot`,
-              description: `${client.settings.get(message.guild.id, "autowarn.antiselfbot") ? "Disable the Self Bot Detector": "Enable the Self Bot Detector"}`,
-              emoji: `${client.settings.get(message.guild.id, "autowarn.antiselfbot") ? "❌": "✅"}`,
+              description: `${GuildSettings.autowarnantiselfbot ? "Disable the Self Bot Detector": "Enable the Self Bot Detector"}`,
+              emoji: `${GuildSettings.autowarnantiselfbot ? "❌": "✅"}`,
             },
           ]
         }
@@ -101,27 +104,26 @@ module.exports = {
         //define the embed
         let MenuEmbed = new Discord.MessageEmbed()
           .setColor(es.color)
-          .setAuthor('Auto-Warn Setup', 'https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/apple/285/prohibited_1f6ab?.png')
+          .setAuthor(client.getAuthor('Auto-Warn Setup', 'https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/apple/285/prohibited_1f6ab.png', 'https://dsc.gg/banditcamp'))
           .setDescription('***Select all Auto-Warn Rules you want to enable/disable in the `Selection` down below!***\n> *The Warns will only be applied, if the responsible System for it, is enabled!*\n> **You must select at least 1 or more!**')
         //send the menu msg
         let menumsg = await message.reply({embeds: [MenuEmbed], components: [new MessageActionRow().addComponents(Selection)]})
-        const collector = menumsg.createMessageComponentCollector({filter: (i) => i?.isSelectMenu() && i?.user && i?.message.author.id == client.user.id, time: 180e3, max: 1 });
+        const collector = menumsg.createMessageComponentCollector({filter: (i) => i?.isSelectMenu() && i?.user && i?.message.author?.id == client.user.id, time: 180e3, max: 1 });
         collector.on("collect", async b => {
-          if(b?.user.id !== message.author.id)
-          return b?.reply({content: "<:no_entry_sign:951013282607685632> Only the one who typed the Command is allowed to select Things!", ephemeral: true});
+          if(b?.user.id !== message.author?.id)
+          return b?.reply({content: ":x: Only the one who typed the Command is allowed to select Things!", ephemeral: true});
        
           let enabled = 0, disabled = 0;
-          for(const value of b?.values) {
-            console.log(value)
-            let oldstate = client.settings.get(message.guild.id, `autowarn.${value.toLowerCase()}`);
+          for await (const value of b?.values) {
+            let oldstate = GuildSettings.autowarn[`${value.toLowerCase()}`];
             if(!oldstate) enabled++;
             else disabled++;
-            client.settings.set(message.guild.id, !oldstate, `autowarn.${value.toLowerCase()}`)
+            await client.settings.set(`${message.guild.id}.autowarn.${value.toLowerCase()}`, !oldstate)
           }
           b?.reply(`:white_check_mark: **\`Enabled ${enabled} Auto-Warn-Rules\` and \`Disabled ${disabled} Auto-Warn-Rules\` out of \`${b?.values.length} selected Auto-Warn-Rules\`**`)
         })
         collector.on('end', collected => {
-          menumsg.edit({content: "<:no_entry_sign:951013282607685632> Time ran out/Input finished! Cancelled", embeds: [
+          menumsg.edit({content: ":x: Time ran out/Input finished! Cancelled", embeds: [
             menumsg.embeds[0]
               .setDescription(`${getMenuOptions().map(option => `> ${option.emoji == "✅" ? "❌": "✅"} **${option.value}-Auto-Warn-Rules**: ${option.description.includes("disabled") ? `\`Now Disabled [❌]\`` : `\`Now Enabled [✅]\``}`).join("\n\n")}`)
           ], components: []}).catch((e)=>{})

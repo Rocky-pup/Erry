@@ -18,9 +18,9 @@ const { handlemsg } = require(`${process.cwd()}/handlers/functions`);
     "previoussong": false
   },
   run: async (client, interaction, cmduser, es, ls, prefix, player, message) => {
-    
-    //let es = client.settings.get(message.guild.id, "embed");let ls = client.settings.get(message.guild.id, "language")
-    if (!client.settings.get(message.guild.id, "MUSIC")) {
+    let GuildSettings = client.settings.get(`${interaction.guild.id}`)
+    //
+    if(GuildSettings.MUSIC === false) {
       return interaction?.reply({ephemeral: true, embed : [new MessageEmbed()
         .setColor(es.wrongcolor)
         .setFooter(client.getFooter(es))
@@ -42,7 +42,7 @@ const { handlemsg } = require(`${process.cwd()}/handlers/functions`);
       for (const track of player.get(`beforeshuffle`))
         player.queue.add(track);
       //return success message
-      return interaction?.reply({embeds : [new MessageEmbed()
+      return interaction?.reply({ephemeral: true, embeds : [new MessageEmbed()
         .setTitle(eval(client.la[ls]["cmds"]["music"]["unshuffle"]["variable3"]))
         .setColor(es.color)
       ]});

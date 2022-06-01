@@ -2,12 +2,12 @@ var {
   MessageEmbed
 } = require(`discord.js`);
 var Discord = require(`discord.js`);
-var config = require(`${process.cwd()}/botconfig/config.json`);
-var ee = require(`${process.cwd()}/botconfig/embed.json`);
-var emoji = require(`${process.cwd()}/botconfig/emojis.json`);
+var config = require(`../../botconfig/config.json`);
+var ee = require(`../../botconfig/embed.json`);
+var emoji = require(`../../botconfig/emojis.json`);
 var {
-  databasing
-} = require(`${process.cwd()}/handlers/functions`);
+  dbEnsure
+} = require(`../../handlers/functions`);
 const {
   MessageButton,
   MessageActionRow,
@@ -22,10 +22,7 @@ module.exports = {
   description: "Manage up to 25 different Auto-Support Messages in a DISCORD-MENU",
   memberpermissions: ["ADMINISTRATOR"],
   type: "system",
-  run: async (client, message, args, cmduser, text, prefix) => {
-
-    let es = client.settings.get(message.guild.id, "embed");
-    let ls = client.settings.get(message.guild.id, "language")
+  run: async (client, message, args, cmduser, text, prefix, player, es, ls, GuildSettings) => {
     try {
       let theDB = client.autosupport;
       let pre;
@@ -36,7 +33,7 @@ module.exports = {
       async function first_layer() {
         
         let menuoptions = []
-        for(let i = 1; i<=100;i++) {
+        for (let i = 1; i<=100;i++) {
           menuoptions.push({
             value: `${i}. Auto Support`,
             description: `Manage/Edit the ${i}. Auto Support Setup`,
@@ -115,32 +112,32 @@ module.exports = {
         //define the embed
         let MenuEmbed = new Discord.MessageEmbed()
           .setColor(es.color)
-          .setAuthor(client.getAuthor('Auto Support Setup', 'https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/apple/285/envelope_2709-fe0f.png'))
+          .setAuthor(client.getAuthor('Auto Support Setup', 'https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/apple/285/envelope_2709-fe0f.png', 'https://dsc.gg/banditcamp'))
           .setDescription(eval(client.la[ls]["cmds"]["setup"]["setup-ticket"]["variable2"]))
           
         //send the menu msg
         let menumsg = await message.reply({
           embeds: [MenuEmbed],
-          components: [row1, row2, row3, row4, new MessageActionRow().addComponents(new MessageButton().setStyle("LINK").setURL("https://www.youtube.com/channel/UC1oZAQeuw08se1qlv0O5tJA").setLabel("Rocky Youtube").setEmoji("840260133686870036"))]
+          components: [row1, row2, row3, row4, new MessageActionRow().addComponents(new MessageButton().setStyle("LINK").setURL("https://dsc.gg/banditcamp").setLabel("Support Server").setEmoji("950886430421418004"))]
         })
         //Create the collector
         const collector = menumsg.createMessageComponentCollector({
-          filter: i => i?.isSelectMenu() && i?.message.author.id == client.user.id && i?.user,
+          filter: i => i?.isSelectMenu() && i?.message.author?.id == client.user.id && i?.user,
           time: 90000, errors: ["time"]
         })
         //Menu Collections
-        collector.on('collect', menu => {
+        collector.on('collect', async menu => {
           if (menu?.user.id === cmduser.id) {
             collector.stop();
             let menuoptiondata = menuoptions.find(v => v.value == menu?.values[0])
             if (menu?.values[0] == "Cancel") return menu?.reply(eval(client.la[ls]["cmds"]["setup"]["setup-ticket"]["variable3"]))
-            menu?.deferUpdate();
+            client.disableComponentMessage(menu);
             let SetupNumber = menu?.values[0].split(".")[0];
             pre = `autosupport${SetupNumber}`;
             theDB = client.autosupport; //change to the right database
             second_layer()
           } else menu?.reply({
-            content: `:no_entry_sign: You are not allowed to do that! Only: <@${cmduser.id}>`,
+            content: `:x: You are not allowed to do that! Only: <@${cmduser.id}>`,
             ephemeral: true
           });
         });
@@ -155,7 +152,8 @@ module.exports = {
       }
       async function second_layer() {
         //setup-autosupport
-        theDB.ensure(message.guild.id, {
+        const obj = {}
+        obj[pre] = {
           messageId: "",
           channelId: "",
           data: [
@@ -169,7 +167,8 @@ module.exports = {
               }
             */
           ]
-        }, pre);
+        }
+        await dbEnsure(theDB, message.guild.id, obj);
         let menuoptions = [{
             value: "Send the Config	Message",
             description: `(Re) Send the auto-responding Support Message (with MENU)`,
@@ -210,7 +209,7 @@ module.exports = {
         //define the embed
         let MenuEmbed = new Discord.MessageEmbed()
           .setColor(es.color)
-          .setAuthor('Auto Support Setup', 'https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/google/298/question-mark_2753.png')
+          .setAuthor(client.getAuthor('Auto Support Setup', 'https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/google/298/question-mark_2753.png', 'https://dsc.gg/banditcamp'))
           .setDescription(eval(client.la[ls]["cmds"]["setup"]["setup-ticket"]["variable2"]))
         //send the menu msg
         let menumsg = await message.reply({
@@ -219,19 +218,19 @@ module.exports = {
         })
         //Create the collector
         const collector = menumsg.createMessageComponentCollector({
-          filter: i => i?.isSelectMenu() && i?.message.author.id == client.user.id && i?.user,
+          filter: i => i?.isSelectMenu() && i?.message.author?.id == client.user.id && i?.user,
           time: 90000, errors: ["time"]
         })
         //Menu Collections
-        collector.on('collect', menu => {
+        collector.on('collect', async menu => {
           if (menu?.user.id === cmduser.id) {
             collector.stop();
             let menuoptiondata = menuoptions.find(v => v.value == menu?.values[0])
             if (menu?.values[0] == "Cancel") return menu?.reply(eval(client.la[ls]["cmds"]["setup"]["setup-ticket"]["variable3"]))
-            menu?.deferUpdate();
+            client.disableComponentMessage(menu);
             handle_the_picks(menu?.values[0], menuoptiondata)
           } else menu?.reply({
-            content: `:no_entry_sign: You are not allowed to do that! Only: <@${cmduser.id}>`,
+            content: `:x: You are not allowed to do that! Only: <@${cmduser.id}>`,
             ephemeral: true
           });
         });
@@ -247,10 +246,10 @@ module.exports = {
       async function handle_the_picks(optionhandletype, menuoptiondata) {
         switch (optionhandletype) {
           case "Send the Config	Message": {
-            let data = theDB.get(message.guild.id, pre+".data");
-            let settings = theDB.get(message.guild.id, pre);
+            let settings = await theDB.get(`${message.guild.id}.${pre}`);
+            let data = settings?.data;
             if (!data || data.length < 1) {
-              return message.reply(":no_entry_sign: **You need to add at least 1 Auto-Support-Option**")
+              return message.reply(":x: **You need to add at least 1 Auto-Support-Option**")
             }
             let tempmsg = await message.reply({
               embeds: [
@@ -282,7 +281,6 @@ module.exports = {
                 time: 90000, errors: ["time"]
               });
               if (collected2 && collected2.first().mentions.channels.size > 0) {
-                let data = theDB.get(message.guild.id, pre+".data");
                 let channel = collected2.first().mentions.channels.first();
                 let msgContent = collected.first().content;
                 let embed = new MessageEmbed()
@@ -329,28 +327,29 @@ module.exports = {
                     channel.send({
                       embeds: [embed],
                       components: [new MessageActionRow().addComponents([Selection])]
-                    }).catch(() => {}).then(msg => {
-                      theDB.set(message.guild.id, msg.id, pre+".messageId");
-                      theDB.set(message.guild.id, channel.id, pre+".channelId");
+                    }).catch(() => null).then(async (msg) => {
+                      await theDB.set(`${message.guild.id}.${pre}.messageId`, msg.id);
+                      await theDB.set(`${message.guild.id}.${pre}.channelId`, channel.id);
                       message.reply(`Successfully Setupped the Auto-Support-System in <#${channel.id}>`)
                     });
-                }).then(msg => {
-                  theDB.set(message.guild.id, msg.id, pre+".messageId");
-                  theDB.set(message.guild.id, channel.id, pre+".channelId");
+                }).then(async (msg) => {
+                  await theDB.set(`${message.guild.id}.${pre}.messageId`, msg.id);
+                  await theDB.set(`${message.guild.id}.${pre}.channelId`, channel.id);
                   message.reply(`Successfully Setupped the Auto-Support-System in <#${channel.id}>`)
                 });
               } else {
-                return message.reply(":no_entry_sign: **You did not ping a valid Channel!**")
+                return message.reply(":x: **You did not ping a valid Channel!**")
               }
             } else {
-              return message.reply(":no_entry_sign: **You did not enter a Valid Message in Time! CANCELLED!**")
+              return message.reply(":x: **You did not enter a Valid Message in Time! CANCELLED!**")
             }
           }
           break;
           case "Add AutoSup Option": {
-            let data = theDB.get(message.guild.id, pre+".data");
+            let settings = await theDB.get(`${message.guild.id}.${pre}`);
+            let data = settings?.data;
             if (data.length >= 25) {
-              return message.reply(":no_entry_sign: **You reached the limit of 25 different Options!** Remove another Option first!")
+              return message.reply(":x: **You reached the limit of 25 different Options!** Remove another Option first!")
             }
             //ask for value and description
             let tempmsg = await message.reply({
@@ -367,11 +366,11 @@ module.exports = {
               time: 90000, errors: ["time"]
             });
             if (collected && collected.first().content) {
-              if (!collected.first().content.includes("++")) return message.reply(":no_entry_sign: **Invalid Usage! Please mind the Usage and check the Example**")
+              if (!collected.first().content.includes("++")) return message.reply(":x: **Invalid Usage! Please mind the Usage and check the Example**")
               let value = collected.first().content.split("++")[0].trim().substring(0, 25);
               let index2 = data.findIndex(v => v.value == value);
               if(index2 >= 0 && index != index2) {
-                  return message.reply(":no_entry_sign: **Options can't have the SAME VALUE!** There is already an Option with that Value!");
+                  return message.reply(":x: **Options can't have the SAME VALUE!** There is already an Option with that Value!");
               }
               let description = collected.first().content.split("++")[1].trim().substring(0, 50);
               let tempmsg = await message.reply({
@@ -389,7 +388,7 @@ module.exports = {
               });
               //Create the collector
             const collector = tempmsg.createMessageComponentCollector({
-              filter: i => i?.isButton() && i?.message.author.id == client.user.id && i?.user,
+              filter: i => i?.isButton() && i?.message.author?.id == client.user.id && i?.user,
               time: 90000, errors: ["time"]
             })
             //button Collections
@@ -438,7 +437,7 @@ module.exports = {
                         emoji = collected.first().emoji?.name;
                         emojiMsg = collected.first().emoji?.name;
                       } else {
-                        message.reply("<:no_entry_sign:951013282607685632> **No valid emoji added, using default EMOJI**");
+                        message.reply(":x: **No valid emoji added, using default EMOJI**");
                         emoji = null;
                         emojiMsg = NumberEmojis[data.length];
                       }
@@ -450,27 +449,27 @@ module.exports = {
                           emojiMsg = NumberEmojis[data.length];
                         }
                       } catch (e){
-                        console.log(e)
-                        message.reply("<:no_entry_sign:951013282607685632> **Could not use the CUSTOM EMOJI you added, as I can't access it / use it as a reaction/emoji for the menu**\nUsing default emoji!");
+                        console.error(e)
+                        message.reply(":x: **Could not use the CUSTOM EMOJI you added, as I can't access it / use it as a reaction/emoji for the menu**\nUsing default emoji!");
                         emoji = null;
                         emojiMsg = NumberEmojis[data.length];
                       }
                       finished();
                     }).catch(() => {
-                      message.reply("<:no_entry_sign:951013282607685632> **No valid emoji added, using default EMOJI**");
+                      message.reply(":x: **No valid emoji added, using default EMOJI**");
                       emoji = null;
                       emojiMsg = NumberEmojis[data.length];
                       finished();
                     });
                   })
-                  function finished() {
-                    theDB.push(message.guild.id, {
+                  async function finished() {
+                    await theDB.push(`${message.guild.id}.${pre}.data`, {
                       value,
                       description,
                       sendEmbed,
                       replyMsg,
                       emoji
-                    }, pre+".data");
+                    });
                     message.reply({
                       embeds: [
                         new MessageEmbed()
@@ -482,7 +481,7 @@ module.exports = {
                   }
                   
                 } else {
-                  return message.reply(":no_entry_sign: **You did not enter a Valid Message in Time! CANCELLED!**")
+                  return message.reply(":x: **You did not enter a Valid Message in Time! CANCELLED!**")
                 }
               }
             })
@@ -495,14 +494,15 @@ module.exports = {
               })
             });
             } else {
-              return message.reply(":no_entry_sign: **You did not enter a Valid Message in Time! CANCELLED!**")
+              return message.reply(":x: **You did not enter a Valid Message in Time! CANCELLED!**")
             }
           }
           break;
           case "Edit AutoSup Option": {
-            let data = theDB.get(message.guild.id, pre+".data");
+            let settings = await theDB.get(`${message.guild.id}.${pre}`);
+            let data = settings?.data;
             if (!data || data.length < 1) {
-              return message.reply(":no_entry_sign: **There are no Open-Ticket-Options to edit**")
+              return message.reply(":x: **There are no Open-Ticket-Options to edit**")
             }
             let embed = new MessageEmbed()
               .setColor(es.color)
@@ -554,7 +554,7 @@ module.exports = {
             })
             //Create the collector
             const collector = menumsg.createMessageComponentCollector({
-              filter: i => i?.isSelectMenu() && i?.message.author.id == client.user.id && i?.user,
+              filter: i => i?.isSelectMenu() && i?.message.author?.id == client.user.id && i?.user,
               time: 90000, errors: ["time"]
             })
             //Menu Collections
@@ -578,11 +578,11 @@ module.exports = {
                   time: 90000, errors: ["time"]
                 });
                 if (collected && collected.first().content) {
-                  if (!collected.first().content.includes("++")) return message.reply(":no_entry_sign: **Invalid Usage! Please mind the Usage and check the Example**")
+                  if (!collected.first().content.includes("++")) return message.reply(":x: **Invalid Usage! Please mind the Usage and check the Example**")
                   let value = collected.first().content.split("++")[0].trim().substring(0, 25);
                   let index2 = data.findIndex(v => v.value == value);
                   if(index2 >= 0 && index != index2) {
-                      return message.reply(":no_entry_sign: **Options can't have the SAME VALUE!** There is already an Option with that Value!");
+                      return message.reply(":x: **Options can't have the SAME VALUE!** There is already an Option with that Value!");
                   }
                   let description = collected.first().content.split("++")[1].trim().substring(0, 50);
                   let tempmsg = await message.reply({
@@ -600,7 +600,7 @@ module.exports = {
                   });
                   //Create the collector
                 const collector = tempmsg.createMessageComponentCollector({
-                  filter: i => i?.isButton() && i?.message.author.id == client.user.id && i?.user,
+                  filter: i => i?.isButton() && i?.message.author?.id == client.user.id && i?.user,
                   time: 90000, errors: ["time"]
                 })
                 //button Collections
@@ -649,7 +649,7 @@ module.exports = {
                             emoji = collected.first().emoji?.name;
                             emojiMsg = collected.first().emoji?.name;
                           } else {
-                            message.reply("<:no_entry_sign:951013282607685632> **No valid emoji added, using default EMOJI**");
+                            message.reply(":x: **No valid emoji added, using default EMOJI**");
                             emoji = null;
                             emojiMsg = NumberEmojis[data.length];
                           }
@@ -661,20 +661,20 @@ module.exports = {
                               emojiMsg = NumberEmojis[data.length];
                             }
                           } catch (e){
-                            console.log(e)
-                            message.reply("<:no_entry_sign:951013282607685632> **Could not use the CUSTOM EMOJI you added, as I can't access it / use it as a reaction/emoji for the menu**\nUsing default emoji!");
+                            console.error(e)
+                            message.reply(":x: **Could not use the CUSTOM EMOJI you added, as I can't access it / use it as a reaction/emoji for the menu**\nUsing default emoji!");
                             emoji = null;
                             emojiMsg = NumberEmojis[data.length];
                           }
                           finished();
                         }).catch(() => {
-                          message.reply("<:no_entry_sign:951013282607685632> **No valid emoji added, using default EMOJI**");
+                          message.reply(":x: **No valid emoji added, using default EMOJI**");
                           emoji = null;
                           emojiMsg = NumberEmojis[data.length];
                           finished();
                         });
                       })
-                      function finished() {
+                      async function finished() {
                         data[index] = {
                           value,
                           description,
@@ -682,12 +682,12 @@ module.exports = {
                           replyMsg,
                           emoji
                         };
-                        theDB.set(message.guild.id, data, pre+".data");
+                        await theDB.set(`${message.guild.id}.${pre}.data`, data);
                         message.reply(`**Successfully edited:**\n>>> ${menu?.values.map(i => `\`${i}\``).join(", ")}\n\nDon't forget to resend the Auto Support Config-Message!`)
                       }
                       
                     } else {
-                      return message.reply(":no_entry_sign: **You did not enter a Valid Message in Time! CANCELLED!**")
+                      return message.reply(":x: **You did not enter a Valid Message in Time! CANCELLED!**")
                     }
                   }
                 })
@@ -700,10 +700,10 @@ module.exports = {
                   })
                 });
                 } else {
-                  return message.reply(":no_entry_sign: **You did not enter a Valid Message in Time! CANCELLED!**")
+                  return message.reply(":x: **You did not enter a Valid Message in Time! CANCELLED!**")
                 }
               } else menu?.reply({
-                content: `:no_entry_sign: You are not allowed to do that! Only: <@${cmduser.id}>`,
+                content: `:x: You are not allowed to do that! Only: <@${cmduser.id}>`,
                 ephemeral: true
               });
             });
@@ -718,9 +718,10 @@ module.exports = {
           }
           break;
           case "Remove AutoSup Option": {
-          let data = theDB.get(message.guild.id, pre+".data");
+          let settings = await theDB.get(`${message.guild.id}.${pre}`);
+          let data = settings?.data;
           if (!data || data.length < 1) {
-            return message.reply(":no_entry_sign: **There are no Auto-Responding-Support-Options to remove**")
+            return message.reply(":x: **There are no Auto-Responding-Support-Options to remove**")
           }
           let embed = new MessageEmbed()
             .setColor(es.color)
@@ -772,7 +773,7 @@ module.exports = {
             })
           //Create the collector
           const collector = menumsg.createMessageComponentCollector({
-            filter: i => i?.isSelectMenu() && i?.message.author.id == client.user.id && i?.user,
+            filter: i => i?.isSelectMenu() && i?.message.author?.id == client.user.id && i?.user,
             time: 90000, errors: ["time"]
           })
           //Menu Collections
@@ -783,10 +784,10 @@ module.exports = {
                 let index = data.findIndex(v => v.value == value);
                 data.splice(index, 1)
               }
-              theDB.set(message.guild.id, data, pre+".data");
+              await theDB.set(`${message.guild.id}.${pre}.data`, data);
               message.reply(`**Successfully removed:**\n>>> ${menu?.values.map(i => `\`${i}\``).join(", ")}\n\nDon't forget to resend the Auto Support Config-Message!`)
             } else menu?.reply({
-              content: `:no_entry_sign: You are not allowed to do that! Only: <@${cmduser.id}>`,
+              content: `:x: You are not allowed to do that! Only: <@${cmduser.id}>`,
               ephemeral: true
             });
           });

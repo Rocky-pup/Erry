@@ -2,12 +2,12 @@ var {
   MessageEmbed
 } = require(`discord.js`);
 var Discord = require(`discord.js`);
-var config = require(`${process.cwd()}/botconfig/config.json`);
-var ee = require(`${process.cwd()}/botconfig/embed.json`);
-var emoji = require(`${process.cwd()}/botconfig/emojis.json`);
+var config = require(`../../botconfig/config.json`);
+var ee = require(`../../botconfig/embed.json`);
+var emoji = require(`../../botconfig/emojis.json`);
 var {
-  databasing
-} = require(`${process.cwd()}/handlers/functions`);
+  dbEnsure
+} = require(`../../handlers/functions`);
 const {
   MessageButton,
   MessageActionRow,
@@ -19,13 +19,10 @@ module.exports = {
   aliases: ["setupmenuticket", "menuticket-setup", "menuticketsetup", "menuticketsystem"],
   cooldown: 5,
   usage: "setup-menuticket --> Follow Steps",
-  description: "Manage up to 25 different Ticket Systems in a form of a DISCORD-MENU",
+  description: "Manage 100 Ticket Systems in a form of a DISCORD-MENU",
   memberpermissions: ["ADMINISTRATOR"],
   type: "system",
-  run: async (client, message, args, cmduser, text, prefix) => {
-
-    let es = client.settings.get(message.guild.id, "embed");
-    let ls = client.settings.get(message.guild.id, "language")
+  run: async (client, message, args, cmduser, text, prefix, player, es, ls, GuildSettings) => {
     try {
       var theDB = client.menuticket;
       var pre;
@@ -36,7 +33,7 @@ module.exports = {
       async function first_layer() {
         
         let menuoptions = []
-        for(let i = 1; i<=100;i++) {
+        for (let i = 1; i<=100;i++) {
           menuoptions.push({
             value: `${i}. Menu Ticket`,
             description: `Manage/Edit the ${i}. Menu Ticket Setup`,
@@ -116,32 +113,32 @@ module.exports = {
         //define the embed
         let MenuEmbed = new Discord.MessageEmbed()
           .setColor(es.color)
-          .setAuthor(client.getAuthor('Menu Ticket Setup', 'https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/apple/285/envelope_2709-fe0f.png'))
+          .setAuthor(client.getAuthor('Menu Ticket Setup', 'https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/apple/285/envelope_2709-fe0f.png', 'https://dsc.gg/banditcamp'))
           .setDescription(eval(client.la[ls]["cmds"]["setup"]["setup-ticket"]["variable2"]))
           
         //send the menu msg
         let menumsg = await message.reply({
           embeds: [MenuEmbed],
-          components: [row1, row2, row3, row4, new MessageActionRow().addComponents(new MessageButton().setStyle("LINK").setURL("https://www.youtube.com/channel/UC1oZAQeuw08se1qlv0O5tJA").setLabel("Rocky YouTube").setEmoji("840260133686870036"))]
+          components: [row1, row2, row3, row4, new MessageActionRow().addComponents(new MessageButton().setStyle("LINK").setURL("https://dsc.gg/banditcamp").setLabel("Support Server").setEmoji("950886430421418004"))]
         })
         //Create the collector
         const collector = menumsg.createMessageComponentCollector({
-          filter: i => i?.isSelectMenu() && i?.message.author.id == client.user.id && i?.user,
+          filter: i => i?.isSelectMenu() && i?.message.author?.id == client.user.id && i?.user,
           time: 90000, errors: ["time"]
         })
         //Menu Collections
-        collector.on('collect', menu => {
+        collector.on('collect', async menu => {
           if (menu?.user.id === cmduser.id) {
             collector.stop();
             let menuoptiondata = menuoptions.find(v => v.value == menu?.values[0])
             if (menu?.values[0] == "Cancel") return menu?.reply(eval(client.la[ls]["cmds"]["setup"]["setup-ticket"]["variable3"]))
-            menu?.deferUpdate();
+            client.disableComponentMessage(menu);
             let SetupNumber = menu?.values[0].split(".")[0];
             pre = `menuticket${SetupNumber}`;
             theDB = client.menuticket; //change to the right database
             second_layer(SetupNumber)
           } else menu?.reply({
-            content: `:no_entry_sign: You are not allowed to do that! Only: <@${cmduser.id}>`,
+            content: `:x: You are not allowed to do that! Only: <@${cmduser.id}>`,
             ephemeral: true
           });
         });
@@ -151,12 +148,12 @@ module.exports = {
             embeds: [menumsg.embeds[0].setDescription(`~~${menumsg.embeds[0].description}~~`)],
             components: [],
             content: `:white_check_mark: **Selected: \`${collected && collected.first() && collected.first().values ? collected.first().values[0] : "Nothing"}\`**`
-          }).catch(() => {});
+          }).catch(() => null);
         });
       }
       async function second_layer(SetupNumber) {
         //setup-menuticket
-        theDB.ensure(message.guild.id, {
+        await dbEnsure(theDB, `${message.guild.id}.${pre}`, {
           messageId: "",
           channelId: "",
           claim: {
@@ -175,7 +172,7 @@ module.exports = {
               }
             */
           ]
-        }, pre);
+        });
         let menuoptions = [{
             value: "Send the Config	Message",
             description: `(Re) Send the Open a Ticket Message (with MENU)`,
@@ -231,29 +228,29 @@ module.exports = {
         //define the embed
         let MenuEmbed = new Discord.MessageEmbed()
           .setColor(es.color)
-          .setAuthor('Menu Ticket Setup', 'https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/apple/285/envelope_2709-fe0f.png')
+          .setAuthor(client.getAuthor('Menu Ticket Setup', 'https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/apple/285/envelope_2709-fe0f.png', 'https://dsc.gg/banditcamp'))
           .setDescription(eval(client.la[ls]["cmds"]["setup"]["setup-ticket"]["variable2"]))
           
         //send the menu msg
         let menumsg = await message.reply({
           embeds: [MenuEmbed],
-          components: [new MessageActionRow().addComponents(Selection), new MessageActionRow().addComponents(new MessageButton().setStyle("LINK").setURL("https://www.youtube.com/channel/UC1oZAQeuw08se1qlv0O5tJA").setLabel("Rocky YouTube").setEmoji("840260133686870036"))]
+          components: [new MessageActionRow().addComponents(Selection), new MessageActionRow().addComponents(new MessageButton().setStyle("LINK").setURL("https://dsc.gg/banditcamp").setLabel("Support Server").setEmoji("950886430421418004"))]
         })
         //Create the collector
         const collector = menumsg.createMessageComponentCollector({
-          filter: i => i?.isSelectMenu() && i?.message.author.id == client.user.id && i?.user,
+          filter: i => i?.isSelectMenu() && i?.message.author?.id == client.user.id && i?.user,
           time: 90000, errors: ["time"]
         })
         //Menu Collections
-        collector.on('collect', menu => {
+        collector.on('collect', async menu => {
           if (menu?.user.id === cmduser.id) {
             collector.stop();
             let menuoptiondata = menuoptions.find(v => v.value == menu?.values[0])
             if (menu?.values[0] == "Cancel") return menu?.reply(eval(client.la[ls]["cmds"]["setup"]["setup-ticket"]["variable3"]))
-            menu?.deferUpdate();
+            client.disableComponentMessage(menu);
             handle_the_picks(menu?.values[0], menuoptiondata, SetupNumber)
           } else menu?.reply({
-            content: `:no_entry_sign: You are not allowed to do that! Only: <@${cmduser.id}>`,
+            content: `:x: You are not allowed to do that! Only: <@${cmduser.id}>`,
             ephemeral: true
           });
         });
@@ -276,7 +273,7 @@ module.exports = {
                 messageClaim: "{claimer} **has claimed the Ticket!**\n> He will now give {user} support!"
               }
             */
-            let claimData = theDB.get(message.guild.id, `${pre}.claim`);
+            let claimData = await theDB.get(`${message.guild.id}.${pre}.claim`);
             third_layer(SetupNumber)
             async function third_layer(SetupNumber) {
               let menuoptions = [{
@@ -320,7 +317,7 @@ module.exports = {
               //define the embed
               let MenuEmbed = new Discord.MessageEmbed()
                 .setColor(es.color)
-                .setAuthor(SetupNumber + " Ticket Setup", "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/twitter/282/incoming-envelope_1f4e8.png")
+                .setAuthor(SetupNumber + " Ticket Setup", "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/twitter/282/incoming-envelope_1f4e8.png", "https://dsc.gg/banditcamp")
                 .setDescription(eval(client.la[ls]["cmds"]["setup"]["setup-ticket"]["variable4"]))
               //send the menu msg
               let menumsg = await message.reply({
@@ -331,23 +328,23 @@ module.exports = {
               function menuselection(menu) {
                 let menuoptiondata = menuoptions.find(v => v.value == menu?.values[0])
                 if (menu?.values[0] == "Cancel") return menu?.reply(eval(client.la[ls]["cmds"]["setup"]["setup-ticket"]["variable5"]))
-                menu?.deferUpdate();
+                client.disableComponentMessage(menu);
                 handle_the_picks2(menu?.values[0], SetupNumber)
               }
               //Create the collector
               const collector = menumsg.createMessageComponentCollector({
-                filter: i => i?.isSelectMenu() && i?.message.author.id == client.user.id && i?.user,
+                filter: i => i?.isSelectMenu() && i?.message.author?.id == client.user.id && i?.user,
                 time: 90000
               })
               //Menu Collections
-              collector.on('collect', menu => {
+              collector.on('collect', async menu => {
                 if (menu?.user.id === cmduser.id) {
                   collector.stop();
                   let menuoptiondata = menuoptions.find(v => v.value == menu?.values[0])
                   if (menu?.values[0] == "Cancel") return menu?.reply(eval(client.la[ls]["cmds"]["setup"]["setup-ticket"]["variable3"]))
                   menuselection(menu)
                 } else menu?.reply({
-                  content: `:no_entry_sign: You are not allowed to do that! Only: <@${cmduser.id}>`,
+                  content: `:x: You are not allowed to do that! Only: <@${cmduser.id}>`,
                   ephemeral: true
                 });
               });
@@ -364,8 +361,8 @@ module.exports = {
 
               switch (optionhandletype) {
                 case `${claimData.enabled ? "Disable Claim System": "Enable Claim System"}`:{
-                  theDB.set(message.guild.id, !claimData.enabled, `${pre}.claim.enabled`);
-                  claimData = theDB.get(message.guild.id, `${pre}.claim`);
+                  await theDB.set(`${message.guild.id}.${pre}.claim.enabled`, !claimData.enabled);
+                  claimData = await theDB.get(`${message.guild.id}.${pre}.claim`);
                   return message.reply({embeds: [
                     new MessageEmbed().setColor(es.color).setThumbnail(es.thumb ? es.footericon && (es.footericon.includes("http://") || es.footericon.includes("https://")) ? es.footericon : client.user.displayAvatarURL() : null)
                     .setFooter(client.getFooter(es))
@@ -381,14 +378,14 @@ module.exports = {
                     .setDescription(String("{user} will be replaced with a USERPING\n\n**Current Message:**\n>>> " + claimData.messageOpen.substring(0, 1900)))
                   message.reply({
                     embeds: [rembed]
-                  }).then(msg => {
+                  }).then(async (msg) => {
                     msg.channel.awaitMessages({
-                      filter: m => m.author.id === message.author.id,
+                      filter: m => m.author.id === message.author?.id,
                       max: 1,
                       time: 30000,
                       errors: ['time']
-                    }).then(collected => {
-                      theDB.set(message.guild.id, collected.first().content, `${pre}.claim.messageOpen`);
+                    }).then(async collected => {
+                      await theDB.set(`${message.guild.id}.${pre}.claim.messageOpen`, collected.first().content);
                       message.reply(`Successfully set the New Message!`)
                     }).catch(error => {
                       return message.reply({
@@ -410,14 +407,14 @@ module.exports = {
                     .setDescription(String("{user} will be replaced with a USERPING\n{claimer} will be replaced with a PING for WHO CLAIMED IT\n\n**Current Message:**\n>>> " + claimData.messageClaim.substring(0, 1900)))
                   message.reply({
                     embeds: [rembed]
-                  }).then(msg => {
+                  }).then(async (msg) => {
                     msg.channel.awaitMessages({
-                      filter: m => m.author.id === message.author.id,
+                      filter: m => m.author.id === message.author?.id,
                       max: 1,
                       time: 30000,
                       errors: ['time']
-                    }).then(collected => {
-                      theDB.set(message.guild.id, collected.first().content, `${pre}.claim.messageClaim`);
+                    }).then(async collected => {
+                      await theDB.set(`${message.guild.id}.${pre}.claim.messageClaim`, collected.first().content);
                       message.reply(`Successfully set the New Message!`)
                     }).catch(error => {
                       return message.reply({
@@ -435,11 +432,11 @@ module.exports = {
             }
           }break;
           case "Send the Config	Message": {
-            await message.guild.emojis.fetch().catch(() => {});
-            let data = theDB.get(message.guild.id, pre+".data");
-            let settings = theDB.get(message.guild.id, pre);
+            await message.guild.emojis.fetch().catch(() => null);
+            let data = await theDB.get(`${message.guild.id}.${pre}.data`);
+            let settings = await theDB.get(`${message.guild.id}.${pre}`);
             if (!data || data.length < 1) {
-              return message.reply(":no_entry_sign: **You need to add at least 1 Open-Ticket-Option**")
+              return message.reply(":x: **You need to add at least 1 Open-Ticket-Option**")
             }
             let tempmsg = await message.reply({
               embeds: [
@@ -471,7 +468,7 @@ module.exports = {
                 time: 90000, errors: ["time"]
               });
               if (collected2 && (collected2.first().mentions.channels.size > 0 || message.guild.channels.cache.get(collected2.first().content?.trim()))) {
-                let data = theDB.get(message.guild.id, pre+".data"); 
+                let data = await theDB.get(`${message.guild.id}.${pre}.data`); 
                 let channel = collected2.first().mentions.channels.first() || message.guild.channels.cache.get(collected2.first().content?.trim());
                 let msgContent = collected.first().content;
                 let embed = new MessageEmbed()
@@ -521,28 +518,28 @@ module.exports = {
                       components: [new MessageActionRow().addComponents([Selection])]
                     }).catch((e) => {
                      console.warn(e)  
-                    }).then(msg => {
-                      theDB.set(message.guild.id, msg.id, pre+".messageId");
-                      theDB.set(message.guild.id, channel.id, pre+".channelId");
+                    }).then(async (msg) => {
+                      await theDB.set(`${message.guild.id}.${pre}.messageId`, msg.id);
+                      await theDB.set(`${message.guild.id}.${pre}.channelId`, channel.id);
                       message.reply(`Successfully Setupped the Menu-Ticket in <#${channel.id}>`)
                     });
-                }).then(msg => {
-                  theDB.set(message.guild.id, msg.id, pre+".messageId");
-                  theDB.set(message.guild.id, channel.id, pre+".channelId");
+                }).then(async (msg) => {
+                  await theDB.set(`${message.guild.id}.${pre}.messageId`, msg.id);
+                  await theDB.set(`${message.guild.id}.${pre}.channelId`, channel.id);
                   message.reply(`Successfully Setupped the Menu-Ticket in <#${channel.id}>`)
                 });
               } else {
-                return message.reply(":no_entry_sign: **You did not ping a valid Channel!**")
+                return message.reply(":x: **You did not ping a valid Channel!**")
               }
             } else {
-              return message.reply(":no_entry_sign: **You did not enter a Valid Message in Time! CANCELLED!**")
+              return message.reply(":x: **You did not enter a Valid Message in Time! CANCELLED!**")
             }
           }
           break;
           case "Add Ticket Option": {
-            let data = theDB.get(message.guild.id, pre+".data");
+            let data = await theDB.get(`${message.guild.id}.${pre}.data`);
             if (data.length >= 25) {
-              return message.reply(":no_entry_sign: **You reached the limit of 25 different Options!** Remove another Option first!")
+              return message.reply(":x: **You reached the limit of 25 different Options!** Remove another Option first!")
             }
             //ask for value and description
             let tempmsg = await message.reply({
@@ -559,11 +556,11 @@ module.exports = {
               time: 90000, errors: ["time"]
             });
             if (collected && collected.first().content) {
-              if (!collected.first().content.includes("++")) return message.reply(":no_entry_sign: **Invalid Usage! Please mind the Usage and check the Example**")
+              if (!collected.first().content.includes("++")) return message.reply(":x: **Invalid Usage! Please mind the Usage and check the Example**")
               let value = collected.first().content.split("++")[0].trim().substring(0, 25);
               let index = data.findIndex(v => v.value == value);
               if(index >= 0) {
-                  return message.reply(":no_entry_sign: **Options can't have the SAME VALUE!** There is already an Option with that Value!");
+                  return message.reply(":x: **Options can't have the SAME VALUE!** There is already an Option with that Value!");
               }
               let description = collected.first().content.split("++")[1].trim().substring(0, 50);
               //ask for category
@@ -646,7 +643,7 @@ module.exports = {
                           emoji = collected.first().emoji?.name;
                           emojiMsg = collected.first().emoji?.name;
                         } else {
-                          message.reply("<:no_entry_sign:951013282607685632> **No valid emoji added, using default EMOJI**");
+                          message.reply(":x: **No valid emoji added, using default EMOJI**");
                           emoji = null;
                           emojiMsg = NumberEmojis[data.length];
                         }
@@ -658,29 +655,29 @@ module.exports = {
                             emojiMsg = NumberEmojis[data.length];
                           }
                         } catch (e){
-                          console.log(e)
-                          message.reply("<:no_entry_sign:951013282607685632> **Could not use the CUSTOM EMOJI you added, as I can't access it / use it as a reaction/emoji for the menu**\nUsing default emoji!");
+                          console.error(e)
+                          message.reply(":x: **Could not use the CUSTOM EMOJI you added, as I can't access it / use it as a reaction/emoji for the menu**\nUsing default emoji!");
                           emoji = null;
                           emojiMsg = NumberEmojis[data.length];
                         }
                         finished();
                         
                       }).catch(() => {
-                        message.reply("<:no_entry_sign:951013282607685632> **No valid emoji added, using default EMOJI**");
+                        message.reply(":x: **No valid emoji added, using default EMOJI**");
                         emoji = null;
                         emojiMsg = NumberEmojis[data.length];
                         finished();
                       });
                     })
-                    function finished() {
-                      theDB.push(message.guild.id, {
+                    async function finished() {
+                      await theDB.push(`${message.guild.id}.${pre}.data`, {
                         value,
                         description,
                         category,
                         defaultname,
                         replyMsg,
                         emoji
-                      }, pre+".data");
+                      });
                       message.reply({
                         embeds: [
                           new MessageEmbed()
@@ -700,25 +697,25 @@ module.exports = {
 
                    
                   } else {
-                    return message.reply(":no_entry_sign: **You did not enter a Valid Message in Time! CANCELLED!**")
+                    return message.reply(":x: **You did not enter a Valid Message in Time! CANCELLED!**")
                   }
                 } else {
-                  return message.reply(":no_entry_sign: **You did not enter a Valid Message in Time! CANCELLED!**")
+                  return message.reply(":x: **You did not enter a Valid Message in Time! CANCELLED!**")
                 }
               } else {
-                return message.reply(":no_entry_sign: **You did not enter a Valid Message in Time! CANCELLED!**")
+                return message.reply(":x: **You did not enter a Valid Message in Time! CANCELLED!**")
               }
             } else {
-              return message.reply(":no_entry_sign: **You did not enter a Valid Message in Time! CANCELLED!**")
+              return message.reply(":x: **You did not enter a Valid Message in Time! CANCELLED!**")
             }
           }
           break;
           case "Edit Ticket Option": {
 
 
-            let data = theDB.get(message.guild.id, pre+".data");
+            let data = await theDB.get(`${message.guild.id}.${pre}.data`);
             if (!data || data.length < 1) {
-              return message.reply(":no_entry_sign: **There are no Open-Ticket-Options to remove**")
+              return message.reply(":x: **There are no Open-Ticket-Options to remove**")
             }
             let embed = new MessageEmbed()
               .setColor(es.color)
@@ -774,7 +771,7 @@ module.exports = {
             })
             //Create the collector
             const collector = menumsg.createMessageComponentCollector({
-              filter: i => i?.isSelectMenu() && i?.message.author.id == client.user.id && i?.user,
+              filter: i => i?.isSelectMenu() && i?.message.author?.id == client.user.id && i?.user,
               max: 1,
               time: 90000, errors: ["time"]
             })
@@ -831,29 +828,29 @@ module.exports = {
                 //define the embed
                 let MenuEmbed = new Discord.MessageEmbed()
                   .setColor(es.color)
-                  .setAuthor(client.getAuthor('Menu Ticket Setup', 'https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/apple/285/envelope_2709-fe0f.png'))
+                  .setAuthor(client.getAuthor('Menu Ticket Setup', 'https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/apple/285/envelope_2709-fe0f.png', 'https://dsc.gg/banditcamp'))
                   .setDescription(eval(client.la[ls]["cmds"]["setup"]["setup-ticket"]["variable2"]))
                   
                 //send the menu msg
                 let menumsg = await message.reply({
                   embeds: [MenuEmbed],
-                  components: [new MessageActionRow().addComponents(Selection), new MessageActionRow().addComponents(new MessageButton().setStyle("LINK").setURL("https://www.youtube.com/channel/UC1oZAQeuw08se1qlv0O5tJA").setLabel("Rocky YouTube").setEmoji("840260133686870036"))]
+                  components: [new MessageActionRow().addComponents(Selection), new MessageActionRow().addComponents(new MessageButton().setStyle("LINK").setURL("https://dsc.gg/banditcamp").setLabel("Support Server").setEmoji("950886430421418004"))]
                 })
                 //Create the collector
                 const collector = menumsg.createMessageComponentCollector({
-                  filter: i => i?.isSelectMenu() && i?.message.author.id == client.user.id && i?.user,
+                  filter: i => i?.isSelectMenu() && i?.message.author?.id == client.user.id && i?.user,
                   time: 90000, errors: ["time"]
                 })
                 //Menu Collections
-                collector.on('collect', menu => {
+                collector.on('collect', async menu => {
                   if (menu?.user.id === cmduser.id) {
                     collector.stop();
                     let menuoptiondata = menuoptions.find(v => v.value == menu?.values[0])
                     if (menu?.values[0] == "Cancel") return menu?.reply(eval(client.la[ls]["cmds"]["setup"]["setup-ticket"]["variable3"]))
-                    menu?.deferUpdate();
+                    client.disableComponentMessage(menu);
                     handle_the_picks3(menu?.values[0], menuoptiondata, SetupNumber)
                   } else menu?.reply({
-                    content: `:no_entry_sign: You are not allowed to do that! Only: <@${cmduser.id}>`,
+                    content: `:x: You are not allowed to do that! Only: <@${cmduser.id}>`,
                     ephemeral: true
                   });
                 });
@@ -884,18 +881,18 @@ module.exports = {
                         time: 90000, errors: ["time"]
                       });
                       if (collected && collected.first().content) {
-                        if (!collected.first().content.includes("++")) return message.reply(":no_entry_sign: **Invalid Usage! Please mind the Usage and check the Example**")
+                        if (!collected.first().content.includes("++")) return message.reply(":x: **Invalid Usage! Please mind the Usage and check the Example**")
                         let value = collected.first().content.split("++")[0].trim().substring(0, 25);
                         let index2 = data.findIndex(v => v.value == value);
                         if(index2 >= 0 && index != index2) {
-                            return message.reply(":no_entry_sign: **Options can't have the SAME VALUE!** There is already an Option with that Value!");
+                            return message.reply(":x: **Options can't have the SAME VALUE!** There is already an Option with that Value!");
                         }
                         let description = collected.first().content.split("++")[1].trim().substring(0, 50);
                         data[index].value = value;
                         data[index].description = description;
                         return finished();
                       } else {
-                        return message.reply(":no_entry_sign: **You did not enter a Valid Message in Time! CANCELLED!**")
+                        return message.reply(":x: **You did not enter a Valid Message in Time! CANCELLED!**")
                       }
                     }break;
                     case `Change Open Category`:{
@@ -918,7 +915,7 @@ module.exports = {
                         data[index].category = category.id;
                         return finished();
                       }
-                      return message.reply(":no_entry_sign: **Invalid Category-ID added**")
+                      return message.reply(":x: **Invalid Category-ID added**")
                     }break;
                     case `Change Default-Name`:{
                       let defaultname = "🎫・{count}・{member}";
@@ -966,7 +963,7 @@ module.exports = {
                               emoji = collected.first().emoji?.name;
                               emojiMsg = collected.first().emoji?.name;
                             } else {
-                              message.reply("<:no_entry_sign:951013282607685632> **No valid emoji added, using default EMOJI**");
+                              message.reply(":x: **No valid emoji added, using default EMOJI**");
                               data[index].emoji = null;
                               data[index].emojiMsg = NumberEmojis[data.length];
                             }
@@ -981,15 +978,15 @@ module.exports = {
                                 data[index].emojiMsg = emojiMsg;
                               }
                             } catch (e){
-                              console.log(e)
-                              message.reply("<:no_entry_sign:951013282607685632> **Could not use the CUSTOM EMOJI you added, as I can't access it / use it as a reaction/emoji for the menu**\nUsing default emoji!");
+                              console.error(e)
+                              message.reply(":x: **Could not use the CUSTOM EMOJI you added, as I can't access it / use it as a reaction/emoji for the menu**\nUsing default emoji!");
                               data[index].emoji = null;
                               data[index].emojiMsg = NumberEmojis[data.length];
                             }
                             finished();
                           }).catch((e) => {
-                            console.log(e)
-                            message.reply("<:no_entry_sign:951013282607685632> **No valid emoji added, using default EMOJI**");
+                            console.error(e)
+                            message.reply(":x: **No valid emoji added, using default EMOJI**");
                             data[index].emoji = null;
                             data[index].emojiMsg = NumberEmojis[data.length];
                             finished();
@@ -1014,13 +1011,13 @@ module.exports = {
                         data[index].replyMsg = collected3.first().content;
                         return finished();
                       } else {
-                        return message.reply(":no_entry_sign: **You did not enter a Valid Message in Time! CANCELLED!**")
+                        return message.reply(":x: **You did not enter a Valid Message in Time! CANCELLED!**")
                       }
                     }break;
                   }
                 }
-                function finished() {
-                  theDB.set(message.guild.id, data, pre+".data");
+                async function finished() {
+                  await theDB.set(`${message.guild.id}.${pre}.data`, data);
                   let {
                     value,
                     description,
@@ -1050,7 +1047,7 @@ module.exports = {
 
 
               } else menu?.reply({
-                content: `:no_entry_sign: You are not allowed to do that! Only: <@${cmduser.id}>`,
+                content: `:x: You are not allowed to do that! Only: <@${cmduser.id}>`,
                 ephemeral: true
               });
             });
@@ -1065,9 +1062,9 @@ module.exports = {
           }
           break;
           case "Remove Ticket Option": {
-          let data = theDB.get(message.guild.id, pre+".data");
+          let data = await theDB.get(`${message.guild.id}.${pre}.data`);
           if (!data || data.length < 1) {
-            return message.reply(":no_entry_sign: **There are no Open-Ticket-Options to remove**")
+            return message.reply(":x: **There are no Open-Ticket-Options to remove**")
           }
           let embed = new MessageEmbed()
             .setColor(es.color)
@@ -1122,7 +1119,7 @@ module.exports = {
           })
           //Create the collector
           const collector = menumsg.createMessageComponentCollector({
-            filter: i => i?.isSelectMenu() && i?.message.author.id == client.user.id && i?.user,
+            filter: i => i?.isSelectMenu() && i?.message.author?.id == client.user.id && i?.user,
             time: 90000, errors: ["time"]
           })
           //Menu Collections
@@ -1133,10 +1130,10 @@ module.exports = {
                 let index = data.findIndex(v => v.value == value);
                 data.splice(index, 1)
               }
-              theDB.set(message.guild.id, data, pre+".data");
+              await theDB.set(`${message.guild.id}.${pre}.data`, data);
               message.reply(`**Successfully removed:**\n>>> ${menu?.values.map(i => `\`${i}\``).join(", ")}\n\nDon't forget to resend the Ticket Config-Message!`)
             } else menu?.reply({
-              content: `:no_entry_sign: You are not allowed to do that! Only: <@${cmduser.id}>`,
+              content: `:x: You are not allowed to do that! Only: <@${cmduser.id}>`,
               ephemeral: true
             });
           });
@@ -1151,7 +1148,7 @@ module.exports = {
         }
         break;
           case "Closed Ticket Category": {
-            let parentId = theDB.get(message.guild.id, `${pre}.closedParent`);
+            let parentId = await theDB.get(`${message.guild.id}.${pre}.closedParent`);
             let parent = parentId ? message.guild.channels.cache.get(parentId) : null;
             var rembed = new MessageEmbed()
               .setColor(es.color)
@@ -1160,13 +1157,13 @@ module.exports = {
               .setDescription(`Currently it's: \`${parentId ? "Not Setupped yet" : parent ? parent.name : `Channel not Found: ${parentId}`}\`!\nWhen closing a Ticket, it will be moved to there until it get's deleted!\n> **Send the new __PARENT ID__ now!**`)
             message.reply({
               embeds: [rembed]
-            }).then(msg => {
+            }).then(async (msg) => {
               msg.channel.awaitMessages({
-                filter: m => m.author.id === message.author.id,
+                filter: m => m.author.id === message.author?.id,
                 max: 1,
                 time: 30000,
                 errors: ['time']
-              }).then(collected => {
+              }).then(async collected => {
                 let content = collected.first().content;
                 if (!content || content.length > 19 || content.length < 17) {
                   return message.reply("An Id is between 17 and 19 characters big")
@@ -1178,7 +1175,7 @@ module.exports = {
                 if(parent.type !== "GUILD_CATEGORY"){
                   return message.reply(`<#${parent.id}> is not a CATEGORY/PARENT`);
                 }
-                theDB.set(message.guild.id, parent.id, `${pre}.closedParent`);
+                await theDB.set(`${message.guild.id}.${pre}.closedParent`, parent.id);
                 message.reply(`I will now move closed Tickets to ${parent.name} (${parent.id})`);
               }).catch(error => {
                 return message.reply({
@@ -1210,32 +1207,32 @@ module.exports = {
             });
             if (collected && (collected.first().mentions.roles.size > 0 || collected.first().mentions.users.size > 0)) {
               let { users, roles } = collected.first().mentions;
-              let settings = theDB.get(message.guild.id, pre);
+              let settings = await theDB.get(`${message.guild.id}.${pre}`);
               let toadd = [];
               let toremove = [];
-              for(const role of roles.map(r => r.id)){
+              for await (const role of roles.map(r => r.id)){
                 if([...settings.access].includes(role)) {
                   toremove.push(role)
                 } else {
                   toadd.push(role)
                 }
               }
-              for(const user of users.map(r => r.id)){
+              for await (const user of users.map(r => r.id)){
                 if([...settings.access].includes(user)) {
                   toremove.push(user)
                 } else {
                   toadd.push(user)
                 }
               }
-              for(const add of toadd) {
-                theDB.push(message.guild.id, add, pre+".access");
+              for await (const add of toadd) {
+                await theDB.push(`${message.guild.id}.${pre}`+".access", add);
               }
-              for(const remove of toremove) {
-                theDB.remove(message.guild.id, remove, pre+".access");
+              for await (const remove of toremove) {
+                await theDB.remove(`${message.guild.id}.${pre}`+".access", remove);
               }
               message.reply(`👍 Successfully added \`${toadd.length} Users/Roles\` and removed \`${toremove.length} Users/Roles\`\n> They are now always able to see, write and manage stuff in the TICKETS ment for them!`)
             } else {
-              message.reply("<:no_entry_sign:951013282607685632> **You did not ping valid user(s)**")
+              message.reply(":x: **You did not ping valid user(s)**")
             }
           }break;
         }

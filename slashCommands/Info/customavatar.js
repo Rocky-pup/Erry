@@ -16,6 +16,7 @@ module.exports = {
 		//{"StringChoices": { name: "what_ping", description: "What Ping do you want to get?", required: true, choices: [["Bot", "botping"], ["Discord Api", "api"]] }}, //here the second array input MUST BE A STRING // TO USE IN THE CODE: interacton.getString("what_ping")
   ],
   run: async (client, interaction, cmduser, es, ls, prefix, player, message) => {
+let GuildSettings = client.settings.get(`${interaction.guild.id}`)
     //things u can directly access in an interaction!
 		const { member, channelId, guildId, applicationId, commandName, deferred, replied, ephemeral, options, id, createdTimestamp } = interaction; 
     const { guild } = member;
@@ -43,9 +44,9 @@ module.exports = {
     }
     if (customavatar) {
       let embed = new MessageEmbed()
-        .setAuthor(handlemsg(client.la[ls].cmds.info.avatar.author, {
+        .setAuthor(client.getAuthor(handlemsg(client.la[ls].cmds.info.avatar.author, {
           usertag: user.tag
-        }), customavatar)
+        }), customavatar, "https://dsc.gg/banditcamp"))
         .setColor(es.color).setThumbnail(es.thumb ? es.footericon && (es.footericon.includes("http://") || es.footericon.includes("https://")) ? es.footericon : client.user.displayAvatarURL() : null)
         .addField("<:arrow:950884679114952715> PNG", `[\`LINK\`](${customavatar})`, true)
         .addField("<:arrow:950884679114952715> JPEG", `[\`LINK\`](${customavatar.replace("png", "jpg").replace("gif", "jpg")})`, true)
@@ -58,11 +59,11 @@ module.exports = {
       });
     } else {
       let embed = new MessageEmbed()
-        .setAuthor(handlemsg(client.la[ls].cmds.info.avatar.author, {
+        .setAuthor(client.getAuthor(handlemsg(client.la[ls].cmds.info.avatar.author, {
           usertag: user.tag
         }), user.displayAvatarURL({
           dynamic: true
-        }))
+        }), "https://dsc.gg/banditcamp"))
         .setColor(es.color).setThumbnail(es.thumb ? es.footericon && (es.footericon.includes("http://") || es.footericon.includes("https://")) ? es.footericon : client.user.displayAvatarURL() : null)
         .addField("<:arrow:950884679114952715> PNG", `[\`LINK\`](${user.displayAvatarURL({format: "png"})})`, true)
         .addField("<:arrow:950884679114952715> JPEG", `[\`LINK\`](${user.displayAvatarURL({format: "jpg"})})`, true)

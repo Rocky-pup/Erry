@@ -16,9 +16,9 @@ const { handlemsg } = require(`${process.cwd()}/handlers/functions`);
     "previoussong": false
   },
   run: async (client, interaction, cmduser, es, ls, prefix, player, message) => {
-    
-    //let es = client.settings.get(message.guild.id, "embed");let ls = client.settings.get(message.guild.id, "language")
-    if (!client.settings.get(message.guild.id, "MUSIC")) {
+    let GuildSettings = client.settings.get(`${interaction.guild.id}`)
+    //
+    if(GuildSettings.MUSIC === false) {
       return interaction?.reply({ephemeral: true, embed : [new MessageEmbed()
         .setColor(es.wrongcolor)
         .setFooter(client.getFooter(es))
@@ -30,7 +30,7 @@ const { handlemsg } = require(`${process.cwd()}/handlers/functions`);
       //clear the QUEUE
       player.queue.clear();
       //Send Success Message
-      interaction?.reply({embeds : [new MessageEmbed()
+      interaction?.reply({ephemeral: true, embeds : [new MessageEmbed()
         .setTitle(client.la[ls].cmds.music.clearqueue.title)
         .setColor(es.color)
       ]});

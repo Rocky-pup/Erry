@@ -1,6 +1,6 @@
 const { MessageEmbed } = require("discord.js");
-const config = require(`${process.cwd()}/botconfig/config.json`);
-var ee = require(`${process.cwd()}/botconfig/embed.json`);
+const config = require(`../../botconfig/config.json`);
+var ee = require(`../../botconfig/embed.json`);
 const emoji = require("../../botconfig/emojis.json");
 module.exports = {
     name: "toggleplaymessage",
@@ -10,13 +10,21 @@ module.exports = {
     usage: "toggleplaymessage",
     memberpermissions: ["ADMINISTRATOR"],
     type: "music",
-    run: async (client, message, args, cmduser, text, prefix) => {
-    
-      let es = client.settings.get(message.guild.id, "embed");let ls = client.settings.get(message.guild.id, "language")
+    run: async (client, message, args, cmduser, text, prefix, player, es, ls, GuildSettings) => {
+      var guildpremData = await client.premium.get(`${message.guild.id}.enabled`)
+      if(guildpremData === false){
+        return message.reply({embeds: [new MessageEmbed()
+          .setColor(es.wrongcolor)
+          .setFooter(client.getFooter(es))
+          .setTitle(client.la[ls].common.premium.title)
+          .setDescription(handlemsg(client.la[ls].common.premium.description))
+        ]});
+      }
+      
       
       //run the code of togglepruning
-      let { run } = require("./togglepruning");
-      run(client, message, args);
+      let { run } = require("./playmsg");
+      run(client, message, args, cmduser, text, prefix, player, es, ls, GuildSettings);
   }
 };
 

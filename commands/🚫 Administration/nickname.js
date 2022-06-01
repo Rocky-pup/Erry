@@ -2,12 +2,12 @@ const {
   MessageEmbed,
   Permissions
 } = require(`discord.js`);
-const config = require(`${process.cwd()}/botconfig/config.json`);
-var ee = require(`${process.cwd()}/botconfig/embed.json`);
-const emoji = require(`${process.cwd()}/botconfig/emojis.json`);
+const config = require(`../../botconfig/config.json`);
+var ee = require(`../../botconfig/embed.json`);
+const emoji = require(`../../botconfig/emojis.json`);
 const {
   databasing
-} = require(`${process.cwd()}/handlers/functions`);
+} = require(`../../handlers/functions`);
 module.exports = {
   name: `nickname`,
   category: `🚫 Administration`,
@@ -15,19 +15,19 @@ module.exports = {
   description: `Change the Nickname of a Member`,
   usage: `nickname @User [New Nickname]`,
   type: "member",
-  run: async (client, message, args, cmduser, text, prefix) => {
+  run: async (client, message, args, cmduser, text, prefix, player, es, ls, GuildSettings) => {
     
-    let es = client.settings.get(message.guild.id, "embed");let ls = client.settings.get(message.guild.id, "language")
+    
 
     try {
       if(!message.guild.me.permissions.has([Permissions.FLAGS.MANAGE_NICKNAMES]))      
         return message.reply({embeds : [new MessageEmbed()
           .setColor(es.wrongcolor).setFooter(client.getFooter(es))
-          .setTitle(`:no_entry_sign: **I am missing the Permission to Manage Nicknames of others**`)
+          .setTitle(`:x: **I am missing the Permission to Manage Nicknames of others**`)
         ]})
-      //databasing(client, message.guild.id, message.author.id);
-      let adminroles = client.settings.get(message.guild.id, "adminroles")
-      let cmdroles = client.settings.get(message.guild.id, "cmdadminroles.nickname")
+      //databasing(client, message.guild.id, message.author?.id);
+      let adminroles = GuildSettings?.adminroles || [];
+      let cmdroles = GuildSettings?.cmdadminroles?.nickname || [];
       var cmdrole = []
       if (cmdroles.length > 0) {
         for (const r of cmdroles) {
@@ -36,12 +36,16 @@ module.exports = {
           } else if (message.guild.members.cache.get(r)) {
             cmdrole.push(` | <@${r}>`)
           } else {
-            //console.log(r)
-            client.settings.remove(message.guild.id, r, `cmdadminroles.nickname`)
+            const File = `nickname`;
+            let index = GuildSettings && GuildSettings.cmdadminroles && typeof GuildSettings.cmdadminroles == "object" ? GuildSettings.cmdadminroles[File]?.indexOf(r) || -1 : -1;
+            if(index > -1) {
+              GuildSettings.cmdadminroles[File].splice(index, 1);
+              client.settings.set(`${message.guild.id}.cmdadminroles`, GuildSettings.cmdadminroles)
+            }
           }
         }
       }
-      if (([...message.member.roles.cache.values()] && !message.member.roles.cache.some(r => cmdroles.includes(r.id))) && !cmdroles.includes(message.author.id) && ([...message.member.roles.cache.values()] && !message.member.roles.cache.some(r => adminroles.includes(r ? r.id : r))) && !Array(message.guild.ownerId, config.ownerid).includes(message.author.id) && !message.member.permissions.has([Permissions.FLAGS.MANAGE_NICKNAMES]))
+      if (([...message.member.roles.cache.values()] && !message.member.roles.cache.some(r => cmdroles.includes(r.id))) && !cmdroles.includes(message.author?.id) && ([...message.member.roles.cache.values()] && !message.member.roles.cache.some(r => adminroles.includes(r ? r.id : r))) && !Array(message.guild.ownerId, config.ownerid).includes(message.author?.id) && !message.member?.permissions?.has([Permissions.FLAGS.MANAGE_NICKNAMES]))
         return message.reply({embeds: [new MessageEmbed()
           .setColor(es.wrongcolor)
           .setFooter(client.getFooter(es))
@@ -53,14 +57,14 @@ module.exports = {
         return message.reply({embeds :[new MessageEmbed()
           .setColor(es.wrongcolor)
           .setFooter(client.getFooter(es))
-          .setTitle(`:no_entry_sign: **You forgot to ping a Member**`)
+          .setTitle(`:x: **You forgot to ping a Member**`)
           .setDescription(`Usage: \`${prefix}nickname @User newnickname\``)
         ]});
       if(!args[1])
         return message.reply({embeds :[new MessageEmbed()
           .setColor(es.wrongcolor)
           .setFooter(client.getFooter(es))
-          .setTitle(`:no_entry_sign: **You forgot to add a Nickname**`)
+          .setTitle(`:x: **You forgot to add a Nickname**`)
           .setDescription(`Usage: \`${prefix}nickname @User newnickname\``)
         ]});
       let nickname = args.slice(1).join(" ");
@@ -68,7 +72,7 @@ module.exports = {
         return message.reply({embeds :[new MessageEmbed()
           .setColor(es.wrongcolor)
           .setFooter(client.getFooter(es))
-          .setTitle(`:no_entry_sign: **The Nickname must have smaller then 32 Characters**`)
+          .setTitle(`:x: **The Nickname must have smaller then 32 Characters**`)
           .setDescription(`Usage: \`${prefix}nickname @User newnickname\``)
         ]});
       kickmember.setNickname(nickname).then(member => {

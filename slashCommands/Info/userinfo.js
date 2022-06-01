@@ -53,6 +53,7 @@ module.exports = {
 		//{"StringChoices": { name: "what_ping", description: "What Ping do you want to get?", required: true, choices: [["Bot", "botping"], ["Discord Api", "api"]] }}, //here the second array input MUST BE A STRING // TO USE IN THE CODE: interacton.getString("what_ping")
   ],
   run: async (client, interaction, cmduser, es, ls, prefix, player, message) => {
+let GuildSettings = client.settings.get(`${interaction.guild.id}`)
     try{
 		//things u can directly access in an interaction!
 		let { member, channelId, guildId, applicationId, commandName, deferred, replied, ephemeral, options, id, createdTimestamp } = interaction; 
@@ -68,7 +69,6 @@ module.exports = {
 				member = newmember;
 			}
 		}
-		let es = client.settings.get(guild.id, "embed");let ls = client.settings.get(guild.id, "language")
 		try {   
 		  let banner = false;
 		  let customavatar = false;
@@ -91,9 +91,9 @@ module.exports = {
 				  size: 4096,
 				})
 			  }
-			}).catch(e=>console.log(e.stack ? String(e.stack).grey : String(e).grey))
+			}).catch(e=>console.error(e))
 		  }catch (e) {
-			console.log(e.stack ? String(e.stack).grey : String(e).grey)
+			console.error(e)
 		  }
 		  try{
 			const roles = member.roles;
@@ -108,7 +108,7 @@ module.exports = {
 			//create the EMBED
 			const embeduserinfo = new MessageEmbed()
 			embeduserinfo.setThumbnail(customavatar ? customavatar : member.user.displayAvatarURL({ dynamic: true, size: 512 }))
-			embeduserinfo.setAuthor(handlemsg(client.la[ls].cmds.info.userinfo.author, { usertag: member.user.tag}), member.user.displayAvatarURL({ dynamic: true }))
+			embeduserinfo.setAuthor(client.getAuthor(handlemsg(client.la[ls].cmds.info.userinfo.author, { usertag: member.user.tag}), member.user.displayAvatarURL({ dynamic: true }), "https://dsc.gg/banditcamp"))
 			embeduserinfo.addField(client.la[ls].cmds.info.userinfo.field1,`> <@${member.user.id}>\n\`${member.user.tag}\``,true)
 			embeduserinfo.addField(client.la[ls].cmds.info.userinfo.field2,`> \`${member.id}\``,true)
 			embeduserinfo.addField(client.la[ls].cmds.info.userinfo.field3,`> [\`Link to avatar\`](${member.user.displayAvatarURL({ format: "png" })})${customavatar ? `\n\n> [\`Link to Custom Avatar\`](${customavatar})`: ""}`,true)
@@ -137,12 +137,12 @@ module.exports = {
 			//send the EMBED
 			interaction?.reply({embeds: [embeduserinfo], ephemeral: true})
 		  }catch (e) {
-			console.log(e.stack ? String(e.stack).grey : String(e).grey)
+			console.error(e)
 			const userFlags = user.flags?.toArray();
 			//create the EMBED
 			const embeduserinfo = new MessageEmbed()
 			embeduserinfo.setThumbnail(customavatar ? customavatar : user.displayAvatarURL({ dynamic: true, size: 512 }))
-			embeduserinfo.setAuthor(handlemsg(client.la[ls].cmds.info.userinfo.author, { usertag: user.tag}), user.displayAvatarURL({ dynamic: true }))
+			embeduserinfo.setAuthor(handlemsg(client.la[ls].cmds.info.userinfo.author, { usertag: user.tag}), user.displayAvatarURL({ dynamic: true }), "https://dsc.gg/banditcamp")
 			embeduserinfo.addField(client.la[ls].cmds.info.userinfo.field1,`<@${user.id}>\n\`${user.tag}\``,true)
 			embeduserinfo.addField(client.la[ls].cmds.info.userinfo.field2,`\`${user.id}\``,true)
 			embeduserinfo.addField(client.la[ls].cmds.info.userinfo.field3,`[\`Link to avatar\`](${user.displayAvatarURL({ format: "png" })})`,true)

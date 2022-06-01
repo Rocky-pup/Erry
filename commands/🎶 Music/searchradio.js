@@ -1,13 +1,13 @@
 const {
   MessageEmbed
 } = require(`discord.js`);
-const config = require(`${process.cwd()}/botconfig/config.json`);
-const ee = require(`${process.cwd()}/botconfig/embed.json`);
-const emoji = require(`${process.cwd()}/botconfig/emojis.json`);
+const config = require(`../../botconfig/config.json`);
+const ee = require(`../../botconfig/embed.json`);
+const emoji = require(`../../botconfig/emojis.json`);
 const radios = require(`../../botconfig/radiostations.json`);
 const playermanager = require(`../../handlers/playermanager`);
 const RadioBrowser = require('radio-browser')
-const { handlemsg } = require(`${process.cwd()}/handlers/functions`);
+const { handlemsg } = require(`../../handlers/functions`);
     module.exports = {
   name: `searchradio`,
   category: `🎶 Music`,
@@ -20,10 +20,10 @@ const { handlemsg } = require(`${process.cwd()}/handlers/functions`);
     "previoussong": false
   },
   type: "queue",
-  run: async (client, message, args, cmduser, text, prefix, player) => {
+  run: async (client, message, args, cmduser, text, prefix, player, es, ls, GuildSettings) => {
     
-    let es = client.settings.get(message.guild.id, "embed");let ls = client.settings.get(message.guild.id, "language")
-    if (!client.settings.get(message.guild.id, "MUSIC")) {
+    
+    if(GuildSettings.MUSIC === false) {
       return message.reply({embeds : [new MessageEmbed()
         .setColor(es.wrongcolor)
         .setFooter(client.getFooter(es))
@@ -107,9 +107,9 @@ const { handlemsg } = require(`${process.cwd()}/handlers/functions`);
           }
 
           let embed = new MessageEmbed()
-            .setTitle(`Search result for: 🔎 **\`${filter.searchterm}`.substring(0, 256 - 3) + "`**")
+            .setTitle(`${client.la[ls]["cmds"]["music"]["searchradio"]["result"]} **\`${filter.searchterm}`.substring(0, 256 - 3) + "`**")
             .setColor(es.color)
-            .setFooter(client.getFooter(`Search-Request by: ${message.author.tag}`, message.author.displayAvatarURL({
+            .setFooter(client.getFooter(`${client.la[ls]["cmds"]["music"]["searchradio"]["srequest"]} ${message.author.tag}`, message.author.displayAvatarURL({
               dynamic: true
             })))
 
@@ -124,7 +124,7 @@ const { handlemsg } = require(`${process.cwd()}/handlers/functions`);
           ]})
 
           try {
-            collected = await message.channel.awaitMessages({filter: m => m.author.id === message.author.id,
+            collected = await message.channel.awaitMessages({filter: m => m.author.id === message.author?.id,
               max: 1,
               time: 30e3,
               errors: ['time']

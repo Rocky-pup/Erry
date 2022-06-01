@@ -2,12 +2,12 @@ var {
   MessageEmbed
 } = require(`discord.js`);
 var Discord = require(`discord.js`);
-var config = require(`${process.cwd()}/botconfig/config.json`);
-var ee = require(`${process.cwd()}/botconfig/embed.json`);
-var emoji = require(`${process.cwd()}/botconfig/emojis.json`);
+var config = require(`../../botconfig/config.json`);
+var ee = require(`../../botconfig/embed.json`);
+var emoji = require(`../../botconfig/emojis.json`);
 var {
-  databasing
-} = require(`${process.cwd()}/handlers/functions`);
+  dbEnsure
+} = require(`../../handlers/functions`);
 const { MessageButton, MessageActionRow, MessageSelectMenu } = require('discord.js')
 module.exports = {
   name: "setup-commands",
@@ -18,9 +18,7 @@ module.exports = {
   description: "Enable/Disable specific Commands",
   memberpermissions: ["ADMINISTRATOR"],
   type: "info",
-  run: async (client, message, args, cmduser, text, prefix) => {
-    
-    let es = client.settings.get(message.guild.id, "embed");let ls = client.settings.get(message.guild.id, "language")
+  run: async (client, message, args, cmduser, text, prefix, player, es, ls, GuildSettings) => {
     try {
       function getMenuOptions() {
         return [
@@ -28,79 +26,79 @@ module.exports = {
             label: "ECONOMY",
             value: "ECONOMY",
             emoji: "💸",
-            description: `${client.settings.get(message.guild.id, "ECONOMY") ? "❌ Disable ECONOMY Commands" : "✅ Enable ECONOMY Commands"}`
+            description: `${GuildSettings.ECONOMY ? "❌ Disable ECONOMY Commands" : "✅ Enable ECONOMY Commands"}`
           },
           {
             label: "SCHOOL",
             value: "SCHOOL",
             emoji: "🏫",
-            description: `${client.settings.get(message.guild.id, "SCHOOL") ? "❌ Disable SCHOOL Commands" : "✅ Enable SCHOOL Commands"}`
+            description: `${GuildSettings.SCHOOL ? "❌ Disable SCHOOL Commands" : "✅ Enable SCHOOL Commands"}`
           },
           {
             label: "MUSIC",
             value: "MUSIC",
             emoji: "🎶",
-            description: `${client.settings.get(message.guild.id, "MUSIC") ? "❌ Disable Music Commands" : "✅ Enable Music Commands"}`
+            description: `${GuildSettings.MUSIC ? "❌ Disable Music Commands" : "✅ Enable Music Commands"}`
           },
           {
             label: "FILTER",
             value: "FILTER",
             emoji: "👀",
-            description: `${client.settings.get(message.guild.id, "FILTER") ? "❌ Disable FILTER Commands" : "✅ Enable FILTER Commands"}`
+            description: `${GuildSettings.FILTER ? "❌ Disable FILTER Commands" : "✅ Enable FILTER Commands"}`
           },
           {
             label: "CUSTOMQUEUE",
             value: "CUSTOMQUEUE",
             emoji: "⚜️",
-            description: `${client.settings.get(message.guild.id, "CUSTOMQUEUE") ? "❌ Disable CUSTOM-QUEUE Commands" : "✅ Enable CUSTOM-QUEUE Commands"}`
+            description: `${GuildSettings.CUSTOMQUEUE ? "❌ Disable CUSTOM-QUEUE Commands" : "✅ Enable CUSTOM-QUEUE Commands"}`
           },
           {
             label: "PROGRAMMING",
             value: "PROGRAMMING",
             emoji: "⌨️",
-            description: `${client.settings.get(message.guild.id, "PROGRAMMING") ? "❌ Disable PROGRAMMING Commands" : "✅ Enable PROGRAMMING Commands"}`
+            description: `${GuildSettings.PROGRAMMING ? "❌ Disable PROGRAMMING Commands" : "✅ Enable PROGRAMMING Commands"}`
           },
           {
             label: "RANKING",
             value: "RANKING",
             emoji: "📈",
-            description: `${client.settings.get(message.guild.id, "RANKING") ? "❌ Disable RANKING Commands" : "✅ Enable RANKING Commands"}`
+            description: `${GuildSettings.RANKING ? "❌ Disable RANKING Commands" : "✅ Enable RANKING Commands"}`
           },
           {
             label: "SOUNDBOARD",
             value: "SOUNDBOARD",
             emoji: "🔊",
-            description: `${client.settings.get(message.guild.id, "SOUNDBOARD") ? "❌ Disable SOUNDBOARD Commands" : "✅ Enable SOUNDBOARD Commands"}`
+            description: `${GuildSettings.SOUNDBOARD ? "❌ Disable SOUNDBOARD Commands" : "✅ Enable SOUNDBOARD Commands"}`
           },
           {
             label: "VOICE",
             value: "VOICE",
             emoji: "🎤",
-            description: `${client.settings.get(message.guild.id, "VOICE") ? "❌ Disable VOICE Commands" : "✅ Enable VOICE Commands"}`
+            description: `${GuildSettings.VOICE ? "❌ Disable VOICE Commands" : "✅ Enable VOICE Commands"}`
           },
           {
             label: "FUN",
             value: "FUN",
             emoji: "🕹️",
-            description: `${client.settings.get(message.guild.id, "FUN") ? "❌ Disable FUN Commands" : "✅ Enable FUN Commands"}`
+            description: `${GuildSettings.FUN ? "❌ Disable FUN Commands" : "✅ Enable FUN Commands"}`
           },
           {
             label: "MINIGAMES",
             value: "MINIGAMES",
             emoji: "🎮",
-            description: `${client.settings.get(message.guild.id, "MINIGAMES") ? "❌ Disable MINIGAMES Commands" : "✅ Enable MINIGAMES Commands"}`
+            description: `${GuildSettings.MINIGAMES ? "❌ Disable MINIGAMES Commands" : "✅ Enable MINIGAMES Commands"}`
           },
           {
             label: "ANIME",
             value: "ANIME",
             emoji: "😳",
-            description: `${client.settings.get(message.guild.id, "ANIME") ? "❌ Disable ANIME Commands" : "✅ Enable ANIME Commands"}`
+            description: `${GuildSettings.ANIME ? "❌ Disable ANIME Commands" : "✅ Enable ANIME Commands"}`
           },
           {
             label: "NSFW",
             value: "NSFW",
             emoji: "🔞",
-            description: `${client.settings.get(message.guild.id, "NSFW") ? "❌ Disable NSFW Commands" : "✅ Enable NSFW Commands"}`
+            description: `${GuildSettings.NSFW ? "❌ Disable NSFW Commands" : "✅ Enable NSFW Commands"}`
           },
         ];
       }
@@ -126,22 +124,24 @@ module.exports = {
         embeds: [embed], 
         components: getMenuRowComponent()
       });
-      const collector = msg.createMessageComponentCollector({filter: (i) => i?.isSelectMenu() && i?.user && i?.message.author.id == client.user.id, time: 180e3, max: 1 });
+      const collector = msg.createMessageComponentCollector({filter: (i) => i?.isSelectMenu() && i?.user && i?.message.author?.id == client.user.id, time: 180e3, max: 1 });
       collector.on("collect", async b => {
-        if(b?.user.id !== message.author.id)
-        return b?.reply({content: "<:no_entry_sign:951013282607685632> Only the one who typed the Command is allowed to select Things!", ephemeral: true});
+        if(b?.user.id !== message.author?.id)
+        return b?.reply({content: ":x: Only the one who typed the Command is allowed to select Things!", ephemeral: true});
      
         let enabled = 0, disabled = 0;
-        for(const value of b?.values) {
-          let oldstate = client.settings.get(message.guild.id, `${value.toUpperCase()}`);
+        for await (const value of b?.values) {
+          let oldstate = GuildSettings[`${value.toUpperCase()}`];
           if(!oldstate) enabled++;
           else disabled++;
-          client.settings.set(message.guild.id, !oldstate, `${value.toUpperCase()}`)
+          GuildSettings[`${value.toUpperCase()}`] = !oldstate
         }
+        await client.settings.set(message.guild.id, GuildSettings)
+        GuildSettings = await client.settings.get(message.guild.id);
         b?.reply(`:white_check_mark: **\`Enabled ${enabled} Command-Categories\` and \`Disabled ${disabled} Command-Categories\` out of \`${b?.values.length} selected Command-Categories\`**`)
       })
       collector.on('end', collected => {
-        msg.edit({content: "<:no_entry_sign:951013282607685632> Time ran out/Input finished! Cancelled", embeds: [
+        msg.edit({content: ":x: Time ran out/Input finished! Cancelled", embeds: [
           msg.embeds[0]
             .setDescription(`${getMenuOptions().map(option => `> ${option.emoji} **${option.value}-Commands**: ${option.description.split(" ")[0] != "❌" ? `\`Are now disabled [❌]\`` : `\`Are now enabled [✅]\``}`).join("\n\n")}`)
         ], components: []}).catch((e)=>{})

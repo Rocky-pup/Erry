@@ -18,7 +18,7 @@ I suggest to contact with me in discord: [Click](https://dsc.gg/banditcamp)
   * [nodejs](https://nodejs.org) version 16.6 or higher, I recommend the latest STABLE version
   * [python](https://python.org) version 3.8 or higher, to install the database `enmap` (better-sqlite3)
   * A VPS would be advised, so you don't need to keep your PC/laptop/RasPi 24/7 online! [Click here for a debian setup](https://github.com/Tomato6966/Debian-Cheat-Sheet-Setup/wiki/).
-  
+
 </details>
 
 ## 🎶 Music Requirements

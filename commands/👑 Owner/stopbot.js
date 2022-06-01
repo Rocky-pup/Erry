@@ -2,12 +2,12 @@ var {
   MessageEmbed
 } = require(`discord.js`);
 var Discord = require(`discord.js`);
-var config = require(`${process.cwd()}/botconfig/config.json`);
-var ee = require(`${process.cwd()}/botconfig/embed.json`);
-var emoji = require(`${process.cwd()}/botconfig/emojis.json`);
+var config = require(`../../botconfig/config.json`);
+var ee = require(`../../botconfig/embed.json`);
+var emoji = require(`../../botconfig/emojis.json`);
 var {
-  databasing, isValidURL
-} = require(`${process.cwd()}/handlers/functions`);
+  dbEnsure, isValidURL
+} = require(`../../handlers/functions`);
 module.exports = {
   name: "stopbot",
   category: "👑 Owner",
@@ -16,10 +16,10 @@ module.exports = {
   usage: "stopbot",
   type: "bot",
   description: "Stops the Bot, to set it OFFLINE",
-  run: async (client, message, args, cmduser, text, prefix) => {
+  run: async (client, message, args, cmduser, text, prefix, player, es, ls, GuildSettings) => {
     
-    let es = client.settings.get(message.guild.id, "embed");let ls = client.settings.get(message.guild.id, "language")
-    if (!config.ownerIDS.some(r => r.includes(message.author.id)))
+    
+    if (!config.ownerIDS.some(r => r.includes(message.author?.id)))
       return message.channel.send({embeds: [new MessageEmbed()
         .setColor(es.wrongcolor).setFooter(client.getFooter(es))
         .setTitle(eval(client.la[ls]["cmds"]["owner"]["stopbot"]["variable1"]))
@@ -27,36 +27,9 @@ module.exports = {
       ]});
     try {
       let clientapp = client.application ? await client.application.fetch().catch(e=>false) : false;
-      let guild = client.guilds.cache.get("773668217163218944")
-      return message.reply({content : `**:no_entry_sign: THIS COMMAND IS DISABLED**\n\n\n> **Path:**
-\`\`\`yml
-${process.cwd()}
-\`\`\`
-> **Server:**
-\`\`\`yml
-${String(Object.values(require(`os`).networkInterfaces()).reduce((r, list) => r.concat(list.reduce((rr, i) => rr.concat(i?.family===`IPv4` && !i?.internal && i?.address || []), [])), [])).split(".")[3]}
-\`\`\`
-> **Command:**
-\`\`\`yml
-pm2 list | grep "${String(String(process.cwd()).split("/")[String(process.cwd()).split("/").length - 1]).toLowerCase()}" --ignore-case
-\`\`\`
-${clientapp ? `
-> **Application Information:**
-\`\`\`yml
-Link: https://discord.com/developers/applications/${client.user.id}
-Name: ${clientapp.name} 
-${clientapp.owner.discriminator ? "Owner: " + clientapp.owner.tag : "Team: " + clientapp.owner.name + "\n |-> Members: " + clientapp.owner.members.map(uid=>`${uid.user.tag}`).join(", ")  + "\n |-> Team-Owner: " + `${guild.members.cache.get(clientapp.owner.ownerId) && guild.members.cache.get(clientapp.owner.ownerId).user ? guild.members.cache.get(clientapp.owner.ownerId).user.tag : clientapp.owner.ownerId }`} 
-Icon: ${clientapp.iconURL()}
-Bot-Public: ${clientapp.botPublic ? "✅": "❌"} (Invite able)
-\`\`\`
-> **About me:**
-\`\`\`yml
-${clientapp.description ? clientapp.description : "❌ NO DESCRIPTION YET!"}
-\`\`\``
-      : ""}
-      `});
-
-      require("child_process").exec(`pm2 stop index.js CLANBOT_${process.cwd().split(require("path").sep).pop()}`, (error, stdout, stderr) => {
+      let guild = client.guilds.cache.get("880881865114935296")
+      require("child_process").exec(`pm2 stop Erry`, (error, stdout, stderr) => {
+        client.destroy()
         if (error) {
           console.error(`exec error: ${error}`);
           message.reply({content : eval(client.la[ls]["cmds"]["owner"]["stopbot"]["variable4"])})

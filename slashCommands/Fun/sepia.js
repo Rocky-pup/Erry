@@ -16,8 +16,8 @@ module.exports = {
     { "User": { name: "which_user", description: "From Which User do you want to get ... ?", required: false } }, //to use in the code: interacton.getUser("ping_a_user")
   ],
   run: async (client, interaction, cmduser, es, ls, prefix, player, message) => {
-
-    if (!client.settings.get(message.guild.id, "FUN")) {
+    let GuildSettings = client.settings.get(`${interaction.guild.id}`)
+    if (GuildSettings.FUN === false) {
       return interaction?.reply({
         embeds: [new MessageEmbed()
           .setColor(es.wrongcolor)
@@ -44,7 +44,7 @@ module.exports = {
         .setAuthor(`Meme for: ${user.tag}`, user.displayAvatarURL())
         .setImage("attachment://sepia.png")
       ], file: [attachment]
-    }).catch(() => {})
+    }).catch(() => null)
 
   }
 }
