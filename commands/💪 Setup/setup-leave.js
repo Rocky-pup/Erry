@@ -87,7 +87,7 @@ module.exports = {
             let SetupNumber = menu?.values[0].split(" ")[0]
             handle_the_picks(menu?.values[0], SetupNumber, menuoptiondata)
           }
-          else menu?.reply({content: `:x: You are not allowed to do that! Only: <@${cmduser.id}>`, ephemeral: true});
+          else menu?.reply({content: `:x: ${client.la[ls].cmds.setup.setupmusic.only} <@${cmduser.id}>`, ephemeral: true});
         });
         //Once the Collections ended edit the menu message
         collector.on('end', collected => {
@@ -172,7 +172,7 @@ module.exports = {
                   let SetupNumber = menu?.values[0].split(" ")[0]
                   handle_the_picks_2(menu?.values[0], SetupNumber, menuoptiondata)
                 }
-                else menu?.reply({content: `:x: You are not allowed to do that! Only: <@${cmduser.id}>`, ephemeral: true});
+                else menu?.reply({content: `:x: ${client.la[ls].cmds.setup.setupmusic.only} <@${cmduser.id}>`, ephemeral: true});
               });
               //Once the Collections ended edit the menu message
               collector.on('end', collected => {
@@ -331,7 +331,7 @@ module.exports = {
                         let SetupNumber = menu?.values[0].split(" ")[0]
                         handle_the_picks_3(menu?.values[0], SetupNumber, menuoptiondata)
                       }
-                      else menu?.reply({content: `:x: You are not allowed to do that! Only: <@${cmduser.id}>`, ephemeral: true});
+                      else menu?.reply({content: `:x: ${client.la[ls].cmds.setup.setupmusic.only} <@${cmduser.id}>`, ephemeral: true});
                     });
                     //Once the Collections ended edit the menu message
                     collector.on('end', collected => {
@@ -723,7 +723,7 @@ module.exports = {
                   let SetupNumber = menu?.values[0].split(" ")[0]
                   handle_the_picks_2(menu?.values[0], SetupNumber, menuoptiondata)
                 }
-                else menu?.reply({content: `:x: You are not allowed to do that! Only: <@${cmduser.id}>`, ephemeral: true});
+                else menu?.reply({content: `:x: ${client.la[ls].cmds.setup.setupmusic.only} <@${cmduser.id}>`, ephemeral: true});
               });
               //Once the Collections ended edit the menu message
               collector.on('end', collected => {
@@ -853,7 +853,7 @@ module.exports = {
                         let SetupNumber = menu?.values[0].split(" ")[0]
                         handle_the_picks_3(menu?.values[0], SetupNumber, menuoptiondata)
                       }
-                      else menu?.reply({content: `:x: You are not allowed to do that! Only: <@${cmduser.id}>`, ephemeral: true});
+                      else menu?.reply({content: `:x: ${client.la[ls].cmds.setup.setupmusic.only} <@${cmduser.id}>`, ephemeral: true});
                     });
                     //Once the Collections ended edit the menu message
                     collector.on('end', collected => {

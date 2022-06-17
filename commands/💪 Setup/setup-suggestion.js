@@ -34,8 +34,8 @@ module.exports = {
           soonmsg: `👌 Expect this Feature Soon!`,
           statustext: `<a:Loading:950883677255118898> Waiting for Community Feedback, please vote!`,
           footertext: `Want to suggest / Feedback something? Simply type in this channel!`,
-          approveemoji: `833101995723194437`,
-          denyemoji: `833101993668771842`,
+          approveemoji: `950884027320135711`,
+          denyemoji: `951013282607685632`,
         }
       });
       first_layer()
@@ -131,7 +131,7 @@ module.exports = {
             let SetupNumber = menu?.values[0].split(" ")[0]
             handle_the_picks(menu?.values[0], SetupNumber, menuoptiondata)
           } else menu?.reply({
-            content: `:x: You are not allowed to do that! Only: <@${cmduser.id}>`,
+            content: `:x: ${client.la[ls].cmds.setup.setupmusic.only} <@${cmduser.id}>`,
             ephemeral: true
           });
         });

@@ -37,7 +37,7 @@ module.exports = {
           {
             value: `${GuildSettings.validcode ? "Disable" : "Enable"} Valid Code`,
             description: GuildSettings.validcode ? "Don't do anything with Messages containing Code" : "React to messages containing a Valid Code Snippet",
-            emoji: GuildSettings.validcode ? "833101993668771842" : "833101995723194437"
+            emoji: GuildSettings.validcode ? "951013282607685632" : "950884027320135711"
           },
           {
             value: "Settings",
@@ -88,7 +88,7 @@ module.exports = {
               if(used1) return menu?.reply({content: `:x: You already selected something, this Selection is now disabled!`, ephemeral: true})
               menuselection(menu);
             }
-            else menu?.reply({content: `:x: You are not allowed to do that! Only: <@${cmduser.id}>`, ephemeral: true});
+            else menu?.reply({content: `:x: ${client.la[ls].cmds.setup.setupmusic.only} <@${cmduser.id}>`, ephemeral: true});
           }
         });
       }

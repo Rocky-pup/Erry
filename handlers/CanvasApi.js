@@ -10,15 +10,14 @@ const canvacord = require("canvacord");
 Canvas.registerFont("./assets/fonts/DMSans-Bold.ttf" , { family: "DM Sans", weight: "bold" } );
 Canvas.registerFont("./assets/fonts/DMSans-Regular.ttf" , { family: "DM Sans", weight: "regular" } );
 Canvas.registerFont("./assets/fonts/STIXGeneral.ttf" , { family: "STIXGeneral" } );
-Canvas.registerFont("./assets/fonts/AppleSymbol.ttf" , { family: "AppleSymbol" } );
 Canvas.registerFont("./assets/fonts/Arial.ttf"       , { family: "Arial" } );
 Canvas.registerFont("./assets/fonts/ArialUnicode.ttf", { family: "ArielUnicode" } );
 Canvas.registerFont("./assets/fonts/Genta.ttf", { family: "Genta" } );
 Canvas.registerFont("./assets/fonts/UbuntuMono.ttf", { family: "UbuntuMono" } );
 
 
-const Fonts = "`DM Sans`, STIXGeneral, AppleSymbol, Arial, ArialUnicode";
-const wideFonts = "Genta, UbuntuMono, `DM Sans`, STIXGeneral, AppleSymbol, Arial, ArialUnicode";
+const Fonts = "`DM Sans`, STIXGeneral, Arial, ArialUnicode";
+const wideFonts = "Genta, UbuntuMono, `DM Sans`, STIXGeneral, Arial, ArialUnicode";
 
 
 const { nFormatter } = require("./functions")
@@ -139,11 +138,11 @@ async function levelUpCard (data) {
          // USERNAME
         var text = `${data.username}`.trim(); 
         if (text.length > 15) text = text.substring(0, 11) + ".."
-        await canvacord.Util.renderEmoji(ctx, `${text} leveled up!`, 475, 150);
+        await canvacord.Util.renderEmoji(ctx, `${text} ${client.la[ls].handlers.rankingjs.ranking.lvlup}`, 475, 150);
     
         ctx.font = "80px UbuntuMono";
-        await canvacord.Util.renderEmoji(ctx, `New Level: ${data.newLevel}`, 475, 290);
-        await canvacord.Util.renderEmoji(ctx, ` New Rank: #${data.newRank}`, 475, 380);
+        await canvacord.Util.renderEmoji(ctx, `${client.la[ls].handlers.rankingjs.ranking.newlevel} ${data.newLevel}`, 475, 290);
+        await canvacord.Util.renderEmoji(ctx, ` ${client.la[ls].handlers.rankingjs.ranking.newrank} #${data.newRank}`, 475, 380);
     
         ctx.restore();
         try {

@@ -35,7 +35,7 @@ const { handlemsg } = require(`../../handlers/functions`);
         if (message.guild.me.voice.channel) {
           message.guild.me.voice.disconnect()
           return message.reply({embeds : [new MessageEmbed()
-            .setTitle(eval(client.la[ls]["cmds"]["music"]["stop"]["variable1"]))
+            .setTitle(client.la[ls]["cmds"]["music"]["stop"]["variable1"])
             .setColor(es.color)
 
           ]});

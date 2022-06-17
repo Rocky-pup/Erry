@@ -45,7 +45,7 @@ module.exports = {
           {
             value: `${GuildSettings?.antidiscordscam?.enabled ? "Disable" : "Enable"} Anti Scam Links`,
             description: `${GuildSettings?.antidiscordscam?.enabled ? "Don't delete other Scam Links" : "Delete other Scam Links"}`,
-            emoji: `${GuildSettings?.antidiscordscam?.enabled ? "833101993668771842" : "833101995723194437"}`
+            emoji: `${GuildSettings?.antidiscordscam?.enabled ? "951013282607685632" : "950884027320135711"}`
           },
           {
             value: "Settings",
@@ -101,7 +101,7 @@ module.exports = {
             client.disableComponentMessage(menu); used1 = true;
             handle_the_picks(menuoptionindex, menuoptiondata)
           }
-          else menu?.reply({content: `:x: You are not allowed to do that! Only: <@${cmduser.id}>`, ephemeral: true});
+          else menu?.reply({content: `:x: ${client.la[ls].cmds.setup.setupmusic.only} <@${cmduser.id}>`, ephemeral: true});
         });
         //Once the Collections ended edit the menu message
         collector.on('end', collected => {
@@ -192,7 +192,7 @@ module.exports = {
                 await client.settings.set(`${message.guild.id}.antidiscordscam.action`, action);
                 await message.reply(`I will now ${menu.values[0]} Members when they send scam link(s).`)
               }
-              else menu?.reply({content: `:x: You are not allowed to do that! Only: <@${cmduser.id}>`, ephemeral: true});
+              else menu?.reply({content: `:x: ${client.la[ls].cmds.setup.setupmusic.only} <@${cmduser.id}>`, ephemeral: true});
             });
             //Once the Collections ended edit the menu message
             collector.on('end', collected => {

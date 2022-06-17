@@ -25,7 +25,7 @@ module.exports = {
         .setColor(es.color).setThumbnail(es.thumb ? es.footericon && (es.footericon.includes("http://") || es.footericon.includes("https://")) ? es.footericon : client.user.displayAvatarURL() : null)
         .setFooter(client.getFooter(es))
         .setTitle(eval(client.la[ls]["cmds"]["info"]["uptime"]["variable1"]))
-        .addField(`🤖 __Bot__`, `\n> **Uptime:** <t:${Math.floor(timestamp/1000)}:R>\n> **Launch:** <t:${Math.floor(timestamp/1000)}:F>`)
+        .addField(`🤖 __Bot__`, `\n> **[Uptime](https://status.watchbot.app/bot/924922244436750406):** <t:${Math.floor(timestamp/1000)}:R>\n> **Launch:** <t:${Math.floor(timestamp/1000)}:F>`)
         .addField(`<:online:970050105338130433> __Database / System__`, `\n> **Uptime:** <t:${Math.floor(Date.now() / 1000 - require("os").uptime())}:R>\n> **Launch:** <t:${Math.floor(Date.now() / 1000 - require("os").uptime())}:F>`)
         ]}
         );

@@ -47,12 +47,12 @@ module.exports = {
           {
             value: `Change Language`,
             description: "Change the Language of the Bot",
-            emoji: "833101995723194437"
+            emoji: "950884027320135711"
           },
           {
             value: `Reset Language`,
             description: "Reset to the Default Language (English)",
-            emoji: "833101993668771842"
+            emoji: "951013282607685632"
           },
           {
             value: "Settings",
@@ -103,7 +103,7 @@ module.exports = {
               if(used1) return menu?.reply({content: `:x: You already selected something, this Selection is now disabled!`, ephemeral: true})
               menuselection(menu);
             }
-            else menu?.reply({content: `:x: You are not allowed to do that! Only: <@${cmduser.id}>`, ephemeral: true});
+            else menu?.reply({content: `:x: ${client.la[ls].cmds.setup.setupmusic.only} <@${cmduser.id}>`, ephemeral: true});
           }
         });
       }

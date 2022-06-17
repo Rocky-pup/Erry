@@ -93,8 +93,8 @@ Object.freeze(client.la)
  /**********************************************************
   * @param {6} Raise_the_Max_Listeners to 0 (default 10)
   *********************************************************/
-client.setMaxListeners(20);
-Events.defaultMaxListeners = 20;
+client.setMaxListeners(0);
+Events.defaultMaxListeners = 0;
 process.env.UV_THREADPOOL_SIZE = OS.cpus().length;
  
  
@@ -132,7 +132,7 @@ async function requirehandlers(){
   }
   //social logs
   [
-    "twitterfeed",
+    "twitterfeed", 
     /* "twitterfeed2", */
     "livelog", 
     "youtube", 
@@ -147,7 +147,6 @@ async function requirehandlers(){
     "antidiscord",
     "antilinks",
     "antimention",
-    "anti_nuke",
     "antiselfbot",
     "antispam",
     "apply",
@@ -193,6 +192,7 @@ client.login(config.token);
 
 //start the dashboard
  //require("./dashboard/index.js")(client);
+ //client.config = require("./config");
  
 
 

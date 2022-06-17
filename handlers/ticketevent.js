@@ -166,7 +166,7 @@ module.exports = async (client) => {
             collector.on('collect', async b => {
                 let now = Date.now();
                 if (b?.user.id !== user.id)
-                    return b?.reply(`:x: **Only the one who typed ${prefix}help is allowed to react!**`, true)
+                    return b?.reply(`:x: **Only the one who interacted is allowed to verify!**`, true)
 
                 
                 //page forward
@@ -346,7 +346,7 @@ module.exports = async (client) => {
 
             collector.on('collect', async b => {
                 if (b?.user.id !== user.id)
-                    return b?.reply(`:x: **Only the one who typed ${prefix}help is allowed to react!**`, true)
+                    return b?.reply(`:x: **Only the one who interacted is allowed to verify!**`, true)
 
                 //page forward
                 if (b?.customId == "ticket_verify") {
@@ -1252,7 +1252,7 @@ module.exports = async (client) => {
                     .setFooter(client.getFooter(`To close/manage this ticket react with the buttons\nYou can also type: ${guild_settings.prefix || config.prefix}ticket`, es.footericon))
                     .setAuthor(client.getAuthor(`Ticket for: ${user.tag}`, user.displayAvatarURL({
                     dynamic: true
-                    }), "https://discord.gg/milrato"))
+                    }), "https://dsc.gg/banditcamp"))
                     .setDescription(replyMsg.replace(/\{user\}/igu, `${user}`).substring(0, 2000))
                 var ticketembeds = [ticketembed]
                 if(settings.claim.enabled){
@@ -1297,7 +1297,7 @@ module.exports = async (client) => {
                         })
                     }
                 }
-                await interaction?.editReply({content: `<a:yes:833101995723194437> **Your Ticket is created!** <#${ch.id}>`, ephemeral: true});
+                await interaction?.editReply({content: `<a:yes:950884027320135711> **Your Ticket is created!** <#${ch.id}>`, ephemeral: true});
                 })
             }
         }

@@ -116,12 +116,12 @@ module.exports = {
         let button_back = new MessageButton().setStyle('SUCCESS').setCustomId('1').setEmoji("833802907509719130").setLabel(handlemsg(client.la[ls].cmds.info.help.buttons.back))
         let button_home = new MessageButton().setStyle('DANGER').setCustomId('2').setEmoji("🏠").setLabel(handlemsg(client.la[ls].cmds.info.help.buttons.home))
         let button_forward = new MessageButton().setStyle('SUCCESS').setCustomId('3').setEmoji('832598861813776394').setLabel(handlemsg(client.la[ls].cmds.info.help.buttons.forward))        
-        let button_tutorial = new MessageButton().setStyle('LINK').setEmoji("950886430421418004").setLabel(client.la[ls].cmds.info.help.buttons.server).setURL("https://youtu.be/E0R7d8gS908")
+        let button_tutorial = new MessageButton().setStyle('LINK').setEmoji("950886430421418004").setLabel(client.la[ls].cmds.info.help.buttons.server).setURL("https://dsc.gg/banditcamp")
         let menuOptions = [
           {
             label: `${client.la[ls].cmds.info.help.sixlb}`,
             value: "Overview",
-            emoji: "833101995723194437",
+            emoji: "950884027320135711",
             description: `${client.la[ls].cmds.info.help.six}`
           },
           {
@@ -263,52 +263,13 @@ module.exports = {
         let SelectionRow = new MessageActionRow().addComponents([menuSelection])
         const allbuttons = [buttonRow, SelectionRow]
         //define default embed
-        if(ls == "ru"){
           var OverviewEmbed = new MessageEmbed()
           .setColor(es.color).setThumbnail(es.thumb ? es.footericon && (es.footericon.includes("http://") || es.footericon.includes("https://")) ? es.footericon : client.user.displayAvatarURL() : null)
-          .setFooter(client.getFooter("Страница осмотра | "+ client.user.username, client.user.displayAvatarURL()))
-          .setTitle(`Информация о __${client.user.username}__`)
-          .addField(":muscle: **__Мои возможности__**",
-  `>>> **58+ Систем**, например: **Авто-постер ютуба** 
-  **Заявки-**, Тикеты-, **Изображения "добро пожаловать"-** и роли по реакции-, ... системы
-  :notes: Можная **Музыкальная система** с **Фильтрами**
-  :video_game: Много **Миниигр** и :joystick: **Фан** команд (150+)
-  :no_entry_sign: **Администрация** и **Авто-Модерация** и много чего другого!`)
-          .addField(":question: **__Как меня использовать?__**",
-  `>>> \`${prefix}setup\` и выбирайте то что нужно!,
-  Также можно настроить отдельные системы так: \`${prefix}setup-SYSTEM\` например \`${prefix}setup-welcome\``)
-  .addField(":chart_with_upwards_trend: **__Статистика:__**",
-  `>>> :gear: **${client.commands.map(a=>a).length} Команд**
-  :file_folder: Работаю на **${allGuilds} серверах(ов)**
-  ⌚️ **${duration(client.uptime).map(i=> `\`${i}\``).join("︲")} Непрерывной работы**
-  📶 **\`${Math.floor(client.ws.ping)}мс\` Пинг**
-  <:online:970050105338130433> **\`${Math.floor(await client.database.ping())}ms\` Пинг базы данных**
-    Сделан [**Rocky**](https://dsc.gg/banditcamp)`)
-  .addField("Как пользоватся?", `>>> **\` 1. Путь \`** *Используйте кнопки для переключения вкладок*\n**\` 2. Путь \`** *Используйте меню выбора, чтобы посмотреть команды сразу на нужной страничке*\n**\` 3. Путь \`** *Можешь поплакать)*`)
-        }
-        else{
-          var OverviewEmbed = new MessageEmbed()
-          .setColor(es.color).setThumbnail(es.thumb ? es.footericon && (es.footericon.includes("http://") || es.footericon.includes("https://")) ? es.footericon : client.user.displayAvatarURL() : null)
-          .setFooter(client.getFooter("Page Overview | "+ client.user.username, client.user.displayAvatarURL()))
-          .setTitle(`Information about __${client.user.username}__`)
-          .addField(":muscle: **__My Features__**",
-  `>>> **58+ Systems**, like: **Twitter-** & **Youtube-Auto-Poster** 
-  **Application-**, Ticket-, **Welcome-Images-** and Reaction Role-, ... Systems
-  :notes: An advanced **Music System** with **Audio Filtering**
-  :video_game: Many **Minigames** and :joystick: **Fun** Commands (150+)
-  :no_entry_sign: **Administration** and **Auto-Moderation** and way much more!`)
-          .addField(":question: **__How do you use me?__**",
-  `>>> \`${prefix}setup\` and choose for the right action,
-  but you can also do \`${prefix}setup-SYSTEM\` e.g. \`${prefix}setup-welcome\``)
-  .addField(":chart_with_upwards_trend: **__STATS:__**",
-  `>>> :gear: **${client.commands.map(a=>a).length} Commands**
-  :file_folder: on **${allGuilds} Guilds**
-  ⌚️ **${duration(client.uptime).map(i=> `\`${i}\``).join("︲")} Uptime**
-  📶 **\`${Math.floor(client.ws.ping)}ms\` Ping**
-  <:online:970050105338130433> **\`${Math.floor(await client.database.ping())}ms\` DB-Ping**
-    Made by [**Rocky**](https://dsc.gg/banditcamp)`)
-  .addField("How to get help?", `>>> **\` 1. Way \`** *Use the Buttons, to swap the Pages*\n**\` 2. Way \`** *Use the Menu to select all Help Pages, you want to display*\n**\` 3. Way \`** *Cry)*`)
-        }
+          .setFooter(client.getFooter(`${client.la[ls].cmds.info.help.pgoverview} `+ client.user.username, client.user.displayAvatarURL()))
+          .setTitle(`${client.la[ls].cmds.info.help.firsttitle} __${client.user.username}__`)
+          .addField(`${client.la[ls].cmds.info.help.thirdtitle}`, `${client.la[ls].cmds.info.help.thirdsubtitle}`)
+          .addField(`${client.la[ls].cmds.info.help.secondtitle}`, `${handlemsg(client.la[ls].cmds.info.help.secondsubtitle, {allGuilds: allGuilds, uptime: duration(client.uptime).map(i=> `\`${i}\``).join("︲")})}`)
+          .setImage(`https://cdn.discordapp.com/attachments/968349976331694100/979686974338244628/Neon_Text_Effect.png`)
         let err = false;
         //Send message with buttons
         let helpmsg = await message.reply({   

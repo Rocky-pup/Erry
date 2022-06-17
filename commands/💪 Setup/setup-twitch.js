@@ -101,7 +101,7 @@ module.exports = {
             let SetupNumber = menu?.values[0].split(" ")[0]
             handle_the_picks(menu?.values[0], SetupNumber, menuoptiondata)
           }
-          else menu?.reply({content: `:x: You are not allowed to do that! Only: <@${cmduser.id}>`, ephemeral: true});
+          else menu?.reply({content: `:x: ${client.la[ls].cmds.setup.setupmusic.only} <@${cmduser.id}>`, ephemeral: true});
         });
         //Once the Collections ended edit the menu message
         collector.on('end', collected => {
@@ -186,11 +186,11 @@ module.exports = {
               collector.stop();
               for await (const value of menu?.values) {
                 let menuoptiondataIndex = menuoptions.findIndex(v=> v.value == value)
-                await dbRemove(client.social_log+".twitch.channels", message.guild.id, d=> d.ChannelName == channels[menuoptiondataIndex].ChannelName)
+                await dbRemove(client.social_log, message.guild.id+".twitch.channels", d=> d.ChannelName == channels[menuoptiondataIndex].ChannelName)
               }
               menu?.reply(`✅ **Successfully removed ${menu?.values.length} Twitch Accounts!**`)
             }
-            else menu?.reply({content: `:x: You are not allowed to do that! Only: <@${cmduser.id}>`, ephemeral: true});
+            else menu?.reply({content: `:x: ${client.la[ls].cmds.setup.setupmusic.only} <@${cmduser.id}>`, ephemeral: true});
           });
           //Once the Collections ended edit the menu message
           collector.on('end', collected => {

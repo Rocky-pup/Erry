@@ -1,6 +1,17 @@
 {
     "cmds": {
         "info": {
+            "dashboard": {
+                "title": "My dashboard",
+                "subtitle": "It still in dev!",
+                "click": "Click here!"
+            },
+            "nodestats": {
+                "title": "Stats of connected lavalinks:",
+                "field1": "Playing players:",
+                "field2": "Cpu lavalink load:",
+                "err": "We have problems, lavalink is not connected, try again later"
+            },
             "avatar": {
                 "author": "Avatar from: {usertag}",
                 "variable1": "`\\`\\`\\` ${e.message ? e.message : e.stack ? String(e.stack).substr(0, 2000) : String(e).substr(0, 2000)}\\`\\`\\``"
@@ -24,7 +35,7 @@
                 },
                 "field5": {
                     "title": "Important Links",
-                    "value": "**[Invite Link]({invitelink})・[Support Server](https://dsc.gg/banditcamp)**"
+                    "value": "**[Invite Link]({invitelink})・[Support Server](https://dsc.gg/banditcamp), [Dashboard](http://erry.sytes.net)**"
                 },
                 "variable1": "`\\`\\`\\`yml\\nName: ${client.user.tag} [${client.user.id}]\\nBot Latency: ${Math.round(Date.now() - message.createdTimestamp)}ms\\nApi Latency: ${Math.round(client.ws.ping)}ms\\nRuntime: ${duration(client.uptime).join(\"︲\")}\\`\\`\\``",
                 "variable2": "`\\`\\`\\` ${e.message ? e.message : e.stack ? String(e.stack).substr(0, 2000) : String(e).substr(0, 2000)}\\`\\`\\``"
@@ -221,7 +232,13 @@
                 "animef": "😳 **Anime-Mention-Emotions (or Self.)**",
                 "animes": "😳 **Anime-Self-Emotions**",
                 "nsfwf": "😳 **Animated (Hentai, Neko, SFW, ...)**",
-                "nsfws": "🔞 **Reallife (Porn, Erotik, etc.)**"
+                "nsfws": "🔞 **Reallife (Porn, Erotik, etc.)**",
+                "firsttitle": "Information about",
+                "pgoverview": "Page Overview | ",
+                "secondtitle": "<a:loadingg:977777473804718080>**Some stats:**",
+                "secondsubtitle": "<:arrow:950884679114952715>:gear:**Created by: [Rocky](https://dsc.gg/banditcamp)**\n  <:arrow:950884679114952715>:file_folder: Working on **{allGuilds} guilds**\n  <:arrow:950884679114952715>⌚️ **{uptime} [Uptime](https://status.watchbot.app/bot/924922244436750406)**",
+                "thirdtitle": ":question:**What i can?**",
+                "thirdsubtitle": "<:arrow:950884679114952715>:muscle: **I can almost all**, for example:\n  <:arrow:950884679114952715>**Youtube, Twitch autoposter.**\n  <:arrow:950884679114952715>**Auto-moderation, Administration**\n  <:arrow:950884679114952715>And **the best** quality of music, which plays right in your voice channel!"
             },
             "invite": {
                 "title": "Click here to invite me",
@@ -378,12 +395,6 @@
                 "variablex_1": "\"\\u200b\"", "variable1": "\"\\u200b\"",
                 "variable2": "`\\`\\`\\` ${e.message ? e.message : e.stack ? String(e.stack).substr(0, 2000) : String(e).substr(0, 2000)}\\`\\`\\``"
             },
-            "tiktokinfo": {
-                "title": "Information about: **`{name}`**",
-                "description": "**Nickname:** `{nickName}`\n**Bio:**\n> {signature}\n\n> **`{fans} Followers` | `{following} Follows` | `{video}Posts`**",
-                "videos": "> **[Watch it]({url}) | `{views} Views` | `{shares} Shares` | `{comments} Comments`**",
-                "variable1": "`\\`\\`\\` ${e.message ? e.message : e.stack ? String(e.stack).substr(0, 2000) : String(e).substr(0, 2000)}\\`\\`\\``"
-            },
             "translate": {
                 "error": ":x: Error | Unknown Command Usage! `{prefix}translate <from> <to> <Text>`\nExample: `{prefix}translate en de Hello World`",
                 "to": "Translated to: {to}",
@@ -511,7 +522,7 @@
             },
             "leave": {
                 "title": ":white_check_mark: **Left the Channel**",
-                "title1": "`⏹ **Stopped playing and left the Channel**`"
+                "title1": "⏹ **Stopped playing and left the Channel**"
             },
             "jump": {
                 "error1": ":x: **Please include to which track you want to Jump**",
@@ -718,7 +729,7 @@
                 "variable2": "`\\`\\`\\`${e.message}\\`\\`\\``"
             },
             "stop": {
-                "variable1": "`Stopped and left your Channel`",
+                "variable1": "Stopped and left your Channel",
                 "variable2": "`:x: **No song is currently playing in this guild.**`",
                 "variable3": "`:x: **No song is currently playing in this guild.**`",
                 "variable4": "`\\`\\`\\`${e.message}\\`\\`\\``"
@@ -1706,6 +1717,34 @@
             }
         },
         "setup": {
+            "setupmusic": {
+                "fvalue": "Set a Music Channel",
+                "fdescription": "Define the a Channel for The Music System",
+                "svalue": "Change the Image Background Banner",
+                "sdescription": "Set a new Image for the Music System",
+                "tvalue": "Reset the Image Background Banner",
+                "tdescription": "Reset the Image BG Banner to its Default State",
+                "fval": "Cancel",
+                "fdesc": "Cancel and stop the Music-Setup!",
+                "click": "Click me to setup the Music-System",
+                "only": "You are not allowed to do that! Only:",
+                "selected": "Selected:",
+                "nothing": "Nothing",
+                "nothings": "❌ **NOTHING SELECTED - CANCELLED**",
+                "which": "Which Channel do you want to use?",
+                "ping": "Ping the Channel Now!",
+                "set": "Succesfully set the Music System to",
+                "nvalid": "You didn't ping a valid Channel",
+                "canceled": "Cancelled the Operation!",
+                "whbanner": "Which Banner do you want to Set?",
+                "jurl": "Just send the URL!",
+                "linkerr": "You Link is not a valid LINK",
+                "scbg": "Succesfully set the Image Background",
+                "ifno": "If not appear, play song and stop it",
+                "srcbg": "Succesfully Resetted Image Background",
+                "srcbgd": "Play a new song and stop it so it resets the image!",
+                "canseled": "Canseled the operation"
+            },
             "setup-admin": {
                 "variable1": "\"What do you want to do?\"",
                 "variable2": "\":x: ERROR | Missing Permissions to add Reactions\"",
@@ -2214,7 +2253,7 @@
                 "variable5": "\"Which Channel do you wanna use?\"",
                 "variable6": "`*Just ping the channel with #channel in the Chat*`",
                 "variable7": "`:white_check_mark: The Channel: \\`${channel.name}\\` is now registered as the Auto Meme Poster Channel`",
-                "variable8": "\":x: ERROR | Your Time ran out\"",
+                "variable8": ":x: ERROR | Your Time ran out",
                 "variable9": "`:white_check_mark: Disabled the Auto Meme Poster Channel`",
                 "variable10": "`:white_check_mark: Settings of the Auto Meme Poster Channel`",
                 "variable11": "\":x: ERROR | PLEASE CONTACT `Rocky#7890`\"",
@@ -2227,7 +2266,7 @@
                 "variable4": "\":x: ERROR | Your Time ran out\"",
                 "variable5": "\"Which Channel do you wanna use?\"",
                 "variable6": "`*Just ping the channel with #channel in the Chat*`",
-                "variable7": "\":x: ERROR | The Pinged Channel is not a NSFW Channel\"",
+                "variable7": ":x: ERROR | The Pinged Channel is not a NSFW Channel",
                 "variable8": "`:white_check_mark: The Channel: \\`${channel.name}\\` is now registered as the Auto Nsfw Poster Channel`",
                 "variable9": "\":x: ERROR | Your Time ran out\"",
                 "variable10": "`:white_check_mark: Disabled the Auto Nsfw Poster Channel`",
@@ -2935,34 +2974,6 @@
                 "variable38": "\":x: ERROR | Your Time ran out\"",
                 "variable39": "`\\`\\`\\` ${e.message ? e.message : e.stack ? String(e.stack).substr(0, 2000) : String(e).substr(0, 2000)}\\`\\`\\``"
             },
-            "setup-tiktok": {
-                "variable1": "\"What do you want to do?\"",
-                "variable2": "\":x: ERROR | Missing Permissions to add Reactions\"",
-                "variable3": "\":x: ERROR | Your Time ran out\"",
-                "variable4": "\"In which Channel should I post all tiktok Videos?\"",
-                "variable5": "`Please just ping the Channel with #channel!`",
-                "variable6": "`:white_check_mark: I will now send all tiktok Notifications in \\`${msg.mentions.channels.filter(ch=>ch.guild.id==msg.guild.id).first().name}\\``",
-                "variable7": "\"DONT FORGET TO ADD A **tiktok_CHANNELS**!!!\"",
-                "variable8": "\":x: ERROR | Your Time ran out\"",
-                "variable9": "\":x: ERROR | You've reached the maximum amount of tiktok Channels\"",
-                "variable10": "\"Which Channel do you wanna add? | Just send the LINK!\"",
-                "variable11": "\":x: ERROR | The tiktok Channel is already setup!\"",
-                "variable12": "`:white_check_mark: added the Channel ${Channel}`",
-                "variable13": "\"You can change the default message via the **\\\"edit\\\"**\"",
-                "variable14": "\":x: ERROR | Your Time ran out\"",
-                "variable15": "\":x: ERROR | You havent setup any tiktok Channels yet!\"",
-                "variable16": "\"Which Channel do you wanna remove? | Just react with the right one!\"",
-                "variable17": "`:white_check_mark: removed the Channel ${channel}`",
-                "variable18": "\":x: ERROR | Your Time ran out\"",
-                "variable19": "\":x: ERROR | You havent setup any tiktok Channels yet!\"",
-                "variable20": "\"Which Channel's Message do you wanna edit? | Just react with the right one!\"",
-                "variable21": "\"What should be the new Message?\"",
-                "variable22": "`:white_check_mark: Changed the message for the Channel ${channel}`",
-                "variable23": "\":x: ERROR | Your Time ran out\"",
-                "variable24": "\":x: ERROR | Your Time ran out\"",
-                "variable25": "\":x: ERROR | PLEASE CONTACT `Rocky#7890`\"",
-                "variable26": "`\\`\\`\\` ${e.message ? e.message : e.stack ? String(e.stack).substr(0, 2000) : String(e).substr(0, 2000)}\\`\\`\\``"
-            },
             "setup-twitch": {
                 "notitle": "This channel already added to twitch logger!",
                 "nosubtitle": "Please don't add same channel, add another",
@@ -3172,7 +3183,7 @@
                 "variable56": "`\\`\\`\\` ${e.message ? e.message : e.stack ? String(e.stack).substr(0, 2000) : String(e).substr(0, 2000)}\\`\\`\\``",
                 "variable57": "\"What do you want to do?\"",
                 "variable58": "\":x: ERROR | Missing Permissions to add Reactions\"",
-                "variable59": "`:white_check_mark: CHANGED THE COLOR FOR THE FRAME`",
+                "variable59": ":white_check_mark: CHANGED THE COLOR FOR THE FRAME",
                 "variable60": "\":x: ERROR | An error occurred, please contact: `Rocky#7890`\"",
                 "variable61": "`\\`\\`\\` ${e.message ? e.message : e.stack ? String(e.stack).substr(0, 2000) : String(e).substr(0, 2000)}\\`\\`\\``",
                 "variable62": "\":x: ERROR | Your Time ran out\"",

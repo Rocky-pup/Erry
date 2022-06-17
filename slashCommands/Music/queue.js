@@ -86,7 +86,21 @@ module.exports = {
           .setDescription(desc));
       }
       //return susccess messagec
-      interaction?.reply({embeds: embeds.slice(0, 10), ephemeral: true});
+      const musicsettings = await client.musicsettings.get(player.guild)
+      if(musicsettings.channel && musicsettings.channel.length > 5){
+        let messageId = musicsettings.message;
+        let guild = await client.guilds.cache.get(player.guild)
+        if(guild && messageId) {
+          let channel = guild.channels.cache.get(musicsettings.channel);
+          let message = await channel.messages.fetch(messageId).catch(() => null);
+          if(message) {
+            //edit the message so that it's right!
+            var data = await require(`${process.cwd()}/handlers/erela_events/musicsystem`).generateQueueEmbed(client, player.guild)
+            message.edit(data).catch(() => null)
+          }
+        }
+      }
+      return interaction?.reply({embeds: embeds.slice(0, 10), ephemeral: true});
     } catch (e) {
       console.log(String(e.stack).dim.bgRed)
     }

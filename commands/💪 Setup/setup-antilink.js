@@ -38,7 +38,7 @@ module.exports = {
           {
             value: `${GuildSettings?.antilink?.enabled ? "Disable" : "Enable"} Anti Links`,
             description: `${GuildSettings?.antilink?.enabled ? "Don't delete other Links" : "Delete other Links"}`,
-            emoji: `${GuildSettings?.antilink?.enabled ? "833101993668771842" : "833101995723194437"}`
+            emoji: `${GuildSettings?.antilink?.enabled ? "951013282607685632" : "950884027320135711"}`
           },
           {
             value: "Settings",
@@ -114,7 +114,7 @@ module.exports = {
             client.disableComponentMessage(menu); used1 = true;
             handle_the_picks(menuoptionindex, menuoptiondata)
           }
-          else menu?.reply({content: `:x: You are not allowed to do that! Only: <@${cmduser.id}>`, ephemeral: true});
+          else menu?.reply({content: `:x: ${client.la[ls].cmds.setup.setupmusic.only} <@${cmduser.id}>`, ephemeral: true});
         });
         //Once the Collections ended edit the menu message
         collector.on('end', collected => {

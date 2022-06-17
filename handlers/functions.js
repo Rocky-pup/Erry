@@ -221,7 +221,7 @@ function isValidURL(string) {
   return url;
 };
 async function GetUser(message, arg){
-  var errormessage = "<:no:833101993668771842> I failed finding that User...";
+  var errormessage = "<:no:951013282607685632> I failed finding that User...";
   return new Promise(async (resolve, reject) => {
     var args = arg, client = message.client;
     if(!client || !message) return reject("CLIENT IS NOT DEFINED")
@@ -254,7 +254,7 @@ async function GetUser(message, arg){
   })
 }
 async function GetRole(message, arg){
-  var errormessage = "<:no:833101993668771842> I failed finding that Role...";
+  var errormessage = "<:no:1993668771842> I failed finding that Role...";
   return new Promise(async (resolve, reject) => {
     var args = arg, client = message.client;
     if(!client || !message) return reject("CLIENT IS NOT DEFINED")
@@ -281,7 +281,7 @@ async function GetRole(message, arg){
 }
 
 async function GetGlobalUser(message, arg){
-  var errormessage = "<:no:833101993668771842> I failed finding that User...";
+  var errormessage = "<:no:951013282607685632> I failed finding that User...";
   return new Promise(async (resolve, reject) => {
     var args = arg, client = message.client;
     if(!client || !message) return reject("CLIENT IS NOT DEFINED")
@@ -1462,7 +1462,7 @@ async function swap_pages(client, message, description, TITLE) {
   //array of all embeds, here simplified just 10 embeds with numbers 0 - 9
   collector.on('collect', async b => {
       if(b?.user.id !== message.author?.id)
-        return b?.reply({content: `<:no:833101993668771842> **Only the one who typed ${prefix}help is allowed to react!**`, ephemeral: true})
+        return b?.reply({content: `<:no:951013282607685632> **Only the one who typed ${prefix}help is allowed to react!**`, ephemeral: true})
         //page forward
         if(b?.customId == "1") {
           collector.resetTimer();
@@ -1569,7 +1569,7 @@ async function swap_pages_data(client, message, description, TITLE, T_cmd = "Unk
   //array of all embeds, here simplified just 10 embeds with numbers 0 - 9
   collector.on('collect', async b => {
       if(b?.user.id !== message.author?.id)
-        return b?.reply({content: `<:no:833101993668771842> **Only the one who typed the cmd is allowed to react!**`, ephemeral: true})
+        return b?.reply({content: `<:no:951013282607685632> **Only the one who typed the cmd is allowed to react!**`, ephemeral: true})
         //page forward
         if(b?.customId == "1") {
           collector.resetTimer();
@@ -1655,7 +1655,7 @@ async function swap_pages2(client, message, embeds, tempmsg = false) {
   //array of all embeds, here simplified just 10 embeds with numbers 0 - 9
   collector.on('collect', async b => {
       if(b?.user.id !== message.author?.id)
-        return b?.reply({content: `<:no:833101993668771842> **Only the one who typed ${prefix}help is allowed to react!**`, ephemeral: true})
+        return b?.reply({content: `<:no:951013282607685632> **Only the one who typed ${prefix}help is allowed to react!**`, ephemeral: true})
         //page forward
         if(b?.customId == "1") {
           collector.resetTimer();
@@ -1736,7 +1736,7 @@ async function swap_pagesMessageData(client, message, messageDatas, tempmsg = fa
   //array of all embeds, here simplified just 10 embeds with numbers 0 - 9
   collector.on('collect', async b => {
       if(b?.user.id !== message.author?.id)
-        return b?.reply({content: `<:no:833101993668771842> **Only the one who typed ${prefix}help is allowed to react!**`, ephemeral: true})
+        return b?.reply({content: `<:no:951013282607685632> **Only the one who typed ${prefix}help is allowed to react!**`, ephemeral: true})
         //page forward
         if(b?.customId == "1") {
           collector.resetTimer();
@@ -1818,7 +1818,7 @@ async function swap_pages2_interaction(client, interaction, embeds) {
   //array of all embeds, here simplified just 10 embeds with numbers 0 - 9
   collector.on('collect', async b => {
       if(b?.user.id !== cmduser.id)
-        return b?.reply({content: `<:no:833101993668771842> **Only the one who typed ${prefix}help is allowed to react!**`, ephemeral: true})
+        return b?.reply({content: `<:no:951013282607685632> **Only the one who typed ${prefix}help is allowed to react!**`, ephemeral: true})
         //page forward
         if(b?.customId == "1") {
           collector.resetTimer();
@@ -1882,10 +1882,6 @@ async function databasing(client, guildid, userid) {
           commands: []
         }).catch(() => null);
         await dbEnsure(client.social_log, guildid, {
-          tiktok: {
-            channels: [],
-            dc_channel: ""
-          },
           youtube: {
             channels: [],
             dc_channel: ""
@@ -2102,7 +2098,8 @@ async function databasing(client, guildid, userid) {
               "milrato.eu",
               "github?.com",
               "mozilla.org",
-              "w3schools.com",],
+              "w3schools.com",
+              "erry.sytes.net",],
             mute_amount: 2,
           },
           antidiscord: {
@@ -2140,7 +2137,7 @@ async function databasing(client, guildid, userid) {
             custom: "no",
             background: "transparent",
             frame: true,
-            framecolor: "white",
+            framecolor: "#25FA6C",
             pb: true,
             invite: true,
             discriminator: true,
@@ -2154,7 +2151,7 @@ async function databasing(client, guildid, userid) {
             customdm: "no",
             backgrounddm: "transparent",
             framedm: true,
-            framecolordm: "white",
+            framecolordm: "#25FA6C",
             pbdm: true,
             invitedm: true,
             discriminatordm: true,
@@ -2169,7 +2166,7 @@ async function databasing(client, guildid, userid) {
             custom: "no",
             background: "transparent",
             frame: true,
-            framecolor: "white",
+            framecolor: "#25FA6C",
             pb: true,
             invite: true,
             discriminator: true,
@@ -2184,7 +2181,7 @@ async function databasing(client, guildid, userid) {
             customdm: "no",
             backgrounddm: "transparent",
             framedm: true,
-            framecolordm: "white",
+            framecolordm: "#25FA6C",
             pbdm: true,
             invitedm: true,
             discriminatordm: true,
@@ -2200,10 +2197,14 @@ async function databasing(client, guildid, userid) {
         await dbEnsure(client.jtcsettings, guildid, {
           prefix: ".",
           channel: "",
-          channelname: "{user}' Room",
+          channelname: "{user}'s Room",
           guild: guildid,
         });
-        await dbEnsure(client.musicsettings, guildid, {"channel": "","message": ""});
+        await dbEnsure(client.musicsettings, guildid, {
+        "channel": "",
+        "message": "",
+        "banner": "https://cdn.discordapp.com/attachments/968349976331694100/979686974338244628/Neon_Text_Effect.png"
+      });
         await dbEnsure(client.stats, guildid, {commands: 0,songs: 0});
         
       }
@@ -2573,7 +2574,11 @@ async function simple_databasing(client, guildid, userid) {
     }
     if (guildid) { 
       
-      await dbEnsure(client.musicsettings, guildid, {"channel": "","message": ""}).catch(() => null);
+      await dbEnsure(client.musicsettings, guildid, {
+      "channel": "",
+      "message": "",
+      "banner": "https://cdn.discordapp.com/attachments/968349976331694100/979686974338244628/Neon_Text_Effect.png"
+    }).catch(() => null);
       await dbEnsure(client.stats, guildid, {commands: 0,songs: 0}).catch(() => null);
       
       await dbEnsure(client.settings, guildid, {

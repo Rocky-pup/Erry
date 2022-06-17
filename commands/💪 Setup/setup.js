@@ -185,11 +185,6 @@ module.exports = {
               emoji: "📨"
             },
             {
-              value: "setup-tiktok",
-              description: `Setup up to 3 different TikTok Logger Channels`,
-              emoji: "840503976315060225"
-            },
-            {
               value: "setup-twitch",
               description: `Setup up to 5 different Twitch Logger Channels`,
               emoji: "840260133753061408"
@@ -295,7 +290,7 @@ module.exports = {
                 menumsg1.edit({components: [], embeds: menumsg1.embeds}).catch(() => null);
                 menuselection(menu);
               }
-              else menu?.reply({content: `:x: You are not allowed to do that! Only: <@${cmduser.id}>`, ephemeral: true});
+              else menu?.reply({content: `:x: ${client.la[ls].cmds.setup.setupmusic.only} <@${cmduser.id}>`, ephemeral: true});
             }
           });
         }

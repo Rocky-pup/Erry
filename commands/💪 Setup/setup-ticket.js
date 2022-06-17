@@ -143,7 +143,7 @@ module.exports = {
             if (menu?.values[0] == "Cancel") return menu?.reply(eval(client.la[ls]["cmds"]["setup"]["setup-ticket"]["variable3"]))
             menuselection(menu)
           } else menu?.reply({
-            content: `:x: You are not allowed to do that! Only: <@${cmduser.id}>`,
+            content: `:x: ${client.la[ls].cmds.setup.setupmusic.only} <@${cmduser.id}>`,
             ephemeral: true
           });
         });
@@ -261,7 +261,7 @@ module.exports = {
             if (menu?.values[0] == "Cancel") return menu?.reply(eval(client.la[ls]["cmds"]["setup"]["setup-ticket"]["variable3"]))
             menuselection(menu)
           } else menu?.reply({
-            content: `:x: You are not allowed to do that! Only: <@${cmduser.id}>`,
+            content: `:x: ${client.la[ls].cmds.setup.setupmusic.only} <@${cmduser.id}>`,
             ephemeral: true
           });
         });
@@ -705,7 +705,7 @@ module.exports = {
                   if (menu?.values[0] == "Cancel") return menu?.reply(eval(client.la[ls]["cmds"]["setup"]["setup-ticket"]["variable3"]))
                   menuselection(menu)
                 } else menu?.reply({
-                  content: `:x: You are not allowed to do that! Only: <@${cmduser.id}>`,
+                  content: `:x: ${client.la[ls].cmds.setup.setupmusic.only} <@${cmduser.id}>`,
                   ephemeral: true
                 });
               });

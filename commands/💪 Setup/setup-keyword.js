@@ -97,7 +97,7 @@ module.exports = {
             used1 = true;
             handle_the_picks(menu?.values[0], menuoptiondata)
           }
-          else menu?.reply({ content: `:x: You are not allowed to do that! Only: <@${cmduser.id}>`, ephemeral: true });
+          else menu?.reply({ content: `:x: ${client.la[ls].cmds.setup.setupmusic.only} <@${cmduser.id}>`, ephemeral: true });
         });
         //Once the Collections ended edit the menu message
         collector.on('end', collected => {
@@ -405,7 +405,7 @@ module.exports = {
                   ]
                 });
               }
-              else menu?.reply({ content: `:x: You are not allowed to do that! Only: <@${cmduser.id}>`, ephemeral: true });
+              else menu?.reply({ content: `:x: ${client.la[ls].cmds.setup.setupmusic.only} <@${cmduser.id}>`, ephemeral: true });
             });
             //Once the Collections ended edit the menu message
             collector.on('end', collected => {

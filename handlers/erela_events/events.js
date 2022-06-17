@@ -525,7 +525,7 @@ function generateQueueEmbed(client, player, track){
     songloop = songloop.setStyle('SUCCESS')
     queueloop = queueloop.setStyle('SECONDARY')
   }
-  const row = new MessageActionRow().addComponents([rewind, pause, stop, skip, forward]);
+  const row = new MessageActionRow().addComponents([pause, stop, skip]);
   return {
     embeds: [embed], 
     components: [row]

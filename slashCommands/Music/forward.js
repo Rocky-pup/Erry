@@ -49,6 +49,20 @@ const { handlemsg } = require(`${process.cwd()}/handlers/functions`);
       //seek to the new Seek position
       player.seek(Number(seektime));
       //Send Success Message
+      const musicsettings = await client.musicsettings.get(player.guild)
+      if(musicsettings.channel && musicsettings.channel.length > 5){
+        let messageId = musicsettings.message;
+        let guild = await client.guilds.cache.get(player.guild)
+        if(guild && messageId) {
+          let channel = guild.channels.cache.get(musicsettings.channel);
+          let message = await channel.messages.fetch(messageId).catch(() => null);
+          if(message) {
+            //edit the message so that it's right!
+            var data = await require(`${process.cwd()}/handlers/erela_events/musicsystem`).generateQueueEmbed(client, player.guild)
+            message.edit(data).catch(() => null)
+          }
+        }
+      }
       return interaction?.reply({ephemeral: true, embeds : [new MessageEmbed()
         .setTitle(client.la[ls].cmds.music.forward.title)
         .setDescription(handlemsg(client.la[ls].cmds.music.forward.description, {amount: args[0], time: format(Number(player.position))}))

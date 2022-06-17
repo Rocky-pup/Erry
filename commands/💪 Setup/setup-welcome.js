@@ -12,8 +12,8 @@ var {
 //Import npm modules
 const Canvas = require("canvas");
 const canvacord = require("canvacord");
-const Fonts = "Genta, UbuntuMono, `DM Sans`, STIXGeneral, AppleSymbol, Arial, ArialUnicode";
-const wideFonts = "`DM Sans`, STIXGeneral, AppleSymbol, Arial, ArialUnicode";
+const Fonts = "Genta, UbuntuMono, `DM Sans`, STIXGeneral, Arial, ArialUnicode";
+const wideFonts = "`DM Sans`, STIXGeneral, Arial, ArialUnicode";
 module.exports = {
   name: "setup-welcome",
   category: "💪 Setup",
@@ -105,11 +105,11 @@ module.exports = {
             let SetupNumber = menu?.values[0].split(" ")[0]
             handle_the_picks(menu?.values[0], SetupNumber, menuoptiondata)
           }
-          else menu?.reply({content: `<:no:833101993668771842> You are not allowed to do that! Only: <@${cmduser.id}>`, ephemeral: true});
+          else menu?.reply({content: `<:no:951013282607685632> ${client.la[ls].cmds.setup.setupmusic.only} <@${cmduser.id}>`, ephemeral: true});
         });
         //Once the Collections ended edit the menu message
         collector.on('end', collected => {
-          menumsg.edit({embeds: [menumsg.embeds[0].setDescription(`~~${menumsg.embeds[0].description}~~`)], components: [], content: `${collected && collected.first() && collected.first().values ? `<a:yes:833101995723194437> **Selected: \`${collected ? collected.first().values[0] : "Nothing"}\`**` : "❌ **NOTHING SELECTED - CANCELLED**" }`})
+          menumsg.edit({embeds: [menumsg.embeds[0].setDescription(`~~${menumsg.embeds[0].description}~~`)], components: [], content: `${collected && collected.first() && collected.first().values ? `<a:yes:950884027320135711> **Selected: \`${collected ? collected.first().values[0] : "Nothing"}\`**` : "❌ **NOTHING SELECTED - CANCELLED**" }`})
         });
       }
 
@@ -190,11 +190,11 @@ module.exports = {
                   let SetupNumber = menu?.values[0].split(" ")[0]
                   handle_the_picks_2(menu?.values[0], SetupNumber, menuoptiondata)
                 }
-                else menu?.reply({content: `<:no:833101993668771842> You are not allowed to do that! Only: <@${cmduser.id}>`, ephemeral: true});
+                else menu?.reply({content: `<:no:951013282607685632> ${client.la[ls].cmds.setup.setupmusic.only} <@${cmduser.id}>`, ephemeral: true});
               });
               //Once the Collections ended edit the menu message
               collector.on('end', collected => {
-                menumsg.edit({embeds: [menumsg.embeds[0].setDescription(`~~${menumsg.embeds[0].description}~~`)], components: [], content: `${collected && collected.first() && collected.first().values ? `<a:yes:833101995723194437> **Selected: \`${collected ? collected.first().values[0] : "Nothing"}\`**` : "❌ **NOTHING SELECTED - CANCELLED**" }`})
+                menumsg.edit({embeds: [menumsg.embeds[0].setDescription(`~~${menumsg.embeds[0].description}~~`)], components: [], content: `${collected && collected.first() && collected.first().values ? `<a:yes:950884027320135711> **Selected: \`${collected ? collected.first().values[0] : "Nothing"}\`**` : "❌ **NOTHING SELECTED - CANCELLED**" }`})
               });
             }
             async function handle_the_picks_2(optionhandletype, SetupNumber, menuoptiondata){
@@ -349,11 +349,11 @@ module.exports = {
                         let SetupNumber = menu?.values[0].split(" ")[0]
                         handle_the_picks_3(menu?.values[0], SetupNumber, menuoptiondata)
                       }
-                      else menu?.reply({content: `<:no:833101993668771842> You are not allowed to do that! Only: <@${cmduser.id}>`, ephemeral: true});
+                      else menu?.reply({content: `<:no:951013282607685632> ${client.la[ls].cmds.setup.setupmusic.only} <@${cmduser.id}>`, ephemeral: true});
                     });
                     //Once the Collections ended edit the menu message
                     collector.on('end', collected => {
-                      menumsg.edit({embeds: [menumsg.embeds[0].setDescription(`~~${menumsg.embeds[0].description}~~`)], components: [], content: `${collected && collected.first() && collected.first().values ? `<a:yes:833101995723194437> **Selected: \`${collected ? collected.first().values[0] : "Nothing"}\`**` : "❌ **NOTHING SELECTED - CANCELLED**" }`})
+                      menumsg.edit({embeds: [menumsg.embeds[0].setDescription(`~~${menumsg.embeds[0].description}~~`)], components: [], content: `${collected && collected.first() && collected.first().values ? `<a:yes:950884027320135711> **Selected: \`${collected ? collected.first().values[0] : "Nothing"}\`**` : "❌ **NOTHING SELECTED - CANCELLED**" }`})
                     });
                   }
                   async function handle_the_picks_3(optionhandletype, SetupNumber, menuoptiondata){
@@ -604,7 +604,7 @@ module.exports = {
                         })
                         //Once the Collections ended edit the menu message
                         collector.on('end', collected => {
-                          tempmsg.edit({embeds: [tempmsg.embeds[0].setDescription(`~~${tempmsg.embeds[0].description}~~`)], components: [], content: `${collected && collected.first() && collected.first().customId ? `<a:yes:833101995723194437> **Selected the \`${collected.first().customId}\` Color**` : "❌ **NOTHING SELECTED - CANCELLED**" }`})
+                          tempmsg.edit({embeds: [tempmsg.embeds[0].setDescription(`~~${tempmsg.embeds[0].description}~~`)], components: [], content: `${collected && collected.first() && collected.first().customId ? `<a:yes:950884027320135711> **Selected the \`${collected.first().customId}\` Color**` : "❌ **NOTHING SELECTED - CANCELLED**" }`})
                         });
                         //Menu Collections
                         collector.on('collect', async button => {
@@ -612,7 +612,7 @@ module.exports = {
                             var color = button?.customId;
                             await client.settings.set(`${message.guild.id}.welcome.framecolor`, color)
                             return message.reply({embeds: [new Discord.MessageEmbed()
-                              .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-welcome"]["variable59"]))
+                              .setTitle(client.la[ls]["cmds"]["setup"]["setup-welcome"]["variable59"])
                               .setColor(color)
                               .setDescription(`If Someone joins this Server, a message **with an automated image** will be sent into ${message.guild.channels.cache.get(GuildSettings?.welcome?.channel) ? message.guild.channels.cache.get(GuildSettings?.welcome?.channel) : "NO CHANNEL DEFINED YET"}`.substring(0, 2048))
                               .setFooter(client.getFooter(es))
@@ -734,11 +734,11 @@ module.exports = {
                   let SetupNumber = menu?.values[0].split(" ")[0]
                   handle_the_picks_2(menu?.values[0], SetupNumber, menuoptiondata)
                 }
-                else menu?.reply({content: `<:no:833101993668771842> You are not allowed to do that! Only: <@${cmduser.id}>`, ephemeral: true});
+                else menu?.reply({content: `<:no:951013282607685632> ${client.la[ls].cmds.setup.setupmusic.only} <@${cmduser.id}>`, ephemeral: true});
               });
               //Once the Collections ended edit the menu message
               collector.on('end', collected => {
-                menumsg.edit({embeds: [menumsg.embeds[0].setDescription(`~~${menumsg.embeds[0].description}~~`)], components: [], content: `${collected && collected.first() && collected.first().values ? `<a:yes:833101995723194437> **Selected: \`${collected ? collected.first().values[0] : "Nothing"}\`**` : "❌ **NOTHING SELECTED - CANCELLED**" }`})
+                menumsg.edit({embeds: [menumsg.embeds[0].setDescription(`~~${menumsg.embeds[0].description}~~`)], components: [], content: `${collected && collected.first() && collected.first().values ? `<a:yes:950884027320135711> **Selected: \`${collected ? collected.first().values[0] : "Nothing"}\`**` : "❌ **NOTHING SELECTED - CANCELLED**" }`})
               });
             }
             async function handle_the_picks_2(optionhandletype, SetupNumber, menuoptiondata){
@@ -894,11 +894,11 @@ module.exports = {
                   let SetupNumber = menu?.values[0].split(" ")[0]
                   handle_the_picks_2(menu?.values[0], SetupNumber, menuoptiondata)
                 }
-                else menu?.reply({content: `<:no:833101993668771842> You are not allowed to do that! Only: <@${cmduser.id}>`, ephemeral: true});
+                else menu?.reply({content: `<:no:951013282607685632> ${client.la[ls].cmds.setup.setupmusic.only} <@${cmduser.id}>`, ephemeral: true});
               });
               //Once the Collections ended edit the menu message
               collector.on('end', collected => {
-                menumsg.edit({embeds: [menumsg.embeds[0].setDescription(`~~${menumsg.embeds[0].description}~~`)], components: [], content: `${collected && collected.first() && collected.first().values ? `<a:yes:833101995723194437> **Selected: \`${collected ? collected.first().values[0] : "Nothing"}\`**` : "❌ **NOTHING SELECTED - CANCELLED**" }`})
+                menumsg.edit({embeds: [menumsg.embeds[0].setDescription(`~~${menumsg.embeds[0].description}~~`)], components: [], content: `${collected && collected.first() && collected.first().values ? `<a:yes:950884027320135711> **Selected: \`${collected ? collected.first().values[0] : "Nothing"}\`**` : "❌ **NOTHING SELECTED - CANCELLED**" }`})
               });
             }
             async function handle_the_picks_2(optionhandletype, SetupNumber, menuoptiondata){
@@ -1023,11 +1023,11 @@ module.exports = {
                         let SetupNumber = menu?.values[0].split(" ")[0]
                         handle_the_picks_3(menu?.values[0], SetupNumber, menuoptiondata)
                       }
-                      else menu?.reply({content: `<:no:833101993668771842> You are not allowed to do that! Only: <@${cmduser.id}>`, ephemeral: true});
+                      else menu?.reply({content: `<:no:951013282607685632> ${client.la[ls].cmds.setup.setupmusic.only} <@${cmduser.id}>`, ephemeral: true});
                     });
                     //Once the Collections ended edit the menu message
                     collector.on('end', collected => {
-                      menumsg.edit({embeds: [menumsg.embeds[0].setDescription(`~~${menumsg.embeds[0].description}~~`)], components: [], content: `${collected && collected.first() && collected.first().values ? `<a:yes:833101995723194437> **Selected: \`${collected ? collected.first().values[0] : "Nothing"}\`**` : "❌ **NOTHING SELECTED - CANCELLED**" }`})
+                      menumsg.edit({embeds: [menumsg.embeds[0].setDescription(`~~${menumsg.embeds[0].description}~~`)], components: [], content: `${collected && collected.first() && collected.first().values ? `<a:yes:950884027320135711> **Selected: \`${collected ? collected.first().values[0] : "Nothing"}\`**` : "❌ **NOTHING SELECTED - CANCELLED**" }`})
                     });
                   }
                   async function handle_the_picks_3(optionhandletype, SetupNumber, menuoptiondata){
@@ -1275,7 +1275,7 @@ module.exports = {
                         })
                         //Once the Collections ended edit the menu message
                         collector.on('end', collected => {
-                          tempmsg.edit({embeds: [tempmsg.embeds[0].setDescription(`~~${tempmsg.embeds[0].description}~~`)], components: [], content: `${collected && collected.first() && collected.first().customId ? `<a:yes:833101995723194437> **Selected the \`${collected.first().customId}\` Color**` : "❌ **NOTHING SELECTED - CANCELLED**" }`})
+                          tempmsg.edit({embeds: [tempmsg.embeds[0].setDescription(`~~${tempmsg.embeds[0].description}~~`)], components: [], content: `${collected && collected.first() && collected.first().customId ? `<a:yes:950884027320135711> **Selected the \`${collected.first().customId}\` Color**` : "❌ **NOTHING SELECTED - CANCELLED**" }`})
                         });
                         //Menu Collections
                         collector.on('collect', async button => {
@@ -1405,11 +1405,11 @@ module.exports = {
                   let SetupNumber = menu?.values[0].split(" ")[0]
                   handle_the_picks_2(menu?.values[0], SetupNumber, menuoptiondata)
                 }
-                else menu?.reply({content: `<:no:833101993668771842> You are not allowed to do that! Only: <@${cmduser.id}>`, ephemeral: true});
+                else menu?.reply({content: `<:no:951013282607685632> ${client.la[ls].cmds.setup.setupmusic.only} <@${cmduser.id}>`, ephemeral: true});
               });
               //Once the Collections ended edit the menu message
               collector.on('end', collected => {
-                menumsg.edit({embeds: [menumsg.embeds[0].setDescription(`~~${menumsg.embeds[0].description}~~`)], components: [], content: `${collected && collected.first() && collected.first().values ? `<a:yes:833101995723194437> **Selected: \`${collected ? collected.first().values[0] : "Nothing"}\`**` : "❌ **NOTHING SELECTED - CANCELLED**" }`})
+                menumsg.edit({embeds: [menumsg.embeds[0].setDescription(`~~${menumsg.embeds[0].description}~~`)], components: [], content: `${collected && collected.first() && collected.first().values ? `<a:yes:950884027320135711> **Selected: \`${collected ? collected.first().values[0] : "Nothing"}\`**` : "❌ **NOTHING SELECTED - CANCELLED**" }`})
               });
             }
             async function handle_the_picks_2(optionhandletype, SetupNumber, menuoptiondata){
@@ -1524,7 +1524,7 @@ module.exports = {
           case `Test Welcome`:{
             var { member } = message;
             let welcome = GuildSettings.welcome;
-            let invitemessage = `Invited by ${member.user.tag ? `**${member.user.tag}**` : `<@${member.user.id}>`}\n<:Like:857334024087011378> **X Invites**\n[<:joines:866356465299488809> X Joins | <:leaves:866356598356049930> X Leaves | <:no:833101993668771842> X Fakes]`
+            let invitemessage = `Invited by ${member.user.tag ? `**${member.user.tag}**` : `<@${member.user.id}>`}\n<:Like:857334024087011378> **X Invites**\n[<:joines:866356465299488809> X Joins | <:leaves:866356598356049930> X Leaves | <:no:951013282607685632> X Fakes]`
             if(welcome){
               let themessage = String(welcome.secondmsg);
               if(!themessage || themessage.length == 0) themessage = ":wave: {user} **Welcome to our Server!** :v:";

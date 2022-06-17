@@ -137,7 +137,7 @@ module.exports = {
             theDB = client.menuapply; //change to the right database
             second_layer()
           } else menu?.reply({
-            content: `:x: You are not allowed to do that! Only: <@${cmduser.id}>`,
+            content: `:x: ${client.la[ls].cmds.setup.setupmusic.only} <@${cmduser.id}>`,
             ephemeral: true
           });
         });
@@ -222,7 +222,7 @@ module.exports = {
             client.disableComponentMessage(menu);
             handle_the_picks(menu?.values[0], menuoptiondata)
           } else menu?.reply({
-            content: `:x: You are not allowed to do that! Only: <@${cmduser.id}>`,
+            content: `:x: ${client.la[ls].cmds.setup.setupmusic.only} <@${cmduser.id}>`,
             ephemeral: true
           });
         });
@@ -539,7 +539,7 @@ module.exports = {
                     });
                   }
                 }
-                else menu?.reply({content: `:x: You are not allowed to do that! Only: <@${cmduser.id}>`, ephemeral: true});
+                else menu?.reply({content: `:x: ${client.la[ls].cmds.setup.setupmusic.only} <@${cmduser.id}>`, ephemeral: true});
               });
               //Once the Collections ended edit the menu message
               collector.on('end', collected => {
@@ -619,7 +619,7 @@ module.exports = {
               await theDB.set(`${message.guild.id}.${pre}.data`, data);
               message.reply(`**Successfully removed:**\n>>> ${menu?.values.map(i => `\`${i}\``).join(", ")}\n\nDon't forget to resend the Apply Config-Message!`)
             } else menu?.reply({
-              content: `:x: You are not allowed to do that! Only: <@${cmduser.id}>`,
+              content: `:x: ${client.la[ls].cmds.setup.setupmusic.only} <@${cmduser.id}>`,
               ephemeral: true
             });
           });

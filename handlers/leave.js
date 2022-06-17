@@ -6,7 +6,6 @@ const canvacord = require("canvacord");
 Canvas.registerFont( "./assets/fonts/DMSans-Bold.ttf" , { family: "DM Sans", weight: "bold" } );
 Canvas.registerFont( "./assets/fonts/DMSans-Regular.ttf" , { family: "DM Sans", weight: "regular" } );
 Canvas.registerFont( "./assets/fonts/STIXGeneral.ttf" , { family: "STIXGeneral" } );
-Canvas.registerFont( "./assets/fonts/AppleSymbol.ttf" , { family: "AppleSymbol" } );
 Canvas.registerFont( "./assets/fonts/Arial.ttf"       , { family: "Arial" } );
 Canvas.registerFont( "./assets/fonts/ArialUnicode.ttf", { family: "ArielUnicode" } );
 Canvas.registerFont(`./assets/fonts/Genta.ttf`, { family: `Genta` } );
@@ -16,12 +15,12 @@ const config = require(`${process.cwd()}/botconfig/config.json`);
 const ee = require(`${process.cwd()}/botconfig/embed.json`);
 const { dbEnsure } = require("./functions"); 
 //Create Variables
-const Fonts = "Genta, UbuntuMono, `DM Sans`, STIXGeneral, AppleSymbol, Arial, ArialUnicode";
-const wideFonts = "`DM Sans`, STIXGeneral, AppleSymbol, Arial, ArialUnicode";
+const Fonts = "Genta, UbuntuMono, `DM Sans`, STIXGeneral, Arial, ArialUnicode";
+const wideFonts = "`DM Sans`, STIXGeneral, Arial, ArialUnicode";
 let invitemessage = "\u200b";
 const { inviteationCache, DbAllCache } = require("./caches");
 
-//Start the module
+//Start the module 
 module.exports = async (client) => {
 
 
@@ -70,7 +69,7 @@ module.exports = async (client) => {
       if(invites < 0) invites *= -1;
       let realinvites = invites - fake - leaves;
       let invitedby = member.guild.members.cache.get(leftInviterData.id) || await member.guild.members.fetch(leftInviterData.id).catch(() => null) || false;
-      invitemessage = `Was Invited by ${invitedby && invitedby.tag ? `**${invitedby.tag}**` : `<@${leftInviterData.id}>`}\n<:Like:950879167380090880> **${realinvites} Invite${realinvites == 1 ? "" : "s"}**\n[<:joines:950878825254883378> ${invites} Joins | <:leaves:950879337454895134> ${leaves} Leaves | :x: ${fake} Fakes]`;
+      invitemessage = `Was Invited by ${invitedby && invitedby.tag ? `**${invitedby.tag}**` : `<@${leftInviterData.id}>`}\n<:Like:950879167380090880> **${realinvites} Invite${realinvites == 1 ? "" : "s"}**\n[<:joines:950878825254883378> ${invites} Joins | <:leaves:950879337454895134> ${leaves} Leaves | <:no:951013282607685632> ${fake} Fakes]`;
     } else {
       if(memberData.joinData.type == "vanity"){
         try{

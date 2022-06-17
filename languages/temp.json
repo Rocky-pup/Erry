@@ -367,44 +367,12 @@
                 "variable2": "-",
                 "variable3": "`\\`\\`\\` ${e.message ? e.message : e.stack ? String(e.stack).substr(0, 2000) : String(e).substr(0, 2000)}\\`\\`\\``"
             },
-            "tiktokinfo": {
-                "title": "Information about: **`{name}`**",
-                "description": "**Nickname:** `{nickName}`\n**Bio:**\n> {signature}\n\n> **`{fans} Followers` | `{following} Follows` | `{video}Posts`**",
-                "videos": "> **[Watch it]({url}) | `{views} Views` | `{shares} Shares` | `{comments} Comments`**",
-                "variable1": "`\\`\\`\\` ${e.message ? e.message : e.stack ? String(e.stack).substr(0, 2000) : String(e).substr(0, 2000)}\\`\\`\\``"
-            },
             "translate": {
                 "error": ":x: Error | Unknown Command Usage! `{prefix}translate <from> <to> <Text>`\nExample: `{prefix}translate en de Hello World`",
                 "to": "Translated to: {to}",
                 "from": "Translated from: {from}",
                 "variable1": "\"```\"+res.text.substr(0, 2000)+\"```\"",
                 "variable2": "`\\`\\`\\`${e.message ? e.message : String(e).substr(0, 2000)}\\`\\`\\``"
-            },
-            "twitterinfo": {
-                "field1": {
-                    "title": "**Name:**"
-                },
-                "field2": {
-                    "title": "**Created at:**"
-                },
-                "field3": {
-                    "title": "**Followers:**",
-                    "value": "`${user.followers} Followers`"
-                },
-                "field4": {
-                    "title": "**Friends:**",
-                    "value": "`${user.friends} Friends`"
-                },
-                "field5": {
-                    "title": "**Tweets:**",
-                    "value": "`${user.statuses} Tweets`"
-                },
-                "field6": {
-                    "title": "Location"
-                },
-                "title": "Twitterinformation about: `{name}`",
-                "variable1": "`\\`\\`\\`${user.description}\\`\\`\\``",
-                "variable2": "`\\`\\`\\` ${e.message ? e.message : e.stack ? String(e.stack).substr(0, 2000) : String(e).substr(0, 2000)}\\`\\`\\``"
             },
             "uptime": {
                 "TIME NOT NEEDED": "",
@@ -2831,34 +2799,6 @@
                 "variable38": "\":x: ERROR | Your Time ran out\"",
                 "variable39": "`\\`\\`\\` ${e.message ? e.message : e.stack ? String(e.stack).substr(0, 2000) : String(e).substr(0, 2000)}\\`\\`\\``"
             },
-            "setup-tiktok": {
-                "variable1": "\"What do you want to do?\"",
-                "variable2": "\":x: ERROR | Missing Permissions to add Reactions\"",
-                "variable3": "\":x: ERROR | Your Time ran out\"",
-                "variable4": "\"In which Channel should I post all tiktok Videos?\"",
-                "variable5": "`Please just ping the Channel with #channel!`",
-                "variable6": "`:white_check_mark: I will now send all tiktok Notifications in \\`${msg.mentions.channels.filter(ch=>ch.guild.id==msg.guild.id).first().name}\\``",
-                "variable7": "\"DONT FORGET TO ADD A **tiktok_CHANNELS**!!!\"",
-                "variable8": "\":x: ERROR | Your Time ran out\"",
-                "variable9": "\":x: ERROR | You've reached the maximum amount of tiktok Channels\"",
-                "variable10": "\"Which Channel do you wanna add? | Just send the LINK!\"",
-                "variable11": "\":x: ERROR | The tiktok Channel is already setup!\"",
-                "variable12": "`:white_check_mark: added the Channel ${Channel}`",
-                "variable13": "\"You can change the default message via the **\\\"edit\\\"**\"",
-                "variable14": "\":x: ERROR | Your Time ran out\"",
-                "variable15": "\":x: ERROR | You havent setup any tiktok Channels yet!\"",
-                "variable16": "\"Which Channel do you wanna remove? | Just react with the right one!\"",
-                "variable17": "`:white_check_mark: removed the Channel ${channel}`",
-                "variable18": "\":x: ERROR | Your Time ran out\"",
-                "variable19": "\":x: ERROR | You havent setup any tiktok Channels yet!\"",
-                "variable20": "\"Which Channel's Message do you wanna edit? | Just react with the right one!\"",
-                "variable21": "\"What should be the new Message?\"",
-                "variable22": "`:white_check_mark: Changed the message for the Channel ${channel}`",
-                "variable23": "\":x: ERROR | Your Time ran out\"",
-                "variable24": "\":x: ERROR | Your Time ran out\"",
-                "variable25": "\":x: ERROR | PLEASE CONTACT `Rocky#7890`\"",
-                "variable26": "`\\`\\`\\` ${e.message ? e.message : e.stack ? String(e.stack).substr(0, 2000) : String(e).substr(0, 2000)}\\`\\`\\``"
-            },
             "setup-twitch": {
                 "variable1": "\"What do you want to do?\"",
                 "variable2": "`1️⃣ **== Manage Channels** (Edit, Delete, etc.)\\n\\n2️⃣ **== Create/Set Twitch-Channel**\\n\\n3️⃣ **== Set Discord Twitch Logger Channel**\\n\\n4️⃣ **== Set ACTIVE LIVE STREAMING ROLE**\\n\\n5️⃣ **== Set Ghost Ping Role**\\n\\n\\n\\n*React with the Right Emoji according to the Right action*`",
@@ -2899,63 +2839,6 @@
                 "variable37": "\":x: ERROR | Your Time ran out\"",
                 "variable38": "\":x: ERROR | PLEASE CONTACT `Rocky#7890`\"",
                 "variable39": "`\\`\\`\\` ${e.message ? e.message : e.stack ? String(e.stack).substr(0, 2000) : String(e).substr(0, 2000)}\\`\\`\\``"
-            },
-            "setup-twitter": {
-                "variable1": "\"What do you want to do?\"",
-                "variable2": "`1️⃣ **==** Manage **first** Twitter Logger\\n\\n2️⃣ **==** Manage **second** Twitter Logger\\n\\n\\n\\n*React with the Right Emoji according to the Right action*`",
-                "variable3": "\":x: ERROR | Missing Permissions to add Reactions\"",
-                "variable4": "\":x: ERROR | Your Time ran out\"",
-                "variable5": "\":x: ERROR | SECOND TWITTER IS DISABLED\"",
-                "variable6": "\"What do you want to do?\"",
-                "variable7": "`1️⃣ **== Set** **Twitter Account** (/Overwrite)\\n\\n2️⃣ **== Set** Discord **Channel**\\n\\n3️⃣ **== Set** Posting **Message**\\n\\n4️⃣ **==** ${client.social_log.get(message.guild.id, `${add}twitter.REETWET`) ? \"Disable Posting Retweets\": \"Enable that i also Post Retweets\"}\\n\\n5️⃣ **==** Manually set the **TWITTER ID** && **TWITTER NAME**\\n\\n\\n\\n*React with the Right Emoji according to the Right action*`",
-                "variable8": "\":x: ERROR | Missing Permissions to add Reactions\"",
-                "variable9": "\":x: ERROR | Your Time ran out\"",
-                "variable10": "\"Which account do you wanna use?\"",
-                "variable11": "`Please send me the TWITTER LINK like that: \\`https://twitter.com/MilratoDev\\``",
-                "variable12": "\"INVALID TWITTER LINK, a Twitter Link looks like that: \\`https://twitter.com/MilratoDev\\`\"",
-                "variable13": "\"INVALID TWITTER LINK, a Twitter Link looks like that: \\`https://twitter.com/MilratoDev\\`\"",
-                "variable14": "\":x: ERROR | Your Time ran out\"",
-                "variable15": "\"UNABLE TO FIND USER\"",
-                "variable16": "\"UNABLE TO FIND USER\"",
-                "variable17": "`:white_check_mark: I will now watch for new Posts in this account: \\`${TwitterName}\\``",
-                "variable18": "`**IF YOU TWITTER IS NOT THE SAME, THEN MANUALLY DEFINE THE ID THROUGH COMMAND!!!**\\n\\n**Make sure that you defined a \\`Discord Channel\\` too! Otherwise it won't post things!**\\n\\nYou need to have The TWITTERNAME, TWITTERID, and DISCORDCHANNEl and MESSAGE to be right, so that the autoposter works!`",
-                "variablex_19": "\"**NOTE THERE MIGHT BE AN UP TO 7 MINUTES DELAY!** (because of Rate limits)\"", "variable19": "\"When posting a new Twit\"",
-                "variable20": "\":x: ERROR | An error occurred, please contact: `Rocky#7890`\"",
-                "variable21": "`\\`\\`\\` ${e.message ? e.message : e.stack ? String(e.stack).substr(0, 2000) : String(e).substr(0, 2000)}\\`\\`\\``",
-                "variable22": "\"Which Channel do you wanna use?\"",
-                "variable23": "`Please Ping the Channel now! / Send the **ID** the Channel/Category/Talk!!`",
-                "variable24": "`:white_check_mark: I will now post Twitter Messages in \\`${channel.name}\\``",
-                "variable25": "`\\n\\nYou need to have The TWITTERNAME, TWITTERID, and DISCORDCHANNEl and MESSAGE to be right, so that the autoposter works!`",
-                "variablex_26": "\"**NOTE THERE MIGHT BE AN UP TO 7 MINUTES DELAY!** (because of Rate limits)\"", "variable26": "\"When posting a new Twit\"",
-                "variable27": "\":x: ERROR | An error occurred, please contact: `Rocky#7890`\"",
-                "variable28": "`\\`\\`\\` ${e.message ? e.message : e.stack ? String(e.stack).substr(0, 2000) : String(e).substr(0, 2000)}\\`\\`\\``",
-                "variable29": "\":x: ERROR | Your Time ran out\"",
-                "variable30": "\"Which MEssage do you wanna send with the Twitter Post?\"",
-                "variable31": "`\\`{url}\\` Will be replaced with the Twitter POST LINK\\n\\n\\`{Twittername}\\` will be replaced with the TwitterAccountname`",
-                "variable32": "`:white_check_mark: I will now post The Twitter Messages with the Twitter Post: `",
-                "variable33": "`${collected.first().content.replace(\"{url}\", \"https://twitter.com/MilratoDev\").replace(\"{Twittername}\", \"Tomato6966\")}\\n\\nNote that this is just an **example**\\n\\nYou need to have The TWITTERNAME, TWITTERID, and DISCORDCHANNEl and MESSAGE to be right, so that the autoposter works!`",
-                "variablex_34": "\"**NOTE THERE MIGHT BE AN UP TO 7 MINUTES DELAY!** (because of Rate limits)\"", "variable34": "\"When posting a new Twit\"",
-                "variable35": "\":x: ERROR | An error occurred, please contact: `Rocky#7890`\"",
-                "variable36": "`\\`\\`\\` ${e.message ? e.message : e.stack ? String(e.stack).substr(0, 2000) : String(e).substr(0, 2000)}\\`\\`\\``",
-                "variable37": "\":x: ERROR | Your Time ran out\"",
-                "variable38": "`:white_check_mark: ${client.social_log.get(message.guild.id, `${add}twitter.REETWET`) ? \"Enabled Showing Retweets\": \"Disabled Showing Retweets\"}`",
-                "variable39": "`${client.social_log.get(message.guild.id, `${add}twitter.REETWET`) ? \"I will now post Retweets too!\": \"I will not Post Retweets!\"}`",
-                "variablex_40": "\"**NOTE THERE MIGHT BE AN UP TO 7 MINUTES DELAY!** (because of Rate limits)\"", "variable40": "\"When posting a new Twit\"",
-                "variable41": "\"What should be the new USERID of your TWITTER LOGGER?\"",
-                "variable42": "`Go to: https://tweeterid.com to get your USERID and **ENTER IT __NOW__**`",
-                "variable43": "`You need to have The TWITTERNAME, TWITTERID, and DISCORDCHANNEl and MESSAGE to be right, so that the autoposter works!`",
-                "variable44": "\"What should be the new USERNAME of your TWITTER LOGGER?\"",
-                "variable45": "`That's your @, forexample: MilratoDev\\n\\nPlease **just** enter the Name!`",
-                "variable46": "`${collected.first().content.replace(\"{url}\", `https://twitter.com/${collected.first().content}`).replace(\"{Twittername}\", collected.first().content)}\\n\\nNote that this is just an **example**\\n\\nYou need to have The TWITTERNAME, TWITTERID, and DISCORDCHANNEl and MESSAGE to be right, so that the autoposter works!`",
-                "variablex_47": "\"**NOTE THERE MIGHT BE AN UP TO 7 MINUTES DELAY!** (because of Rate limits)\"", "variable47": "\"When posting a new Twit\"",
-                "variable48": "\":x: ERROR | An error occurred, please contact: `Rocky#7890`\"",
-                "variable49": "`\\`\\`\\` ${e.message ? e.message : e.stack ? String(e.stack).substr(0, 2000) : String(e).substr(0, 2000)}\\`\\`\\``",
-                "variable50": "\":x: ERROR | Your Time ran out\"",
-                "variable51": "\":x: ERROR | An error occurred, please contact: `Rocky#7890`\"",
-                "variable52": "`\\`\\`\\` ${e.message ? e.message : e.stack ? String(e.stack).substr(0, 2000) : String(e).substr(0, 2000)}\\`\\`\\``",
-                "variable53": "\":x: ERROR | Your Time ran out\"",
-                "variable54": "\":x: ERROR | PLEASE CONTACT `Rocky#7890`\"",
-                "variable55": "`\\`\\`\\` ${e.message ? e.message : e.stack ? String(e.stack).substr(0, 2000) : String(e).substr(0, 2000)}\\`\\`\\``"
             },
             "setup-validcode": {
                 "variable1": "\"***Select what you need in the `Selection` down Below!***\"",

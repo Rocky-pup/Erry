@@ -20,6 +20,8 @@ module.exports = {
     try {
       let adminroles = GuildSettings?.adminroles || [];
       let cmdroles = GuildSettings?.cmdadminroles?.warn || [];
+      let warnuser = message.mentions.users.first()
+      if (!warnuser) return message.reply("You need to ping USER")
       var cmdrole = []
         if(cmdroles.length > 0){
           for await (const r of cmdroles){
@@ -81,11 +83,11 @@ module.exports = {
         });
         const newActionId = await client.modActions.stats().then(d => client.getUniqueID(d.count));
         await client.modActions.set(newActionId, {
-          user: message.author?.id,
+          user: warnuser,
           guild: message.guild.id,
           type: 'warning',
           moderator: message.author?.id,
-          reason: "Anticaps Autowarn",
+          reason: reason ? reason : "No Reason Provided",
           when: new Date().toLocaleString(`de`),
           oldhighesrole: message.member.roles ? message.member.roles.highest : `Had No Roles`,
           oldthumburl: message.author.displayAvatarURL({
@@ -93,10 +95,10 @@ module.exports = {
           })
         });
         // Push the action to the user's warnings
-        await client.userProfiles.push(message.author?.id + '.warnings', newActionId);
+        await client.userProfiles.push(warnuser + '.warnings', newActionId);
         await client.userProfiles.add(message.author?.id + '.totalActions', 1);
         await client.stats.push(message.guild.id + message.author?.id + ".warn", new Date().getTime());
-        const warnIDs = await client.userProfiles.get(message.author?.id + '.warnings')
+        const warnIDs = await client.userProfiles.get(warnuser + '.warnings')
         const modActions = await client.modActions.all();
         const warnData = warnIDs.map(id => modActions.find(d => d.ID == id)?.data);
         let warnings = warnData.filter(v => v.guild == message.guild.id);

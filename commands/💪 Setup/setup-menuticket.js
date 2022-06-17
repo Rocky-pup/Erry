@@ -138,7 +138,7 @@ module.exports = {
             theDB = client.menuticket; //change to the right database
             second_layer(SetupNumber)
           } else menu?.reply({
-            content: `:x: You are not allowed to do that! Only: <@${cmduser.id}>`,
+            content: `:x: ${client.la[ls].cmds.setup.setupmusic.only} <@${cmduser.id}>`,
             ephemeral: true
           });
         });
@@ -250,7 +250,7 @@ module.exports = {
             client.disableComponentMessage(menu);
             handle_the_picks(menu?.values[0], menuoptiondata, SetupNumber)
           } else menu?.reply({
-            content: `:x: You are not allowed to do that! Only: <@${cmduser.id}>`,
+            content: `:x: ${client.la[ls].cmds.setup.setupmusic.only} <@${cmduser.id}>`,
             ephemeral: true
           });
         });
@@ -344,7 +344,7 @@ module.exports = {
                   if (menu?.values[0] == "Cancel") return menu?.reply(eval(client.la[ls]["cmds"]["setup"]["setup-ticket"]["variable3"]))
                   menuselection(menu)
                 } else menu?.reply({
-                  content: `:x: You are not allowed to do that! Only: <@${cmduser.id}>`,
+                  content: `:x: ${client.la[ls].cmds.setup.setupmusic.only} <@${cmduser.id}>`,
                   ephemeral: true
                 });
               });
@@ -850,7 +850,7 @@ module.exports = {
                     client.disableComponentMessage(menu);
                     handle_the_picks3(menu?.values[0], menuoptiondata, SetupNumber)
                   } else menu?.reply({
-                    content: `:x: You are not allowed to do that! Only: <@${cmduser.id}>`,
+                    content: `:x: ${client.la[ls].cmds.setup.setupmusic.only} <@${cmduser.id}>`,
                     ephemeral: true
                   });
                 });
@@ -1047,7 +1047,7 @@ module.exports = {
 
 
               } else menu?.reply({
-                content: `:x: You are not allowed to do that! Only: <@${cmduser.id}>`,
+                content: `:x: ${client.la[ls].cmds.setup.setupmusic.only} <@${cmduser.id}>`,
                 ephemeral: true
               });
             });
@@ -1133,7 +1133,7 @@ module.exports = {
               await theDB.set(`${message.guild.id}.${pre}.data`, data);
               message.reply(`**Successfully removed:**\n>>> ${menu?.values.map(i => `\`${i}\``).join(", ")}\n\nDon't forget to resend the Ticket Config-Message!`)
             } else menu?.reply({
-              content: `:x: You are not allowed to do that! Only: <@${cmduser.id}>`,
+              content: `:x: ${client.la[ls].cmds.setup.setupmusic.only} <@${cmduser.id}>`,
               ephemeral: true
             });
           });

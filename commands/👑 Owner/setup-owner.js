@@ -52,7 +52,7 @@ module.exports = {
           {
             value: "Cancel",
             description: `Cancel and stop the Advertisement Setup!`,
-            emoji: "833101993668771842"
+            emoji: "951013282607685632"
           }
         ]
         //define the selection
@@ -96,12 +96,12 @@ module.exports = {
               if(used1) return menu?.reply({content : `:x: You already selected something, this Selection is now disabled!`, ephermal : true});
               menuselection(menu);
             }
-            else menu?.reply({content : `:x: You are not allowed to do that! Only: <@${cmduser.id}>`, ephermal : true});
+            else menu?.reply({content : `:x: ${client.la[ls].cmds.setup.setupmusic.only} <@${cmduser.id}>`, ephermal : true});
           }
         });
       }
 
-      const d2p = (bool) => bool ? "`✔️ Enabled`" : "`❌ Disabled`"; 
+      const d2p = (bool) => bool ? `✔️ ${client.la[ls].cmds.info.help.enabledtxt}` : `❌ ${client.la[ls].cmds.info.help.disabledtxt}`; 
       const d2p2 = (bool) => bool ? "`✔️ Yes`" : "`❌ Nope`"; 
 
       async function handle_the_picks(menuoptionindex, menuoptiondata) {
@@ -162,7 +162,7 @@ module.exports = {
               })
               .catch(e => {
                 return message.reply({embeds: [new Discord.MessageEmbed()
-                  .setTitle(eval(client.la[ls]["cmds"]["owner"]["setup-owner"]["variable15"]))
+                  .setTitle(client.la[ls]["cmds"]["owner"]["setup-owner"]["variable15"])
                   .setColor(es.wrongcolor)
                   .setDescription(`Cancelled the Operation!`.substring(0, 2000))
                   .setFooter(client.getFooter(es))

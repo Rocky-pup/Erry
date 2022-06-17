@@ -50,7 +50,7 @@ module.exports = {
           {
             value: "Cancel",
             description: `Cancel and stop the Advertisement Setup!`,
-            emoji: "833101993668771842"
+            emoji: "951013282607685632"
           }
         ]
         //define the selection
@@ -93,7 +93,7 @@ module.exports = {
               if(used1) return menu?.reply({content : `:x: You already selected something, this Selection is now disabled!`}, {ephermal : true});
               menuselection(menu);
             }
-            else menu?.reply({content : `:x: You are not allowed to do that! Only: <@${cmduser.id}>`}, {ephermal : true});
+            else menu?.reply({content : `:x: ${client.la[ls].cmds.setup.setupmusic.only} <@${cmduser.id}>`}, {ephermal : true});
           }
         });
       }

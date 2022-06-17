@@ -137,7 +137,7 @@ module.exports = {
             theDB = client.autosupport; //change to the right database
             second_layer()
           } else menu?.reply({
-            content: `:x: You are not allowed to do that! Only: <@${cmduser.id}>`,
+            content: `:x: ${client.la[ls].cmds.setup.setupmusic.only} <@${cmduser.id}>`,
             ephemeral: true
           });
         });
@@ -230,7 +230,7 @@ module.exports = {
             client.disableComponentMessage(menu);
             handle_the_picks(menu?.values[0], menuoptiondata)
           } else menu?.reply({
-            content: `:x: You are not allowed to do that! Only: <@${cmduser.id}>`,
+            content: `:x: ${client.la[ls].cmds.setup.setupmusic.only} <@${cmduser.id}>`,
             ephemeral: true
           });
         });
@@ -703,7 +703,7 @@ module.exports = {
                   return message.reply(":x: **You did not enter a Valid Message in Time! CANCELLED!**")
                 }
               } else menu?.reply({
-                content: `:x: You are not allowed to do that! Only: <@${cmduser.id}>`,
+                content: `:x: ${client.la[ls].cmds.setup.setupmusic.only} <@${cmduser.id}>`,
                 ephemeral: true
               });
             });
@@ -787,7 +787,7 @@ module.exports = {
               await theDB.set(`${message.guild.id}.${pre}.data`, data);
               message.reply(`**Successfully removed:**\n>>> ${menu?.values.map(i => `\`${i}\``).join(", ")}\n\nDon't forget to resend the Auto Support Config-Message!`)
             } else menu?.reply({
-              content: `:x: You are not allowed to do that! Only: <@${cmduser.id}>`,
+              content: `:x: ${client.la[ls].cmds.setup.setupmusic.only} <@${cmduser.id}>`,
               ephemeral: true
             });
           });

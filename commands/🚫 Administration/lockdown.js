@@ -52,7 +52,7 @@ module.exports = {
       let success = [];
       let failed = [];
       for(const channel of channels) {
-        if(channel.permissionOverwrites.cache.size < 1){ 
+        if(channel.permissionOverwrites.cache.size < 1){
           await channel.permissionOverwrites.set(
             [{
               id: message.guild.roles.everyone.id,

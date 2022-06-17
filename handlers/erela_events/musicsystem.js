@@ -1,5 +1,5 @@
 const { MessageEmbed, MessageButton, MessageActionRow, MessageSelectMenu } = require("discord.js")
-const { check_if_dj, autoplay, escapeRegex, format, duration, createBar, handlemsg } = require("../functions");
+const { check_if_dj, autoplay, escapeRegex, format, duration, createBar, handlemsg, dbEnsure } = require("../functions");
 const config = require(`${process.cwd()}/botconfig/config.json`);
 const ee = require(`${process.cwd()}/botconfig/embed.json`);
 const emoji = require(`${process.cwd()}/botconfig/emojis.json`);
@@ -10,6 +10,12 @@ module.exports = async (client) => {
         var { guild, message, channel, member, user } = interaction;
         if(!guild) guild = client.guilds.cache.get(interaction.guildId)
         if(!guild) return 
+        await dbEnsure(client.musicsettings, guild.id, {
+          "channel": "",
+          "message": "",
+          "banner": "https://cdn.discordapp.com/attachments/968349976331694100/979686974338244628/Neon_Text_Effect.png",
+          "text": true
+        });
         var data = await client.musicsettings.get(guild.id);
         if(!data) return
         var musicChannelId = data.channel;
@@ -53,8 +59,8 @@ module.exports = async (client) => {
         const dj = await check_if_dj(client, member, player?.queue?.current);
         if(player && interaction?.customId != `Join` && interaction?.customId != "Text" && interaction?.customId != `Lyrics` && dj) {
                 return interaction?.reply({embeds: [new MessageEmbed()
-                  .setColor(ee.wrongcolor)
-                  .setFooter({text: `${ee.footertext}`, iconURL: `${ee.footericon}`})
+                  .setColor(es.wrongcolor)
+                  .setFooter({text: `${es.footertext}`, iconURL: `${es.footericon}`})
                   .setTitle(client.la[ls].cmds.music.musicsystem.djerr)
                   .setDescription(`${client.la[ls].cmds.music.musicsystem.djroles}\n${dj}`)
                 ],
@@ -86,7 +92,7 @@ module.exports = async (client) => {
             //Stop the player
             interaction?.reply({
               embeds: [new MessageEmbed()
-              .setColor(ee.color)
+              .setColor(es.color)
               .setTimestamp()
               .setTitle(handlemsg(client.la[ls].cmds.music.leave.title))
               .setFooter(client.getFooter(`${client.la[ls].cmds.music.musicsystem.actionby} ${member.user.tag}`, member.user.displayAvatarURL({dynamic: true})))]
@@ -113,7 +119,7 @@ module.exports = async (client) => {
                     if(player.get("autoplay")) return autoplay(client, player, "skip");
                     interaction?.reply({
                         embeds: [new MessageEmbed()
-                        .setColor(ee.color)
+                        .setColor(es.color)
                         .setTimestamp()
                         .setTitle(client.la[ls].cmds.music.leave.title1)
                         .setFooter(client.getFooter(`${client.la[ls].cmds.music.musicsystem.actionby} ${member.user.tag}`, member.user.displayAvatarURL({dynamic: true})))]
@@ -130,7 +136,7 @@ module.exports = async (client) => {
                 await player.stop();
                 interaction?.reply({
                   embeds: [new MessageEmbed()
-                  .setColor(ee.color)
+                  .setColor(es.color)
                   .setTimestamp()
                   .setTitle(client.la[ls].cmds.music.skip.title2)
                   .setFooter(client.getFooter(`${client.la[ls].cmds.music.musicsystem.actionby} ${member.user.tag}`, member.user.displayAvatarURL({dynamic: true})))]
@@ -145,7 +151,7 @@ module.exports = async (client) => {
                 //Stop the player
                 interaction?.reply({
                   embeds: [new MessageEmbed()
-                  .setColor(ee.color)
+                  .setColor(es.color)
                   .setTimestamp()
                   .setTitle(client.la[ls].cmds.music.stop.variable1)
                   .setFooter(client.getFooter(`${client.la[ls].cmds.music.musicsystem.actionby} ${member.user.tag}`, member.user.displayAvatarURL({dynamic: true})))]
@@ -162,7 +168,7 @@ module.exports = async (client) => {
                     player.pause(false);
                     interaction?.reply({
                       embeds: [new MessageEmbed()
-                      .setColor(ee.color)
+                      .setColor(es.color)
                       .setTimestamp()
                       .setTitle(client.la[ls].cmds.music.musicsystem.resume)
                       .setFooter(client.getFooter(`${client.la[ls].cmds.music.musicsystem.actionby} ${member.user.tag}`, member.user.displayAvatarURL({dynamic: true})))]
@@ -173,7 +179,7 @@ module.exports = async (client) => {
 
                     interaction?.reply({
                       embeds: [new MessageEmbed()
-                      .setColor(ee.color)
+                      .setColor(es.color)
                       .setTimestamp()
                       .setTitle(client.la[ls].cmds.music.musicsystem.pause)
                       .setFooter(client.getFooter(`${client.la[ls].cmds.music.musicsystem.actionby} ${member.user.tag}`, member.user.displayAvatarURL({dynamic: true})))]
@@ -190,7 +196,7 @@ module.exports = async (client) => {
                 player.set(`autoplay`, !player.get(`autoplay`))
                 interaction?.reply({
                   embeds: [new MessageEmbed()
-                  .setColor(ee.color)
+                  .setColor(es.color)
                   .setTimestamp()
                   .setTitle(`${player.get(`autoplay`) ? `:white_check_mark: ${client.la[ls].cmds.music.musicsystem.autoplayon}`: `:x: ${client.la[ls].cmds.music.musicsystem.autoplayoff}`}`)
                   .setFooter(client.getFooter(`${client.la[ls].cmds.music.musicsystem.actionby} ${member.user.tag}`, member.user.displayAvatarURL({dynamic: true})))]
@@ -209,7 +215,7 @@ module.exports = async (client) => {
                 //Send Success Message
                 interaction?.reply({
                   embeds: [new MessageEmbed()
-                    .setColor(ee.color)
+                    .setColor(es.color)
                     .setTimestamp()
                     .setTitle(`${client.la[ls].cmds.music.musicsystem.shuffled} ${player?.queue?.length} ${client.la[ls].cmds.music.musicsystem.shuffleds}`)
                     .setFooter(client.getFooter(`${client.la[ls].cmds.music.musicsystem.actionby} ${member.user.tag}`, member.user.displayAvatarURL({dynamic: true})))]
@@ -229,7 +235,7 @@ module.exports = async (client) => {
                 player.setTrackRepeat(!player.trackRepeat);
                 interaction?.reply({
                   embeds: [new MessageEmbed()
-                  .setColor(ee.color)
+                  .setColor(es.color)
                   .setTimestamp()
                   .setTitle(`${player.trackRepeat ? `:white_check_mark: ${client.la[ls].cmds.music.musicsystem.songloopon}`: `:x: ${client.la[ls].cmds.music.musicsystem.songloopoff}`}`)
                   .setFooter(client.getFooter(`${client.la[ls].cmds.music.musicsystem.actionby} ${member.user.tag}`, member.user.displayAvatarURL({dynamic: true})))]
@@ -249,7 +255,7 @@ module.exports = async (client) => {
                 player.setQueueRepeat(!player.queueRepeat);
                 interaction?.reply({
                   embeds: [new MessageEmbed()
-                  .setColor(ee.color)
+                  .setColor(es.color)
                   .setTimestamp()
                   .setTitle(`${player.queueRepeat ? `:white_check_mark: ${client.la[ls].cmds.music.musicsystem.queueloopon}`: `:x: ${client.la[ls].cmds.music.musicsystem.queueloopoff}`}`)
                   .setFooter(client.getFooter(`${client.la[ls].cmds.music.musicsystem.actionby} ${member.user.tag}`, member.user.displayAvatarURL({dynamic: true})))]
@@ -271,7 +277,7 @@ module.exports = async (client) => {
                 await player.seek(Number(seektime));
                 interaction?.reply({
                   embeds: [new MessageEmbed()
-                    .setColor(ee.color)
+                    .setColor(es.color)
                     .setTimestamp()
                     .setTitle(client.la[ls].cmds.music.musicsystem.forward)
                     .setFooter(client.getFooter(`${client.la[ls].cmds.music.musicsystem.actionby} ${member.user.tag}`, member.user.displayAvatarURL({dynamic: true})))]
@@ -291,7 +297,7 @@ module.exports = async (client) => {
                 await player.seek(Number(seektime));
                 interaction?.reply({
                   embeds: [new MessageEmbed()
-                    .setColor(ee.color)
+                    .setColor(es.color)
                     .setTimestamp()
                     .setTitle(client.la[ls].cmds.music.musicsystem.rewind)
                     .setFooter(client.getFooter(`${client.la[ls].cmds.music.musicsystem.actionby} ${member.user.tag}`, member.user.displayAvatarURL({dynamic: true})))]
@@ -546,6 +552,8 @@ module.exports = async (client) => {
             }
             break;
             case "Save": {
+              let settingss = await client.settings.get(player.guild)
+              let prefixx = settingss.prefix
               interaction?.user.send({embeds : [new MessageEmbed()
                 .setAuthor(client.la[ls].cmds.music.grab?.author, message.author.displayAvatarURL({
                   dynamic: true
@@ -557,7 +565,7 @@ module.exports = async (client) => {
                 .addField(client.la[ls].cmds.music.grab?.field1, `\`${format(player.queue.current.duration)}\``, true)
                 .addField(client.la[ls].cmds.music.grab?.field2, `\`${player.queue.current.author}\``, true)
                 .addField(client.la[ls].cmds.music.grab?.field3, `\`${player.queue.length} ${client.la[ls]["cmds"]["music"]["musicsystem"]["songg"]}\``, true)
-                .addField(client.la[ls].cmds.music.grab?.field4, `\`${client.prefix}play ${player.queue.current.uri}\``)
+                .addField(client.la[ls].cmds.music.grab?.field4, `\`${prefixx}play ${player.queue.current.uri}\``)
                 .addField(client.la[ls].cmds.music.grab?.field5, `<#${message.channel.id}>`)
                 .setFooter(
                   handlemsg(client.la[ls].cmds.music.grab?.footer, { usertag: player.queue.current.requester.tag, guild: message.guild.name + " | " + message.guild.id})
@@ -655,6 +663,12 @@ module.exports = async (client) => {
 
     client.on("messageCreate", async message => {
         if(!message.guild) return;
+        await dbEnsure(client.musicsettings, message.guild.id, {
+          "channel": "",
+          "message": "",
+          "banner": "https://cdn.discordapp.com/attachments/968349976331694100/979686974338244628/Neon_Text_Effect.png",
+          "text": true
+        });
         var data = await client.musicsettings.get(message.guild.id);
         if(!data) return
         let settings = await client.settings.get(message.guild.id)
@@ -728,9 +742,7 @@ async function generateQueueEmbed(client, guildId, leave) {
     new MessageEmbed()
     .setColor(es.color)
     .setFooter(client.getFooter(es))
-    .setImage(guild.banner ? guild.bannerURL({
-      size: 4096
-    }) : "https://cdn.discordapp.com/attachments/968349976331694100/979686974338244628/Neon_Text_Effect.png")
+    .setImage(await client.musicsettings.get(guildId+".banner"))
     .setTitle(client.la[ls].cmds.music.musicsystem.title)
     .setDescription(client.la[ls].cmds.music.musicsystem.subtitle)
   ]
@@ -743,7 +755,7 @@ async function generateQueueEmbed(client, guildId, leave) {
       .addField(`${emoji.msg.time} ${client.la[ls].cmds.music.musicsystem.dur} `, `\`${format(player.queue.current.duration).split(" | ")[0]}\` | \`${format(player.queue.current.duration).split(" | ")[1]}\``, true)
       .addField(`${emoji.msg.song_by} By: `, `\`${player.queue.current.author}\``, true)
       .addField(`${emoji.msg.repeat_mode} ${client.la[ls].cmds.music.musicsystem.ql} `, `\`${player.queue.length} ${client.la[ls].cmds.music.musicsystem.songg}\``, true)
-      .addField(`:sound: ${client.la[ls].cmds.music.musicsystem.cvol}`, `\`${player.volume}% \``)
+      .addField(`:sound: ${client.la[ls].cmds.music.musicsystem.cvol}`, `\`${player.volume}%\``)
       .setAuthor(client.getAuthor(`${player.queue.current.title}`, "https://images-ext-1.discordapp.net/external/DkPCBVBHBDJC8xHHCF2G7-rJXnTwj_qs78udThL8Cy0/%3Fv%3D1/https/cdn.discordapp.com/emojis/859459305152708630.gif", player.queue.current.uri))
     delete embeds[1].description;
     delete embeds[1].title;
@@ -758,7 +770,7 @@ async function generateQueueEmbed(client, guildId, leave) {
     .setDescription(String(songs.map((track, index) => `**\` ${++index}. \` ${track.uri ? `[${track.title.substr(0, 60).replace(/\[/igu, "\\[").replace(/\]/igu, "\\]")}](${track.uri})` : track.title}** - \`${track.isStream ? `LIVE` : format(track.duration).split(` | `)[0]}\`\n> *${client.la[ls].cmds.music.musicsystem.by}: __${track.requester.tag}__*`).join(`\n`)).substr(0, 2048));
     if(player.queue.length > 10)
       embeds[0].addField(`**\` N. \` *${player.queue.length > maxTracks ? player.queue.length - maxTracks : player.queue.length} ${client.la[ls].cmds.music.musicsystem.ot} ...***`, `\u200b`)
-    embeds[0].addField(`**\` 0. \` __${client.la[ls].cmds.music.musicsystem.curt}__**`, `**${player.queue.current.uri ? `[${player.queue.current.title.substr(0, 60).replace(/\[/igu, "\\[").replace(/\]/igu, "\\]")}](${player.queue.current.uri})` : player.queue.current.title}** - \`${player.queue.current.isStream ? `LIVE STREAM` : format(player.queue.current.duration).split(` | `)[0]}\`\n> *${client.la[ls].cmds.music.musicsystem.by}: __${player.queue.current.requester.tag}__*`)
+    embeds[0].addField(`**\` 0. \` __${client.la[ls].cmds.music.musicsystem.curt}__**`, `**${player.queue.current.uri ? `[${player.queue.current.title.substr(0, 60).replace(/\[/igu, "\\[").replace(/\]/igu, "\\]")}](${player.queue.current.uri})` : player.queue.current.title}** - \`${player.queue.current.isStream ? `LIVE STREAM` : format(player.queue.current.duration).split(` | `)[0]}\`\n> *${client.la[ls].cmds.music.musicsystem.by} __${player.queue.current.requester.tag}__*`)
   }
   var Emojis = [
     "0️⃣",

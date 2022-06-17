@@ -80,7 +80,7 @@ module.exports = {
         //define the embed
         let MenuEmbed = new MessageEmbed()
           .setColor(es.color)
-          .setAuthor('Twitter Setup', 'https://cdn.discordapp.com/emojis/840255600851812393.png?size=96', 'https://dsc.gg/banditcamp')
+          .setAuthor('Twitter Setup', 'https://cdn.discordapp.com/emojis/840255600851812393.png?size=96', 'https://discord.gg/milrato')
           .setDescription(eval(client.la[ls]["cmds"]["setup"]["setup-ticket"]["variable2"]))
         //send the menu msg
         let menumsg = await message.reply({
@@ -102,7 +102,7 @@ module.exports = {
             let SetupNumber = menu?.values[0].split(" ")[0]
             handle_the_picks(menu?.values[0], SetupNumber, menuoptiondata)
           } else menu?.reply({
-            content: `:x: You are not allowed to do that! Only: <@${cmduser.id}>`,
+            content: `<:no:951013282607685632> ${client.la[ls].cmds.setup.setupmusic.only} <@${cmduser.id}>`,
             ephemeral: true
           });
         });
@@ -111,7 +111,7 @@ module.exports = {
           menumsg.edit({
             embeds: [menumsg.embeds[0].setDescription(`~~${menumsg.embeds[0].description}~~`)],
             components: [],
-            content: `${collected && collected.first() && collected.first().values ? `:white_check_mark: **Selected: \`${collected ? collected.first().values[0] : "Nothing"}\`**` : "❌ **NOTHING SELECTED - CANCELLED**" }`
+            content: `${collected && collected.first() && collected.first().values ? `<a:yes:950884027320135711> **Selected: \`${collected && collected?.first()?.values?.[0] ? collected.first().values[0] : "Nothing"}\`**` : "❌ **NOTHING SELECTED - CANCELLED**" }`
           })
         });
       }
@@ -353,7 +353,7 @@ module.exports = {
                 //require("../../social_log/twitterfeed").creat_twit(client);
                 message.reply({
                   embeds: [new Discord.MessageEmbed()
-                    .setTitle(`:white_check_mark: Set the TWITTER USER ID TO: \`${collected.first().content}\``.substring(0, 256))
+                    .setTitle(`<a:yes:950884027320135711> Set the TWITTER USER ID TO: \`${collected.first().content}\``.substring(0, 256))
                     .setDescription(eval(client.la[ls]["cmds"]["setup"]["setup-twitter"]["variable43"]))
                     .setColor(es.color)
                     .setFooter(client.getFooter(es))
@@ -380,7 +380,7 @@ module.exports = {
                       //require("../../social_log/twitterfeed").creat_twit(client);
                       return message.reply({
                         embeds: [new Discord.MessageEmbed()
-                          .setTitle(`:white_check_mark: Set the TWITTER USER Name TO: \`${collected.first().content}\``.substring(0, 256))
+                          .setTitle(`<a:yes:950884027320135711> Set the TWITTER USER Name TO: \`${collected.first().content}\``.substring(0, 256))
                           .setDescription(eval(client.la[ls]["cmds"]["setup"]["setup-twitter"]["variable46"]))
                           .setColor(es.color)
                           .addField(eval(client.la[ls]["cmds"]["setup"]["setup-twitter"]["variablex_47"]), eval(client.la[ls]["cmds"]["setup"]["setup-twitter"]["variable47"]))
@@ -437,7 +437,7 @@ module.exports = {
         }
       }
     } catch (e) {
-      console.log(String(e.stack).grey.bgRed)
+      console.error(e)
       return message.reply({
         embeds: [new MessageEmbed()
           .setColor(es.wrongcolor)
@@ -449,3 +449,12 @@ module.exports = {
     }
   },
 };
+/**
+ * @INFO
+ * Bot Coded by Tomato#6966 | https://github?.com/MilratoDev/discord-js-lavalink-Music-Bot-erela-js
+ * @INFO
+ * Work for Milrato Development | https://milrato.eu
+ * @INFO
+ * Please mention him / Milrato Development, when using this Code!
+ * @INFO
+ */

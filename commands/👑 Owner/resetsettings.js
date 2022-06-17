@@ -36,8 +36,8 @@ module.exports = {
             await clearDBData(client, message.guild.id);
             await databasing(client, message.guild.id);
             //databasing(client, message.guild.id)
-            var es = await client.settings.get(message.guild.id, "embed")
-            var ls = await client.settings.get(message.guild.id, "language")
+            var es = await client.settings.get(message.guild.id+".embed")
+            var ls = await client.settings.get(message.guild.id+".language")
             return message.channel.send({embeds :[new MessageEmbed()
               .setColor(es.color)
               .setFooter(client.getFooter(es))

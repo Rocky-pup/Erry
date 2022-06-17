@@ -1,6 +1,6 @@
 {
   "name": "erry",
-  "version": "2.7.15",
+  "version": "2.7.0",
   "description": "A Discord Bot made by: Rocky#7890",
   "main": "index.js",
   "dependencies": {
@@ -51,7 +51,7 @@
     "opusscript": "^0.0.8",
     "passport": "^0.6.0",
     "passport-discord": "^0.1.4",
-    "quickmongo": "github:Tomato6966/quickmongo",
+    "quickmongo": "^5.1.2",
     "radio-browser": "^2.1.10",
     "random-puppy": "^1.1.0",
     "random-words": "^1.1.2",
@@ -104,5 +104,5 @@
   "bugs": {
     "url": "https://github.com/Rocky-pup/Erry/issues"
   },
-  "homepage": "erry.sytes.net"
+  "homepage": "google.com"
 }

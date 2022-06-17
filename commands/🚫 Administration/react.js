@@ -11,7 +11,7 @@ module.exports = {
   name: `react`,
   category: `🚫 Administration`,
   aliases: [``],
-  description: `Closes the ticket`,
+  description: `Reacting on message`,
   usage: `react <msgid> <Emoji>`,
   type: "server",
   run: async (client, message, args, cmduser, text, prefix, player, es, ls, GuildSettings) => {

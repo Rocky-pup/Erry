@@ -85,7 +85,7 @@ module.exports = {
             used1 = true;
             handle_the_picks(menu?.values[0], menuoptiondata)
           }
-          else menu?.reply({content: `:x: You are not allowed to do that! Only: <@${cmduser.id}>`, ephemeral: true});
+          else menu?.reply({content: `:x: ${client.la[ls].cmds.setup.setupmusic.only} <@${cmduser.id}>`, ephemeral: true});
         });
         //Once the Collections ended edit the menu message
         collector.on('end', collected => {
@@ -125,7 +125,7 @@ module.exports = {
               .catch(e => {
                 console.error(e)
                 return message.reply({embeds: [new Discord.MessageEmbed()
-                  .setTitle(eval(client.la[ls]["cmds"]["setup"]["setup-automeme"]["variable8"]))
+                  .setTitle(client.la[ls]["cmds"]["setup"]["setup-automeme"]["variable8"])
                   .setColor(es.wrongcolor)
                   .setDescription(`Cancelled the Operation!`.substring(0, 2000))
                   .setFooter(client.getFooter(es))

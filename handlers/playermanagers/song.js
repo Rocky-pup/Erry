@@ -1,5 +1,5 @@
 var {
-  MessageEmbed
+  MessageEmbed, Interaction
 } = require("discord.js")
 var ee = require(`${process.cwd()}/botconfig/embed.json`)
 var config = require(`${process.cwd()}/botconfig/config.json`)
@@ -209,7 +209,7 @@ async function song(client, message, args, type, slashCommand, extras) {
         dynamic: true
       })))
       if(slashCommand) slashCommand.reply({ephemeral: true, embeds: [playlistembed]})
-      else message.reply({embeds: [playlistembed]})
+      else if(message) message.reply({embeds: [playlistembed]})
       const musicsettings = await client.musicsettings.get(player.guild)
       if(musicsettings.channel && musicsettings.channel.length > 5){
         let messageId = musicsettings.message;

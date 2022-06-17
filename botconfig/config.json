@@ -1,48 +1,53 @@
 {
-    "token": "",
-    "prefix": ".",
-    "ownerIDS": [
-        "913117505541775420"
-    ],
-    "fnbr": "DISABLED",
-    "fortnitetracker": "",
-    "memer_api": "",
-    "status": {
-        "text": "by Rocky || {songsplayed} songs played",
-        "text2": "{prefix}help || {usedcommands} cmds used",
-        "type1": "PLAYING",
-        "type2": "LISTENING",
-        "url": "https://twitch.tv/rockygamespaw"
-    },
-    "clientsettings": {
-        "nodes": [
-            {
-                "host": "localhost",
-                "port": 2333,
-                "password": "1"
-            }
-        ]
-    },
-    "spotify": {
-        "clientSecret": "",
-        "clientID": ""
-    },
-    "settings": {
-        "leaveOnEmpty_Channel": {
-            "enabled": true,
-            "time_delay": 30000
-        },
-        "LeaveOnEmpty_Queue": {
-            "enabled": true,
-            "time_delay": 30000
-        },
-        "selfDeaf": true
-    },
-    "lyricssettings": {
-        "lyrics_finder": false,
-        "ksoft_api": {
-            "use_this_instead": false,
-            "api_key": "DISABLED"
-        }
-    }
+   "token": "OTI0OTIyMjQ0NDM2NzUwNDA2.GMvH_R.m07I1CMS3PuaeYqbfjhtSYjaBQkCey-8GZdyZ0",
+   "prefix": ".",
+   "ownerIDS": [
+      "913117505541775420"
+   ],
+   "fnbr": "DISABLED",
+   "fortnitetracker": "",
+   "memer_api": "",
+   "status": {
+      "text": "by Rocky || {songsplayed} songs played",
+      "text2": "{prefix}help || {usedcommands} cmds used",
+      "type1": "PLAYING",
+      "type2": "LISTENING",
+      "url": "https://twitch.tv/rockygamespaw"
+   },
+   "clientsettings": {
+      "nodes": [
+         {
+            "host": "localhost",
+            "port": 2333,
+            "password": "youshallnotpass"
+         },
+         {
+            "host": "n1.lavalink.milrato.com",
+            "port": 10250,
+            "password": "discord.gg/milrato"
+         }
+      ]
+   },
+   "spotify": {
+      "clientSecret": "",
+      "clientID": ""
+   },
+   "settings": {
+      "leaveOnEmpty_Channel": {
+         "enabled": true,
+         "time_delay": 30000
+      },
+      "LeaveOnEmpty_Queue": {
+         "enabled": true,
+         "time_delay": 30000
+      },
+      "selfDeaf": true
+   },
+   "lyricssettings": {
+      "lyrics_finder": false,
+      "ksoft_api": {
+         "use_this_instead": false,
+         "api_key": "DISABLED"
+      }
+   }
 }

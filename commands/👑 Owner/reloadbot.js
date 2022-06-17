@@ -29,14 +29,14 @@ module.exports = {
       ]});
     try {
       let clientapp = client.application ? await client.application.fetch().catch(e=>false) : false;
-      let guild = client.guilds.cache.get("880881865114935296")
+      let guild = client.guilds.cache.get("773668217163218944")
         const index = require("../../index")
+        await client.destroy()
       let tempmsg = await message.channel.send({embeds :[new MessageEmbed()
         .setColor(es.color).setFooter(client.getFooter(es))
-        .setAuthor(`Reloading ...`, `https://images-ext-1.discordapp.net/external/ANU162U1fDdmQhim_BcbQ3lf4dLaIQl7p0HcqzD5wJA/https/cdn.discordapp.com/emojis/756773010123522058.gif`,  `https://dsc.gg/banditcamp`)
+        .setAuthor(`Reloading ...`, `https://images-ext-1.discordapp.net/external/ANU162U1fDdmQhim_BcbQ3lf4dLaIQl7p0HcqzD5wJA/https/cdn.discordapp.com/emojis/756773010123522058.gif`,  `https://discord.gg/milrato`)
         .setTitle(eval(client.la[ls]["cmds"]["owner"]["reloadbot"]["variable4"]))
       ]})
-              await client.destroy()
       //clear the commands collection
       await client.commands.clear();
       //Delete all files from the cache
@@ -71,8 +71,6 @@ module.exports = {
       client.Joblivelog.stop()
       client.Joblivelog2.stop()
       client.Jobyoutube.stop()
-      client.Jobtwitterfeed.stop()
-      client.Jobtiktok.stop()
       client.Jobautonsfw.stop()
       client.Jobroster.stop()
       client.Jobroster2.stop()
@@ -82,6 +80,7 @@ module.exports = {
       client.JobJointocreate2.stop()
       client.Jobdailyfact.stop()
       client.Jobmute.stop()
+      client.Jobtwitterfeed.stop()
       //wait 1 Sec
       await delay(1000);
       //Load the basics, (commands, dbs, events, etc.)
@@ -94,7 +93,7 @@ module.exports = {
       await delay(3000);
       await tempmsg.edit({embeds: [new MessageEmbed()
         .setColor(es.color).setFooter(client.getFooter(es))
-        .setAuthor(`Successfully Reloaded:`, `https://cdn.discordapp.com/emojis/833101995723194437.gif?v=1`, `https://dsc.gg/banditcamp`)
+        .setAuthor(`Successfully Reloaded:`, `https://cdn.discordapp.com/emojis/833101995723194437.gif?v=1`, `https://discord.gg/milrato`)
         .setTitle(eval(client.la[ls]["cmds"]["owner"]["reloadbot"]["variable6"]))
       ]})
     } catch (e) {
@@ -107,3 +106,12 @@ module.exports = {
     }
   },
 };
+/**
+ * @INFO
+ * Bot Coded by Tomato#6966 | https://discord.gg/milrato
+ * @INFO
+ * Work for Milrato Development | https://milrato.eu
+ * @INFO
+ * Please mention him / Milrato Development, when using this Code!
+ * @INFO
+ */

@@ -12,7 +12,7 @@ const { dbEnsure, GetUser, duration, nFormatter, swap_pages2 } = require(`./func
 //Canvas.registerFont( "./assets/fonts/ArialUnicode.ttf", { family: "ArielUnicode" } );
 //Canvas.registerFont("./assets/fonts/Genta.ttf", { family: "Genta" } );
 //Canvas.registerFont("./assets/fonts/UbuntuMono.ttf", { family: "UbuntuMono" } );
-const Fonts = "`DM Sans`, STIXGeneral, AppleSymbol, Arial, ArialUnicode";
+const Fonts = "`DM Sans`, STIXGeneral, Arial, ArialUnicode";
 module.exports = async function (client) {
     // Text Rank
     
@@ -1201,7 +1201,7 @@ module.exports = async function (client) {
                     message.channel.send({embeds: [embed]}).catch(() => null);
                     rank(rankuser); //also sending the rankcard
                 } catch (error) {
-                    console.log("RANKING:".underline.red + " :: " + error.stack.toString().grey)
+                    console.error(error)
                     message.reply(eval(client.la[ls]["handlers"]["rankingjs"]["ranking"]["variable46"]));
                 }
             }

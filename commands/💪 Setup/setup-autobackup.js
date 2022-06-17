@@ -46,7 +46,7 @@ module.exports = {
           {
             value: !GuildSettings.autobackup ? "Enable Auto-Backups" : "Disable Auto-Backups",
             description: !GuildSettings.autobackup ? "Make a Backup every 2nd Day" : "Don't make automated Server Backups anymore",
-            emoji: !GuildSettings.autobackup ? "833101995723194437" : "833101993668771842"
+            emoji: !GuildSettings.autobackup ? "950884027320135711" : "951013282607685632"
           },
           {
             value: "Cancel",
@@ -94,7 +94,7 @@ module.exports = {
               .setFooter(client.getFooter(es))]
             });
           }
-          else menu?.reply({content: `:x: You are not allowed to do that! Only: <@${cmduser.id}>`, ephemeral: true});
+          else menu?.reply({content: `:x: ${client.la[ls].cmds.setup.setupmusic.only} <@${cmduser.id}>`, ephemeral: true});
         });
         //Once the Collections ended edit the menu message
         collector.on('end', collected => {
