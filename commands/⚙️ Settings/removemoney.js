@@ -43,7 +43,7 @@ module.exports = {
       ]});
     if(user.bot || topay.bot) return message.reply({content : eval(client.la[ls]["cmds"]["owner"]["removemoney"]["variable7"])})
 
-    await dbEnsure(client.economy, `${message.guild.id}-${user.id}`, {
+    await dbEnsure(client.economy, `${message.guild.id}_${user.id}`, {
       user: user.id,
       work: 0,
       balance: 0,
@@ -61,7 +61,7 @@ module.exports = {
       }
     })
     
-    await dbEnsure(client.economy, `${message.guild.id}-${topay.id}`, {
+    await dbEnsure(client.economy, `${message.guild.id}_${topay.id}`, {
       user: user.id,
       work: 0,
       balance: 0,
@@ -79,7 +79,7 @@ module.exports = {
       }
     })
     //get the economy data 
-    let data2 = await client.economy.get(`${message.guild.id}-${topay.id}`)
+    let data2 = await client.economy.get(`${message.guild.id}_${topay.id}`)
 
     if(payamount <= 0)
     return message.channel.send({embeds : [new MessageEmbed()
@@ -95,8 +95,8 @@ module.exports = {
         .setTitle(eval(client.la[ls]["cmds"]["owner"]["removemoney"]["variable9"]))
       ]});
     
-    await client.economy.set(`${message.guild.id}-${topay.id}.balance`, data2.balance - payamount)
-    data2 = await client.economy.get(`${message.guild.id}-${topay.id}`)
+    await client.economy.set(`${message.guild.id}_${topay.id}.balance`, data2.balance - payamount)
+    data2 = await client.economy.get(`${message.guild.id}_${topay.id}`)
     //return some message!
     return message.reply({embeds :[new MessageEmbed()
       .setColor(es.color)
