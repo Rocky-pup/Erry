@@ -2,6 +2,7 @@ const config = require(`${process.cwd()}/botconfig/config.json`)
 const canvacord = require("canvacord");
 const Discord = require("discord.js");
 const Canvas = require("canvas");
+const MilratoCanvasApi = require("./CanvasApi")
 const { dbEnsure, GetUser, duration, nFormatter, swap_pages2 } = require(`./functions`)
 
 //Canvas.registerFont( "./assets/fonts/DMSans-Bold.ttf" , { family: "DM Sans", weight: "bold" } );
@@ -12,7 +13,7 @@ const { dbEnsure, GetUser, duration, nFormatter, swap_pages2 } = require(`./func
 //Canvas.registerFont( "./assets/fonts/ArialUnicode.ttf", { family: "ArielUnicode" } );
 //Canvas.registerFont("./assets/fonts/Genta.ttf", { family: "Genta" } );
 //Canvas.registerFont("./assets/fonts/UbuntuMono.ttf", { family: "UbuntuMono" } );
-const Fonts = "`DM Sans`, STIXGeneral, Arial, ArialUnicode";
+const Fonts = "DM Sans, STIXGeneral, Arial, ArialUnicode";
 module.exports = async function (client) {
     // Text Rank
     
@@ -417,20 +418,28 @@ module.exports = async function (client) {
                     let curnextlevelText = Number(rankdata[theDbDatas[0][2]]?.toFixed(2));
                     if (curLevelText === undefined) RankText = `NaN`;
                     
-                    /**
-                     * VOICE RANK
-                     */
-                    const sortedVoice = filtered
-                    .sort((a, b) => { 
-                        if(b[`${theDbDatas[1][1]}`]) return b[`${theDbDatas[1][0]}`] - a[`${theDbDatas[1][0]}`] || b[`${theDbDatas[1][1]}`] - a[`${theDbDatas[1][1]}`];
-                        else return b[`${theDbDatas[1][0]}`] - a[`${theDbDatas[1][0]}`] || -1
-                    }) 
-                    let RankVoice = sortedVoice.splice(0, message.guild.memberCount).findIndex(d => d.user == rankuser.id) + 1;
+/**
+ * VOICE RANK
+ */
+ const filteredVoice = await client.points.all().then(d => d.filter(p => p.data?.guild === message.guild.id).map(this_Code_is_by_Rocky => this_Code_is_by_Rocky.data));
+ const sortedVoice = filteredVoice
+ .sort((a, b) => { 
+     if(b[`${theDbDatas[1][1]}`]) return b[`${theDbDatas[1][0]}`] - a[`${theDbDatas[1][0]}`] || b[`${theDbDatas[1][1]}`] - a[`${theDbDatas[1][1]}`];
+     else return b[`${theDbDatas[1][0]}`] - a[`${theDbDatas[1][0]}`] || -1
+ }) 
+ let RankVoice = sortedVoice.splice(0, message.guild.memberCount).findIndex(d => d.user == rankuser.id) + 1;
+ if(!rankdata || !rankdata[theDbDatas[0][1]] || !rankdata[theDbDatas[0][2]] || !rankdata[theDbDatas[1][1]] || !rankdata[theDbDatas[1][2]]) {
+    if(!rankdata || !rankdata[theDbDatas[0][1]]) await client.points.set(`${key}.${theDbDatas[0][1]}`, 1);
+    if(!rankdata || !rankdata[theDbDatas[0][2]]) await client.points.set(`${key}.${theDbDatas[0][2]}`, 1);
+    if(!rankdata || !rankdata[theDbDatas[1][1]]) await client.points.set(`${key}.${theDbDatas[1][1]}`, 1);
+    if(!rankdata || !rankdata[theDbDatas[1][2]]) await client.points.set(`${key}.${theDbDatas[1][2]}`, 1);
     
-                    let curLevelVoice = Number(rankdata[theDbDatas[1][0]]?.toFixed(0))
-                    let curpointsVoice = Number(rankdata[theDbDatas[1][1]]?.toFixed(2));
-                    let curnextlevelVoice = Number(rankdata[theDbDatas[1][2]]?.toFixed(2));
-                    if (curLevelVoice === undefined) RankVoice = `NaN`;
+    rankdata = await client.points.get(key);
+}
+let curLevelVoice = Number(rankdata[theDbDatas[1][0]]?.toFixed(0));
+ let curpointsVoice = Number(rankdata[theDbDatas[1][1]]?.toFixed(2));
+ let curnextlevelVoice = Number(rankdata[theDbDatas[1][2]]?.toFixed(2));
+ if (curLevelVoice === undefined) RankVoice = `NaN`;
                     
     
                     

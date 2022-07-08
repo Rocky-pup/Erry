@@ -16,6 +16,59 @@
                 "author": "Аватар от: {usertag}",
                 "variable1": "`\\`\\`\\` ${e.message ? e.message : e.stack ? String(e.stack).substr(0, 2000) : String(e).substr(0, 2000)}\\`\\`\\`\\``"
             },
+            "botfaq": {
+                "notallowed": "<:no:833101993668771842> You are not allowed to do that! Only: <@{cmduserid}> is allowed to do this.",
+                "placeholder": "Make a selection!",
+                "menuembed": {
+                    "title": "Bot Help",
+                    "description": "***Select what you need in the `Selection` down Below!***"
+                },
+                "menuoptions": [
+                    {
+                        "value": "Creator / Features",
+                        "description": "Who is my Creator? / What are my Features?",
+                        "replymsg": "<:Milrato:840259659163893820> **__Milrato Development__ made me!**\n> <:Like:857334024087011378> **Their Website:** https://milrato.eu\n> <:DiscordLogo:936723374644789370> **Their Discord:** https://discord.gg/milrato\n``` ```***__You can join their Discord Server and get yourself a Bot like me, for FREE/CHEAP!__***\n``` ```:muscle: **__My Features__**\n>>> **68+ Systems**, like: <:twitter:840255600851812393> **Twitter-** & <:Youtube:840260133686870036> **Youtube-Auto-Poster** \n**Application-**, Ticket-, **Welcome-Images-** and Reaction Role-, ... Systems\n:notes: An advanced <:Spotify:846090652231663647> **Music System** with **Audio Filtering**\n:video_game: Many **Minigames** and :joystick: **Fun** Commands (150+)\n:no_entry_sign: **Administration** and **Auto-Moderation** and way much more!\n\n**The Developer is: `Tomato#6966` <:TOMATO:858450817665204224>, Contact him if you wanna hire him!**",
+                        "emoji": "840259659163893820"
+                    },
+                    {
+                        "value": "Stats",
+                        "description": "Those are my stats!",
+                        "replymsg": "**__📈 Stats!__**\n>>> :gear: **{commandcount} Commands**\n:file_folder: on **{guildcount} Guilds**\n⌚️ **{uptime} Uptime**\n📶 **`{ping}ms` Ping**",
+                        "emoji": "📈"
+                    },
+                    {
+                        "value": "How to use me.",
+                        "description": "Let me explain it to you!",
+                        "replymsg": "**__❓ How do you use me?__**\n> My Prefix is: `{prefix}` but you can always **Ping** me instead!\n\n**Just use one of my {commandcount} Commands by typing:**\n> `{prefix}commandname`\n**Example:**\n> `{prefix}help`\n\n__**I have setups, this is how you manage them:**__\n>>> `{prefix}setup` and react with the emoji for the right action,\nbut you can also do `{prefix}setup-system` e.g. `{prefix}setup-welcome`\n\n\n**Very important is this Command:**\n`{prefix}setup-antinuke`, because it protects you from **nukes**!",
+                        "emoji": "❓"
+                    },
+                    {
+                        "value": "Sponsor / Support us",
+                        "description": "Thanks for everything, you'll get something back!",
+                        "replymsg": "**__There are several **sponsor options**:__**\n\n> <:PAYPAL:861207258846330880> **Paypal:**\n> https://paypal.me/MilratoDevelopment\n\n> <:PATREON:861207934070816849> **Patreon:**\n> https://www.patreon.com/MilratoDevelopment?fan_landing=true\n\n> 💸 **Donate via Paysafe, Sofort or others: (1/2)**\n> https://bero-host.de/spenden/qgswlxrzgtll\n\n> 💸 **Donate via Paysafe, Sofort or others: (2/2)**\n> https://mc-host24.de/donate/tomato\n\n> **Every donator** gets the **@DONATOR Role** on:\n> https://discord.gg/milrato\n\n\n> **Every Donator** with more then **10€** Gets a **Free Bot** of his **Choice*!",
+                        "emoji": "861207258846330880"
+                    },
+                    {
+                        "value": "Partners / Sponsors",
+                        "description": "We are really proud of our Sponsors and Partners!",
+                        "replymsg": "<:BeroHost:852970925695041646> Our First/Main Sponsor is **Bero-Host.de** <:BeroHost:852970925695041646>\n> <:Like:857334024087011378> **Their Website:** https://bero-host.de\n> <:DiscordLogo:936723374644789370> **Their Discord:** https://discord.bero-host.de\n> *They provide us several HIGH QUALTIY __Servers__ which we are using for our HOSTING! **CHECK THEM OUT**!*\n``` ```<:Bittmax:840370610755862529> Our Second Sponsor is **Bittmax.de** <:Bittmax:840370610755862529>\n> <:Like:857334024087011378> **Their Website:** https://bittmax.de\n> <:DiscordLogo:936723374644789370> **Their Discord:** https://discord.gg/GgjJZCyYKD\n> *They provide us several __Servers__ which we are using for our PUBLIC BOT HOSTING! **CHECK THEM OUT**!*\n``` ```**__Partners__**\n> ***We currently have `{partnercount} Partners`, which get at least 1 FREE OP BOT***\n``` ```Wanna be a Partner/Sponsor too? Contact us in our <:DiscordLogo:936723374644789370> **Discord:** https://discord.gg/milrato and open a Ticket in <#840491251278676008>",
+                        "emoji": "866089513436315698"
+                    },
+                    {
+                        "value": "My bot doesnt work",
+                        "description": "If your Bot is not working do this:",
+                        "replymsg": "Contact us on Milrato Development <:DiscordLogo:936723374644789370> **Discord:** https://discord.gg/milrato and open a Ticket in the Ticket Support channel, located in the **HELP DECK** category after verifying your account!\n\n***If it still responds with messages but doesn't work right, then you can try to do: `{prefix}reloadbot` / `{prefix}cmdreload [CMDNAME]`***\n\nMake sure that I have enough Permissions, as well as that my role is over the other roles!",
+                        "emoji": "😓"
+                    },
+                    {
+                        "value": "Change the Bot?",
+                        "description": "There are several ways to adjust this Bot...",
+                        "replymsg": "If you are the **Owner** or *one* of the Owners of **{clientusertag}**, then those Commands are available for you:\n\n>>> `{prefix}changename` -- https://discord.gg/milrato To change the bot name\n`{prefix}changeavatar` -- To change the bot avatar\n`{prefix}prefix` -- To Change the local bot prefix\n`{prefix}changestatus` -- To Change the Bot Status\n`{prefix}setup-owner` -- To Change the Bot Owners\n`{prefix}setup-advertise` -- To Enable/Disable Our Advertisements. ||It would be very nice of you if you could not deactivate it, though! We earn our money through those advertisements.||\n`{prefix}setup-embed` -- To Change the Embed Design in this server.",
+                        "emoji": "⚙️"
+                    }
+                ],
+                "variable1": "`\\`\\`\\` ${e.message ? e.message : e.stack ? String(e.stack).substr(0, 2000) : String(e).substr(0, 2000)}\\`\\`\\``"
+            },
             "botinfo": {
                 "loading": "Получение данных о боте",
                 "descriptionn": "\nИмя: {name} [{id}]\nПинг бота: {botPing}мс\nПинг кода: {apiping}мс\nВремя безпрерывной работы: {uptime}",
@@ -35,7 +88,7 @@
                 },
                 "field5": {
                     "title": "Важные ссылки",
-                    "value": "**[Пригласить]({invitelink}), [Сервер поддержки](https://dsc.gg/banditcamp), [Панель управления](http://erry.sytes.net)**"
+                    "value": "**[Пригласить]({invitelink})・[Сервер поддержки](https://dsc.gg/banditcamp)・[Панель управления](http://erry.sytes.net)**"
                 },
                 "variable1": "`\\`\\`yml\\nИмя: ${client.user.tag} [${client.user.id}]\\nПинг бота: ${Math.round(Date.now() - message.createdTimestamp)}ms\\nПинг кода: ${Math.round(client.ws.ping)}ms\\nВремя безпрерывной работы: ${duration(client.uptime).join(\"–\")}\\`\\`\\`\\``",
                 "variable2": "`\\`\\`\\` ${e.message ? e.message : e.stack ? String(e.stack).substr(0, 2000) : String(e).substr(0, 2000)}\\`\\`\\`\\``"
@@ -158,7 +211,7 @@
                 "first": "***Нажимайте на кнопки, чтобы посмотреть категории***",
                 "second": "Нажмите, чтобы посмотреть категории",
                 "third": ":x:Я не присылаю меню? Возможно у меня нуту права **встраивать ссылки** в сообщения",
-                "four": "Нету кастомных команд, сделайте их с помощью: `!setup-customcommands`",
+                "four": "Нет кастомных команд, сделайте их с помощью: `!setup-customcommands`",
                 "five": "Чтобы посмотреть описание команды, напишите:",
                 "six": "Главная стриница",
                 "sixlb": "Обзор",
@@ -829,7 +882,7 @@
                 "join": ":x: **Сначала зайдите в голосовой канал!**",
                 "joinch": ":x: **Пожалуйста войдите в голосовой канал __со мной__",
                 "qof": "📃 Очередь ",
-                "osongs": "**Нету треков в очереди**",
+                "osongs": "**Нет треков в очереди**",
                 "title": "Чтобы начать слушать музыку, подключитесь к голосовому каналу и киньте **ссылку** либо **название** __песни__ в этот канал!",
                 "subtitle": "> *Я поддерживаю Youtube, Spotify, Soundcloud и прямые ссылки на MP3!*",
                 "by": "Заказано:",
@@ -841,7 +894,8 @@
                 "load": "Загрузка плейлиста:",
                 "stopbt": "Стоп",
                 "joinbt": "Зайти",
-                "leavebt": "Выйти",
+                "joinbtb": "Выйти",
+                "leavebt": "Очистить очередь",
                 "skipbt": "Пропустить",
                 "shuffbt": "Перемешать",
                 "pausebt": "Пауза",
@@ -867,7 +921,7 @@
                 "djroles": "**DJ-Роли:**",
                 "djerr": ":x: **Вы не DJ и не заказывали текущую песню**",
                 "joinmevc": ":x: **Сначала зайдите в __мой__ голосовой канал!",
-                "joinvc": ":x: **Сначала зайдите в голосовой канал!",
+                "joinvc": ":x: **Сначала зайдите в голосовой канал!**",
                 "nothingplay": ":x: Сейчас ничего не играет",
                 "textbt1": "Вкл текст",
                 "textbt2": "Выкл текст",
@@ -878,7 +932,14 @@
                 "previoussubtitleerr": "Попробуйте позже",
                 "previoustitle": "Прошлая песня обнаружена, пытаюсь проиграть!",
                 "previoussubtitle": "Играю предыдущую песню",
-                "prevbt": "Пред. песня"
+                "prevbt": "Пред. песня",
+                "nothingfound": "Ошибка | Ничего не найдено на запрос",
+                "playlisterr": "Плейлисты с командой не поддерживаются. Используйте .playlist",
+                "similarerr": "Похожих треков не найдено..",
+                "searchres": "Результаты поиска:",
+                "playlistadd": "Плейлист добавлен в очередь",
+                "playlistpos": "Позиция в очереди",
+                "enq": "Добавлено в очередь"
             }
         },
         "programming": {
@@ -1005,7 +1066,7 @@
                 "variable2": "`:x: Кажется, роль не существует на этом сервере!`",
                 "variable3": "`:x: Эта роль уже DJ-ROLE!`",
                 "variable4": "`:white_check_mark: Удален DJ ROLE \\`${role.name}\\``",
-                "variable5": "`Все роли Дижа:\\n> ${leftb}",
+                "variable5": "`Все роли DJ:\\n> ${leftb}",
                 "variable6": "`\\`\\`\\` ${e.message ? e.message : e.stack ? String(e.stack).substr(0, 2000) : String(e).substr(0, 2000)}\\`\\`\\`\\``"
             },
             "reset": {
@@ -1013,7 +1074,7 @@
                 "variable2": "`Вы действительно хотите сбросить все настройки?`",
                 "variable3": "`*Ответить:* **__\\`yes\\`__**`",
                 "variable4": "`:white_check_mark: Сбросил всё!`",
-                "variable5": "`Префикс снова \\`${config.prefix}\\`\\nНет больше DJ ROLES, нет больше настроек, нет ботовых каналов`",
+                "variable5": "`Префикс снова \\`${config.prefix}\\`\\nНет больше DJ ролей, нет больше настроек, нет ботовых каналов`",
                 "variable6": "`:x: ОТМЕНА НЕ МОЖЕТ СВОЙ РАБОТЫ / ВРЕМЯ РАСХОДОЙ!`",
                 "variable7": "`\\`\\`\\` ${e.message ? e.message : e.stack ? String(e.stack).substr(0, 2000) : String(e).substr(0, 2000)}\\`\\`\\`\\``"
             },
@@ -2368,6 +2429,49 @@
                 "variable20": ":x: ОШИБКА | PLEASE CONTACT `Rocky#7890`\"",
                 "variable21": "`\\`\\`\\` ${e.message ? e.message : e.stack ? String(e.stack).substr(0, 2000) : String(e).substr(0, 2000)}\\`\\`\\`\\``"
             },
+            "setupbirthday": {
+                "first": "Добавить день рождения",
+                "second": "Удалить день рождения",
+                "third": "Настройки оповещений",
+                "four": "Показать дни рождений",
+                "cancel": "Отмена",
+                "firstdesc": "Добавить ваш день рождения, для оповещений",
+                "seconddesc": "Удалить ваш день рождения",
+                "thirddesc": "Канал для оповещений, отправлять в встроенном или нет сообщении",
+                "fourdesc": "Показать все дни рождения этого сервера",
+                "canceldesc": "Отменить настройку",
+                "fplaceholder": "Настройки дней рождения",
+                "justbirthday": "День рождения",
+                "makeselection": "`Выберите` в меню!",
+                "canceled": ":x: Настройка отменена",
+                "when": "Когда ваш день рождения?",
+                "whendesc": "Отправьте дату! Просто `День/Месяц`\nНапример: `12/08`, `31/12`\n**Должно быть похожим!**\nСейчас: `{time}`",
+                "nvday": "День который вы указали **НЕ ПРАВИЛЬНЫЙ**\nПример правильной даты: `${time}`",
+                "nvmonth": "Месяц который вы указали **НЕ ПРАВИЛЬНЫЙ**\nПример правильной даты: `${time}`",
+                "succesfully": "**Успешно создано оповещение дня рождения!**\nБудет отсылатся каждое",
+                "timeup": "ВРЕМЯ ВЫШЛО",
+                "remove": "Сейчас это не работает, свяжитесь с **Rocky#7890** для помощи",
+                "channelbt": "Канал",
+                "messagebt": "Сообщение",
+                "embedbt": "Встроенное?",
+                "channeldesc": "Добавить канал для оповещений",
+                "messagedesc": "Сообщение для оповещений",
+                "embeddesc": "Сообщение должно быть встроенным?",
+                "definechannel": "Указать канал для оповещений",
+                "definedchannel": "Канал настроен!",
+                "ichannel": "Неправильный канал",
+                "messageembed": "Настройка нового сообщения для оповещений о днях рождений \n{user} Будет заменено на пинг человека",
+                "newmessage": "Новое сообщение настроенно!",
+                "nvmessage": "Сообщение не обнаружено!",
+                "embed": "Встроенное",
+                "embedsdesc": "Отправлять встроенное сообщение",
+                "noembed": "Обычное",
+                "alreadyembed": "Уже в встроенном сообщении!",
+                "alreadynoembed": "Уже в обычном сообщении!",
+                "setembed": "Теперь в встроенном!",
+                "setnoembed": "Теперь в обычном!",
+                "noembedd": "Отправлять обычное сообщение"
+            },
             "setup-commands": {
                 "variable1": "\"Что вы хотите сделать?\"",
                 "variable2": ":x: ОШИБКА | Отсутствуют разрешения для добавления реакций\"",
@@ -3324,24 +3428,24 @@
                 "variable121": ":x: ОШИБКА | Произошла ошибка, сообщите: `Rocky#7890`\"",
                 "variable122": "`\\`\\`\\` ${e.message ? e.message : e.stack ? String(e.stack).substr(0, 2000) : String(e).substr(0, 2000)}\\`\\`\\`\\``",
                 "variable123": "\"Что вы хотите сделать?\"",
-                "variable124": ":x: ОШИБКА | Отсутствуют разрешения для добавления реакций\"",
+                "variable124": "\":x: ОШИБКА | Отсутствуют разрешения для добавления реакций\"",
                 "variable125": "`:white_check_mark: ИЗМЕНЕНО ЦВЕТА ДЛЯ ФРАМЫ (ДМ)`",
-                "variable126": ":x: ОШИБКА | Произошла ошибка, сообщите: `Rocky#7890`\"",
+                "variable126": "\":x: ОШИБКА | Произошла ошибка, сообщите: `Rocky#7890`\"",
                 "variable127": "`\\`\\`\\` ${e.message ? e.message : e.stack ? String(e.stack).substr(0, 2000) : String(e).substr(0, 2000)}\\`\\`\\`\\``",
-                "variable128": ":x: ОШИБКА | Время истекло\"",
-                "variable129": ":x: ОШИБКА | Время истекло\"",
-                "variable130": "\"Что должно быть приветственным сообщением? (ДМ)",
+                "variable128": "\":x: ОШИБКА | Время истекло\"",
+                "variable129": "\":x: ОШИБКА | Время истекло\"",
+                "variable130": "\"Что должно быть приветственным сообщением? (ЛС)\"",
                 "variable131": "`Заметьте, что \\`{user}\\` пишет Пользователю\\n\\nВведите ваше сообщение сейчас!`",
                 "variable132": "`:white_check_mark: Новое приветственное сообщение: (DM)`",
                 "variable133": ":x: ОШИБКА | Произошла ошибка, сообщите: `Rocky#7890`\"",
                 "variable134": "`\\`\\`\\` ${e.message ? e.message : e.stack ? String(e.stack).substr(0, 2000) : String(e).substr(0, 2000)}\\`\\`\\`\\``",
-                "variable135": ":x: ОШИБКА | Время истекло\"",
+                "variable135": "\":x: ОШИБКА | Время истекло\"",
                 "variable136": "`:white_check_mark: ${client.settings.get(message.guild.id, \"welcome.invitedm\") ? \"Информация о приглашении\" : \"Отключает INvite INformation\"}`",
                 "variable137": ":x: ОШИБКА | Произошла ошибка, сообщите: `Rocky#7890`\"",
                 "variable138": "`\\`\\`\\` ${e.message ? e.message : e.stack ? String(e.stack).substr(0, 2000) : String(e).substr(0, 2000)}\\`\\`\\`\\``",
-                "variable139": ":x: ОШИБКА | Время истекло\"",
+                "variable139": "\":x: ОШИБКА | Время истекло\"",
                 "variable140": "\"Что вы хотите сделать? | CHANNEL WELCOME\"",
-                "variable141": ":x: ОШИБКА | Отсутствуют разрешения для добавления реакций\"",
+                "variable141": "\":x: ОШИБКА | Отсутствуют разрешения для добавления реакций\"",
                 "variable142": "\"Какую роль вы хотите добавить?\"",
                 "variable143": "`Пожалуйста, Ping роли сейчас!`",
                 "variable144": "`:x: ОШИБКА | Роль: \\`${role.name}\\` уже зарегистрирован в качестве приветственной роль`",
@@ -5050,6 +5154,20 @@
         "somethingwentwrong": ":x: **Произошла ошибка во время выполнения этой команды!**"
     },
     "handlers": {
+        "giveawaysevent": {
+            "sryended": "**Стоп! Похоже, что этот розыгрыш уже завершился!**",
+            "win": "🎁 Ооо да! У нас появился ноывй победитель!",
+            "windesc": "Привет {user},\n Я слышал выбрали нового победителя **[здесь]({url})**, и ты выиграл\n Поздравляю с выиграшем **{prize}!**\nНапишите хосту розыгрыша чтобы забрать приз!!",
+            "lets": "🎁 Ооо да!",
+            "letsdesc": "Привет {user},\n Я слышал ты выиграл в **[этом]({url})** розыгрыше\n Поздравляю с выиграшем **{prize}!**\nНапишите хосту розыгрыша чтобы забрать приз!!",
+            "entryy": "Участие принято! | У вас есть шанс выиграть!!",
+            "entryydesc": "Вы приняты на **[этот]({url})** розыгрыш!",
+            "entryn": ":x: Участие отклонено",
+            "entryndesc": "Участие в **[этом]({url})** розыгрыше было отклонено, пожалуйста пересмотрите правила участия или свяжитесь с хостом розыгрыша.",
+            "stop": "❓ Подожди, ты просто убрал реакцию с розыгрыша?",
+            "stopdesc": "Вы участвовали в [розыгрыше]({url}) но потом сняли реакцию, поэтому вы теперь не участвуете, вам больше не нужен **{prize}**? Прийдется выбрать кого-то другого 😭",
+            "stopfooter": "Думаете произошла ошибка? Отреагируйте снова!"
+        },
         "anticapsjs": {
             "anticaps": {
                 "variable1": "`:white_check_mark: \\`${member.user.tag}\\` получил **MUTED** на \\`10 Minutes\\``",

@@ -16,6 +16,59 @@
                 "author": "Avatar from: {usertag}",
                 "variable1": "`\\`\\`\\` ${e.message ? e.message : e.stack ? String(e.stack).substr(0, 2000) : String(e).substr(0, 2000)}\\`\\`\\``"
             },
+            "botfaq": {
+                "notallowed": "<:no:833101993668771842> You are not allowed to do that! Only: <@{cmduserid}> is allowed to do this.",
+                "placeholder": "Make a selection!",
+                "menuembed": {
+                    "title": "Bot Help",
+                    "description": "***Select what you need in the `Selection` down Below!***"
+                },
+                "menuoptions": [
+                    {
+                        "value": "Creator / Features",
+                        "description": "Who is my Creator? / What are my Features?",
+                        "replymsg": "<:Milrato:840259659163893820> **__Milrato Development__ made me!**\n> <:Like:857334024087011378> **Their Website:** https://milrato.eu\n> <:DiscordLogo:936723374644789370> **Their Discord:** https://discord.gg/milrato\n``` ```***__You can join their Discord Server and get yourself a Bot like me, for FREE/CHEAP!__***\n``` ```:muscle: **__My Features__**\n>>> **68+ Systems**, like: <:twitter:840255600851812393> **Twitter-** & <:Youtube:840260133686870036> **Youtube-Auto-Poster** \n**Application-**, Ticket-, **Welcome-Images-** and Reaction Role-, ... Systems\n:notes: An advanced <:Spotify:846090652231663647> **Music System** with **Audio Filtering**\n:video_game: Many **Minigames** and :joystick: **Fun** Commands (150+)\n:no_entry_sign: **Administration** and **Auto-Moderation** and way much more!\n\n**The Developer is: `Tomato#6966` <:TOMATO:858450817665204224>, Contact him if you wanna hire him!**",
+                        "emoji": "840259659163893820"
+                    },
+                    {
+                        "value": "Stats",
+                        "description": "Those are my stats!",
+                        "replymsg": "**__📈 Stats!__**\n>>> :gear: **{commandcount} Commands**\n:file_folder: on **{guildcount} Guilds**\n⌚️ **{uptime} Uptime**\n📶 **`{ping}ms` Ping**",
+                        "emoji": "📈"
+                    },
+                    {
+                        "value": "How to use me.",
+                        "description": "Let me explain it to you!",
+                        "replymsg": "**__❓ How do you use me?__**\n> My Prefix is: `{prefix}` but you can always **Ping** me instead!\n\n**Just use one of my {commandcount} Commands by typing:**\n> `{prefix}commandname`\n**Example:**\n> `{prefix}help`\n\n__**I have setups, this is how you manage them:**__\n>>> `{prefix}setup` and react with the emoji for the right action,\nbut you can also do `{prefix}setup-system` e.g. `{prefix}setup-welcome`\n\n\n**Very important is this Command:**\n`{prefix}setup-antinuke`, because it protects you from **nukes**!",
+                        "emoji": "❓"
+                    },
+                    {
+                        "value": "Sponsor / Support us",
+                        "description": "Thanks for everything, you'll get something back!",
+                        "replymsg": "**__There are several **sponsor options**:__**\n\n> <:PAYPAL:861207258846330880> **Paypal:**\n> https://paypal.me/MilratoDevelopment\n\n> <:PATREON:861207934070816849> **Patreon:**\n> https://www.patreon.com/MilratoDevelopment?fan_landing=true\n\n> 💸 **Donate via Paysafe, Sofort or others: (1/2)**\n> https://bero-host.de/spenden/qgswlxrzgtll\n\n> 💸 **Donate via Paysafe, Sofort or others: (2/2)**\n> https://mc-host24.de/donate/tomato\n\n> **Every donator** gets the **@DONATOR Role** on:\n> https://discord.gg/milrato\n\n\n> **Every Donator** with more then **10€** Gets a **Free Bot** of his **Choice*!",
+                        "emoji": "861207258846330880"
+                    },
+                    {
+                        "value": "Partners / Sponsors",
+                        "description": "We are really proud of our Sponsors and Partners!",
+                        "replymsg": "<:BeroHost:852970925695041646> Our First/Main Sponsor is **Bero-Host.de** <:BeroHost:852970925695041646>\n> <:Like:857334024087011378> **Their Website:** https://bero-host.de\n> <:DiscordLogo:936723374644789370> **Their Discord:** https://discord.bero-host.de\n> *They provide us several HIGH QUALTIY __Servers__ which we are using for our HOSTING! **CHECK THEM OUT**!*\n``` ```<:Bittmax:840370610755862529> Our Second Sponsor is **Bittmax.de** <:Bittmax:840370610755862529>\n> <:Like:857334024087011378> **Their Website:** https://bittmax.de\n> <:DiscordLogo:936723374644789370> **Their Discord:** https://discord.gg/GgjJZCyYKD\n> *They provide us several __Servers__ which we are using for our PUBLIC BOT HOSTING! **CHECK THEM OUT**!*\n``` ```**__Partners__**\n> ***We currently have `{partnercount} Partners`, which get at least 1 FREE OP BOT***\n``` ```Wanna be a Partner/Sponsor too? Contact us in our <:DiscordLogo:936723374644789370> **Discord:** https://discord.gg/milrato and open a Ticket in <#840491251278676008>",
+                        "emoji": "866089513436315698"
+                    },
+                    {
+                        "value": "My bot doesnt work",
+                        "description": "If your Bot is not working do this:",
+                        "replymsg": "Contact us on Milrato Development <:DiscordLogo:936723374644789370> **Discord:** https://discord.gg/milrato and open a Ticket in the Ticket Support channel, located in the **HELP DECK** category after verifying your account!\n\n***If it still responds with messages but doesn't work right, then you can try to do: `{prefix}reloadbot` / `{prefix}cmdreload [CMDNAME]`***\n\nMake sure that I have enough Permissions, as well as that my role is over the other roles!",
+                        "emoji": "😓"
+                    },
+                    {
+                        "value": "Change the Bot?",
+                        "description": "There are several ways to adjust this Bot...",
+                        "replymsg": "If you are the **Owner** or *one* of the Owners of **{clientusertag}**, then those Commands are available for you:\n\n>>> `{prefix}changename` -- https://discord.gg/milrato To change the bot name\n`{prefix}changeavatar` -- To change the bot avatar\n`{prefix}prefix` -- To Change the local bot prefix\n`{prefix}changestatus` -- To Change the Bot Status\n`{prefix}setup-owner` -- To Change the Bot Owners\n`{prefix}setup-advertise` -- To Enable/Disable Our Advertisements. ||It would be very nice of you if you could not deactivate it, though! We earn our money through those advertisements.||\n`{prefix}setup-embed` -- To Change the Embed Design in this server.",
+                        "emoji": "⚙️"
+                    }
+                ],
+                "variable1": "`\\`\\`\\` ${e.message ? e.message : e.stack ? String(e.stack).substr(0, 2000) : String(e).substr(0, 2000)}\\`\\`\\``"
+            },
             "botinfo": {
                 "loading": "Getting the Bot-Information-Data",
                 "descriptionn": "\nName: {name} [{id}]\nBot Latency: {botPing}мс\nApi Latency: {apiping}мс\nRuntime: {uptime}",
@@ -35,7 +88,7 @@
                 },
                 "field5": {
                     "title": "Important Links",
-                    "value": "**[Invite Link]({invitelink})・[Support Server](https://dsc.gg/banditcamp), [Dashboard](http://erry.sytes.net)**"
+                    "value": "**[Invite Link]({invitelink})・[Support Server](https://dsc.gg/banditcamp)・[Dashboard](http://erry.sytes.net)**"
                 },
                 "variable1": "`\\`\\`\\`yml\\nName: ${client.user.tag} [${client.user.id}]\\nBot Latency: ${Math.round(Date.now() - message.createdTimestamp)}ms\\nApi Latency: ${Math.round(client.ws.ping)}ms\\nRuntime: ${duration(client.uptime).join(\"︲\")}\\`\\`\\``",
                 "variable2": "`\\`\\`\\` ${e.message ? e.message : e.stack ? String(e.stack).substr(0, 2000) : String(e).substr(0, 2000)}\\`\\`\\``"
@@ -236,7 +289,7 @@
                 "firsttitle": "Information about",
                 "pgoverview": "Page Overview | ",
                 "secondtitle": "<a:loadingg:977777473804718080>**Some stats:**",
-                "secondsubtitle": "<:arrow:950884679114952715>:gear:**Created by: [Rocky](https://dsc.gg/banditcamp)**\n  <:arrow:950884679114952715>:file_folder: Working on **{allGuilds} guilds**\n  <:arrow:950884679114952715>⌚️ **{uptime} [Uptime](https://status.watchbot.app/bot/924922244436750406)**",
+                "secondsubtitle": "<:arrow:950884679114952715>:gear:**Bot created by [Rocky](https://dsc.gg/banditcamp)**\n<:arrow:950884679114952715>:gear:**Dashboard created by [Truchorko_](https://discord.gg/tUVZ7GYDGk)**\n  <:arrow:950884679114952715>:file_folder: Working on **{allGuilds} guilds**\n  <:arrow:950884679114952715>⌚️ **{uptime} [Uptime](https://status.watchbot.app/bot/924922244436750406)**",
                 "thirdtitle": ":question:**What i can?**",
                 "thirdsubtitle": "<:arrow:950884679114952715>:muscle: **I can almost all**, for example:\n  <:arrow:950884679114952715>**Youtube, Twitch autoposter.**\n  <:arrow:950884679114952715>**Auto-moderation, Administration**\n  <:arrow:950884679114952715>And **the best** quality of music, which plays right in your voice channel!"
             },
@@ -807,7 +860,8 @@
                 "load": "Load a Music-Playlist:",
                 "stopbt": "Stop",
                 "joinbt": "Join",
-                "leavebt": "Leave",
+                "joinbtb": "Leave",
+                "leavebt": "Clear queue",
                 "skipbt": "Skip",
                 "shuffbt": "Shuffle",
                 "pausebt": "Pause",
@@ -833,7 +887,7 @@
                 "djroles": "**DJ-ROLES:**",
                 "djerr": ":x: **You are not a DJ and not the Song Requester!**",
                 "joinmevc": ":x: **Please join __my__ Voice Channel first!",
-                "joinvc": ":x: **Please join Voice Channel first!",
+                "joinvc": ":x: **Please join Voice Channel first!**",
                 "nothingplay": ":x: Nothing Playing yet",
                 "textbt1": "Enable text",
                 "textbt2": "Disable text",
@@ -844,7 +898,15 @@
                 "previoussubtitleerr": "Try again later",
                 "previoustitle": "⏮️ Previous song detected, trying to play!",
                 "previoussubtitle": "Playing previous played song",
-                "prevbt": "Prev. song"
+                "prevbt": "Prev. song",
+                "nothingfound": "Error | Found nothing for:",
+                "playlisterr": "Playlists are not supported with this command. Use .playlist",
+                "similarerr": "No similar track found..",
+                "searchres": "Search result for:",
+                "playlistadd": "Playlist added to Queue",
+                "playlistpos": "Position in queue",
+                "enq": "Enqueued",
+                "playlisterrs": "Searches are not supported with this command. Use ?play or ?search"
             }
         },
         "programming": {
@@ -1533,6 +1595,7 @@
         },
         "owner": {
             "addmoney": {
+                "nou": "You can't add money to yourself!",
                 "variable1": "`:x: You are not allowed to run this Command`",
                 "variable2": "`You need to be one of those guys: ${config.ownerIDS.map(id => `<@${id}>`)}`",
                 "variable3": "`:x: You didn't pinged to whom you want to pay`",
@@ -2296,6 +2359,51 @@
                 "variable19": "`:white_check_mark: Resetted the Blacklist`",
                 "variable20": "\":x: ERROR | PLEASE CONTACT `Rocky#7890`\"",
                 "variable21": "`\\`\\`\\` ${e.message ? e.message : e.stack ? String(e.stack).substr(0, 2000) : String(e).substr(0, 2000)}\\`\\`\\``"
+            },
+            "setupbirthday": {
+                "first": "Add Birthday",
+                "second": "Remove Birthday",
+                "third": "Alert Settings",
+                "four": "Show Birthdays",
+                "cancel": "Cancel",
+                "firstdesc": "Add your Birthday",
+                "seconddesc": "Remove your Birthday",
+                "thirddesc": "Define channel, send embed/no embed",
+                "fourdesc": "Show all the Birthdays",
+                "canceldesc": "Cancel Setup",
+                "fplaceholder": "Birthdays config",
+                "justbirthday": "Birthday",
+                "makeselection": "Make a `Selection` in Configuration Menu!",
+                "canceled": ":x: Canceled the setup",
+                "when": "When your birthday?",
+                "whendesc": "Send the Date now! Just the `DAY/MONTH`\nExample: `12/08`, `05/09`\n**It must be written like that!**\nCurrent Date, as a reference for your Time Zone: `{time}`",
+                "nvday": "The Day you mentioned is **NOT VALID**\nExample of correct Date: `${time}`",
+                "nvmonth": "The Month you mentioned is **NOT VALID**\nExample of correct Date: `${time}`",
+                "succesfully": "**Succesfully Created a BIRTHDAY!**\nWould send it every",
+                "timeup": "TIME EXPIRED",
+                "remove": "Now it's not working, DM **Rocky#7890** for help",
+                "channelbt": "Channel",
+                "messagebt": "Message",
+                "embedbt": "Is Embed?",
+                "channeldesc": "Add a Birthday Channel",
+                "messagedesc": "Message for birthday alerts",
+                "embeddesc": "Message need to be in embed?",
+                "definechannel": "Define channel for alerts",
+                "definedchannel": "Channel setupped!",
+                "ichannel": "INVALID CHANNEL",
+                "messageembed": "New message for birthdays alerts, {user} will be replaced with user's ping",
+                "newmessage": "New message was settuped!",
+                "nvmessage": "Message not detected!",
+                "embed": "Embed",
+                "embedsdesc": "Send message as embed",
+                "noembed": "Without Embed",
+                "alreadyembed": "Birthday alert already in embed",
+                "alreadynoembed": "Birthday alert already not in embed",
+                "setembed": "Now it's in embed",
+                "setnoembed": "Now it's not in embed",
+                "noembedd": "Send default message",
+                "noperms": "You haven't permission to this settings!",
+                "nopermsdescription": "Only admins can change it!"
             },
             "setup-commands": {
                 "variable1": "\"What do you want to do?\"",
@@ -4966,6 +5074,20 @@
         "somethingwentwrong": ":x: **An error occurred while, running this Command!**"
     },
     "handlers": {
+        "giveawaysevent": {
+            "sryended": "**Aw snap! Looks Like that giveaway has already ended!**",
+            "win": "🎁 Let's goo! We Have A New Winner",
+            "windesc": "Hello there {user}\n I heard that the host rerolled and you have won **[This Giveaway]({url})**\n Good Job On Winning **{prize}!**\nDirect Message the host to claim your prize!!",
+            "lets": "🎁 Let's goo!",
+            "letsdesc": "Hello there {user}\n I heard that you have won **[This Giveaway]({url})**\n Good Job On Winning **{prize}!**\nDirect Message the host to claim your prize!!",
+            "entryy": "Entry Approved! | You have a chance to win!!",
+            "entryydesc": "Your entry to [This Giveaway]({url}) has been approved!",
+            "entryn": ":x: Entry Denied | Databse Entry Not Found & Returned!",
+            "entryndesc": "Your entry to [This Giveaway]({url}) has been denied, please review the requirements to the giveaway properly or contact giveaway host.",
+            "stop": "❓ Hold Up Did You Just Remove a Reaction From A Giveaway?",
+            "stopdesc": "Your entery to [This Giveaway]({url}) was recorded but you un-reacted, since you don't need **{prize}** I would have to choose someone else 😭",
+            "stopfooter": "Think It was a mistake? Go react again!"
+        },
         "anticapsjs": {
             "anticaps": {
                 "variable1": "`:white_check_mark: \\`${member.user.tag}\\` got **MUTED** for \\`10 Minutes\\``",
